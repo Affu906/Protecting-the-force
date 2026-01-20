@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Protecting the Force: Cybersecurity Strategies for Police</title>
+  <meta name="description" content="Cybersecurity awareness website for police personnel: research findings, tips, survey, media, chatbot, and community discussion."/>
+  <style>
+    :root{
+      --bg:#050816;
+      --bg2:#020617;
+      --card:#0c1024;
+      --card2:#111630;
+      --text:#f9fafb;
+      --muted:#9ca3af;
+      --border:rgba(148,163,184,.22);
+      --accent:#3b82f6;   /* police-blue */
+      --accent2:#8b5cf6;  /* violet */
+      --accentSoft: rgba(59,130,246,.16);
+      --shadow: 0 18px 34px rgba(0,0,0,.35);
+      --shadow2: 0 22px 50px rgba(15,23,42,.65);
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(59,130,246,.18) 0, transparent 45%),
+        radial-gradient(circle at 80% 10%, rgba(139,92,246,.14) 0, transparent 50%),
+        radial-gradient(circle at 20% 60%, rgba(34,197,94,.10) 0, transparent 45%),
+        var(--bg2);
+      line-height:1.6;
+      scroll-behavior:smooth;
+    }
+
+    /* subtle grid */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background-image:
+        linear-gradient(to right, rgba(148,163,184,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148,163,184,.06) 1px, transparent 1px);
+      background-size: 52px 52px;
+      opacity:.35;
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    .container{width:min(1120px,92%);margin:0 auto}
+    a{color:inherit}
+    .muted{color:var(--muted)}
+    .tiny{font-size:.80rem}
+
+    /* Top progress bar */
+    .progress{
+      position:fixed; top:0; left:0; height:3px; width:0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      z-index:9999;
+      box-shadow: 0 0 14px rgba(59,130,246,.55);
+    }
+
+    /* Header / Nav */
+    .header{
+      position:sticky; top:0; z-index:60;
+      background:rgba(2,6,23,.86);
+      backdrop-filter: blur(16px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:10px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:800;
+      letter-spacing:.02em;
+    }
+    .brand-dot{
+      width:18px;height:18px;border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, var(--accent2), var(--accent));
+      box-shadow:0 0 16px rgba(59,130,246,.65);
+    }
+    .brand small{display:block; font-weight:600; color:var(--muted); letter-spacing:0}
+    .nav-links{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    }
+    .nav-links a{
+      text-decoration:none;
+      font-size:.92rem;
+      color:var(--muted);
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+      transition: all .18s ease;
+    }
+    .nav-links a:hover{
+      color:var(--text);
+      border-color:var(--border);
+      background:rgba(15,23,42,.8);
+    }
+    .nav-actions{display:flex; gap:8px; align-items:center}
+
+    .btn-primary,.btn-ghost,.btn-outline{
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius:999px; border:1px solid transparent;
+      padding:9px 16px; font-size:.92rem; font-weight:700;
+      cursor:pointer; transition: all .18s ease;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .btn-primary{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color:#fff;
+      box-shadow: 0 12px 28px rgba(59,130,246,.25);
+    }
+    .btn-primary:hover{transform:translateY(-1px); box-shadow:0 16px 34px rgba(59,130,246,.34)}
+    .btn-ghost{
+      background:transparent;
+      border-color:var(--border);
+      color:var(--muted);
+    }
+    .btn-ghost:hover{background:rgba(15,23,42,.85); color:var(--text); border-color:rgba(59,130,246,.35)}
+    .btn-outline{
+      background:transparent;
+      border-color:var(--border);
+      color:var(--muted);
+    }
+    .btn-outline:hover{border-color:var(--accent); color:var(--accent)}
+    .nav-toggle{
+      display:none;
+      background:transparent; border:none; color:var(--text);
+      font-size:1.35rem; cursor:pointer;
+    }
+
+    /* Hero */
+    .hero{position:relative; overflow:hidden; padding:72px 0 62px}
+    .hero-bg{
+      position:absolute; inset:0; z-index:-1;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(59,130,246,.18), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(139,92,246,.14), transparent 55%);
+    }
+    .blob{
+      position:absolute; border-radius:999px; filter: blur(30px); opacity:.75;
+      animation: float 18s infinite alternate ease-in-out;
+    }
+    .b1{width:280px;height:280px; background:rgba(59,130,246,.55); top:-70px; left:-70px}
+    .b2{width:260px;height:260px; background:rgba(139,92,246,.45); bottom:-90px; right:-50px}
+    .b3{width:220px;height:220px; background:rgba(34,197,94,.35); top:42%; left:68%}
+    @keyframes float{
+      0%{transform:translate3d(0,0,0) scale(1)}
+      100%{transform:translate3d(40px,-30px,0) scale(1.08)}
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: minmax(0,1.45fr) minmax(0,1fr);
+      gap:22px;
+      align-items:center;
+    }
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:5px 10px;
+      border-radius:999px;
+      font-size:.78rem;
+      color:rgba(255,255,255,.88);
+      background:rgba(15,23,42,.75);
+      border:1px solid rgba(59,130,246,.28);
+      margin-bottom:10px;
+    }
+    .tag .dot{
+      width:8px;height:8px;border-radius:999px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow:0 0 12px rgba(59,130,246,.55);
+    }
+
+    h1{
+      font-size: clamp(2.2rem, 4vw, 3.1rem);
+      line-height:1.12;
+      margin-bottom:10px;
+      letter-spacing:-0.02em;
+    }
+    .hl{color:var(--accent)}
+    .subtitle{color:var(--muted); max-width:56ch; margin-bottom:16px}
+    .hero-actions{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px}
+    .meta{
+      display:flex; flex-wrap:wrap; gap:10px;
+      font-size:.82rem;
+    }
+    .meta .chip{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(15,23,42,.78);
+    }
+    .meta .k{display:block; color:var(--muted); font-weight:700}
+    .meta .v{font-weight:800}
+
+    .hero-card{
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,.16), transparent 45%),
+        radial-gradient(circle at top right, rgba(139,92,246,.12), transparent 45%),
+        rgba(12,16,36,.92);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:16px;
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card::after{
+      content:"";
+      position:absolute; inset:-1px;
+      background: linear-gradient(120deg, rgba(59,130,246,.18), rgba(139,92,246,.14), transparent 55%);
+      opacity:.7;
+      pointer-events:none;
+      mask-image: radial-gradient(circle at 25% 15%, black 0, transparent 55%);
+    }
+
+    /* inline illustration */
+    .illus{
+      width:100%;
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(15,23,42,.65);
+      padding:14px;
+      margin-bottom:12px;
+      overflow:hidden;
+    }
+    .hero-card h2{font-size:1.12rem; margin-bottom:8px}
+    .hero-list{list-style:none; margin:10px 0 12px; color:var(--muted); font-size:.92rem}
+    .hero-list li{margin-bottom:6px}
+    .pills{display:flex; gap:8px; flex-wrap:wrap}
+    .pill{
+      display:inline-flex; align-items:center;
+      padding:5px 10px;
+      border-radius:999px;
+      border:1px solid rgba(59,130,246,.42);
+      background: rgba(59,130,246,.12);
+      color: rgba(255,255,255,.9);
+      font-size:.76rem;
+      font-weight:800;
+    }
+    .pill.soft{
+      border-color: var(--border);
+      background: rgba(15,23,42,.75);
+      color: var(--muted);
+    }
+
+    /* Sections */
+    .section{padding:54px 0}
+    .section.alt{
+      background:
+        radial-gradient(circle at center, rgba(15,23,42,.88), var(--bg2));
+      border-top:1px solid rgba(148,163,184,.08);
+      border-bottom:1px solid rgba(148,163,184,.08);
+    }
+    .section-head{margin-bottom:22px}
+    .section-head h2{font-size:1.65rem; margin-bottom:6px}
+    .section-head p{color:var(--muted); max-width:70ch}
+
+    .grid-3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+    .grid-2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
+    .mt{margin-top:16px}
+
+    .card{
+      background: rgba(12,16,36,.9);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:16px;
+      box-shadow: var(--shadow);
+    }
+    .card h3{font-size:1.05rem; margin-bottom:8px}
+    .mini{font-size:.92rem; margin:12px 0 8px; font-weight:900}
+    .list{margin-left:18px; color:var(--muted)}
+    .list li{margin-bottom:6px}
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+
+    /* Charts */
+    .chart-wrap{
+      margin-top:10px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      background: rgba(15,23,42,.65);
+    }
+    canvas{display:block; width:100%; height:auto}
+    .legend{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .legend .item{
+      display:flex; align-items:center; gap:8px;
+      border:1px solid var(--border);
+      background: rgba(15,23,42,.7);
+      padding:6px 10px;
+      border-radius:999px;
+      color:var(--muted);
+      font-size:.82rem;
+    }
+    .legend .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+    }
+
+    /* Accordion */
+    .accordion{display:flex; flex-direction:column; gap:10px}
+    .acc-btn{
+      width:100%;
+      text-align:left;
+      background: rgba(15,23,42,.82);
+      border:1px solid var(--border);
+      color: var(--text);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:900;
+    }
+    .acc-btn:hover{border-color: rgba(59,130,246,.45)}
+    .acc-panel{
+      display:none;
+      background: rgba(17,22,48,.9);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:10px 12px;
+    }
+    .steps{margin-left:18px; color:var(--muted)}
+    .steps li{margin-bottom:6px}
+
+    /* Case study */
+    .case{
+      border:1px solid var(--border);
+      background: rgba(15,23,42,.6);
+      border-radius:14px;
+      padding:10px 12px;
+      margin-top:10px;
+    }
+    .case h4{font-size:.95rem; margin-bottom:6px}
+
+    /* iframe */
+    .iframe-wrap{
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      background: rgba(15,23,42,.65);
+    }
+
+    /* Poll */
+    .poll-options{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .poll-result{margin-top:12px; color:var(--muted)}
+    .bar{
+      height:10px; border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(15,23,42,.85);
+      overflow:hidden;
+      margin-top:6px;
+    }
+    .bar > div{
+      height:100%;
+      width:0%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      transition: width .35s ease;
+    }
+
+    /* Media */
+    .media-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:16px;
+    }
+    .media-card{
+      display:flex; gap:12px;
+      border:1px solid var(--border);
+      border-radius:18px;
+      overflow:hidden;
+      background: rgba(12,16,36,.9);
+      box-shadow: var(--shadow);
+    }
+    .thumb{
+      width:120px; min-height:120px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:1000;
+      background: linear-gradient(135deg, rgba(59,130,246,.85), rgba(139,92,246,.75));
+      color: rgba(255,255,255,.92);
+    }
+    .media-body{padding:12px}
+
+    /* Chatbot */
+    .chatbox{
+      height:320px;
+      overflow:auto;
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:10px;
+      background: rgba(15,23,42,.62);
+    }
+    .chat-msg{display:flex; margin:8px 0}
+    .chat-msg.bot{justify-content:flex-start}
+    .chat-msg.user{justify-content:flex-end}
+    .bubble{
+      max-width:82%;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(15,23,42,.86);
+      color: var(--text);
+      font-size:.92rem;
+    }
+    .chat-msg.user .bubble{
+      background: linear-gradient(135deg, rgba(59,130,246,.25), rgba(139,92,246,.18));
+    }
+    .chat-input{
+      display:flex; gap:10px; margin-top:10px;
+    }
+    .chat-input input{
+      flex:1;
+      border-radius:12px;
+      border:1px solid var(--border);
+      padding:10px 10px;
+      background: rgba(15,23,42,.86);
+      color: var(--text);
+      outline:none;
+      font-weight:700;
+    }
+    .chat-input input:focus{border-color: rgba(59,130,246,.55)}
+    .quick-links{display:flex; gap:10px; flex-wrap:wrap}
+
+    /* Forum */
+    .field{display:flex; flex-direction:column; gap:4px; margin-bottom:10px}
+    label{font-size:.78rem; color:var(--muted); font-weight:800}
+    input,textarea{
+      border-radius:12px;
+      border:1px solid var(--border);
+      padding:10px 10px;
+      background: rgba(15,23,42,.86);
+      color: var(--text);
+      outline:none;
+      font-weight:700;
+    }
+    input:focus,textarea:focus{
+      border-color: rgba(59,130,246,.55);
+      box-shadow: 0 0 0 1px rgba(59,130,246,.18);
+    }
+    .posts{display:flex; flex-direction:column; gap:10px; margin-top:8px}
+    .post{
+      border:1px solid var(--border);
+      background: rgba(15,23,42,.55);
+      border-radius:14px;
+      padding:10px 12px;
+    }
+    .post .head{
+      display:flex; justify-content:space-between; gap:10px;
+      color:var(--muted);
+      font-size:.82rem;
+      margin-bottom:6px;
+    }
+    .post .name{color:var(--text); font-weight:1000}
+
+    /* Reveal animations */
+    .reveal{opacity:0; transform: translateY(18px); transition: all .55s ease-out}
+    .reveal.visible{opacity:1; transform: translateY(0)}
+    .delay{transition-delay:.12s}
+
+    /* Footer */
+    .footer{
+      border-top:1px solid rgba(148,163,184,.10);
+      background: rgba(2,6,23,.95);
+      padding:16px 0 20px;
+    }
+    .footer p{color:var(--muted); font-size:.86rem}
+    .footer .small{font-size:.78rem}
+
+    /* Back-to-top */
+    .to-top{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:44px; height:44px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(15,23,42,.82);
+      color: var(--text);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer;
+      opacity:0; transform: translateY(10px);
+      transition: all .18s ease;
+      z-index:70;
+      box-shadow: 0 18px 30px rgba(0,0,0,.25);
+    }
+    .to-top.show{opacity:1; transform: translateY(0)}
+    .to-top:hover{border-color: rgba(59,130,246,.55)}
+
+    /* Light theme */
+    body.light{
+      --card:#ffffff;
+      --card2:#f3f4ff;
+      --text:#0b1020;
+      --muted:#4b5563;
+      --border:rgba(148,163,184,.65);
+      --shadow: 0 14px 24px rgba(0,0,0,.08);
+      --shadow2: 0 18px 40px rgba(0,0,0,.10);
+      background:
+        radial-gradient(circle at top, rgba(59,130,246,.12) 0, transparent 45%),
+        radial-gradient(circle at 80% 10%, rgba(139,92,246,.10) 0, transparent 50%),
+        #f7f8ff;
+    }
+    body.light .header{background: rgba(255,255,255,.78)}
+    body.light .nav-links a:hover{background: rgba(229,231,235,.85)}
+    body.light .chatbox, body.light .chart-wrap, body.light .iframe-wrap{background: rgba(243,244,246,.9)}
+    body.light .bubble{background: rgba(255,255,255,.9)}
+    body.light .hero-card{background: rgba(255,255,255,.86)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+      .grid-2{grid-template-columns:1fr}
+      .media-grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 780px){
+      .nav-toggle{display:block}
+      .nav-links{
+        position:absolute; top:56px; left:4%; right:4%;
+        background: rgba(2,6,23,.96);
+        border:1px solid var(--border);
+        border-radius:14px;
+        padding:10px;
+        display:flex;
+        flex-direction:column;
+        gap:6px;
+        transform-origin: top;
+        transform: scaleY(.65);
+        opacity:0;
+        pointer-events:none;
+        transition: all .18s ease;
+      }
+      .nav-links.show{
+        opacity:1;
+        transform: scaleY(1);
+        pointer-events:auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container nav">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <div>
+          Protecting the Force
+          <small>Cybersecurity Strategies for Police</small>
+        </div>
+      </div>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#research">Research</a>
+        <a href="#tips">Awareness</a>
+        <a href="#survey">Survey</a>
+        <a href="#media">Media</a>
+        <a href="#chatbot">Chatbot</a>
+        <a href="#forum">Forum</a>
+        <a href="#resources">Resources</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-outline" id="themeToggle" type="button">Dark</button>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-bg"></div>
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+
+    <div class="container hero-grid">
+      <div class="reveal">
+        <div class="tag"><span class="dot"></span> M.D.G.C College of Commerce • SyBSC IT • 2026</div>
+        <h1>Protecting the Force:<br><span class="hl">Cybersecurity Strategies for Police</span></h1>
+        <p class="subtitle">
+          A professional awareness platform designed to educate police personnel and the community about
+          common cyber threats, safe practices, and quick incident-response actions.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn-primary" href="#research">View Research Findings</a>
+          <a class="btn-ghost" href="#survey">Open Survey</a>
+        </div>
+
+        <div class="meta">
+          <div class="chip">
+            <span class="k">Student</span>
+            <span class="v">Afaque Ansari</span>
+          </div>
+          <div class="chip">
+            <span class="k">Department</span>
+            <span class="v">SyBSC IT</span>
+          </div>
+          <div class="chip">
+            <span class="k">College</span>
+            <span class="v">M.D.G.C College of Commerce</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card reveal delay">
+        <div class="illus" aria-hidden="true">
+          <!-- Inline professional illustration (no external image needed) -->
+          <svg viewBox="0 0 900 260" width="100%" height="auto">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#3b82f6" stop-opacity="0.9"/>
+                <stop offset="1" stop-color="#8b5cf6" stop-opacity="0.85"/>
+              </linearGradient>
+              <radialGradient id="glow" cx="40%" cy="30%" r="70%">
+                <stop offset="0" stop-color="#3b82f6" stop-opacity="0.45"/>
+                <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <rect x="0" y="0" width="900" height="260" rx="18" fill="rgba(2,6,23,0.25)"/>
+            <circle cx="210" cy="120" r="120" fill="url(#glow)"/>
+            <circle cx="750" cy="60" r="130" fill="rgba(139,92,246,0.12)"/>
+
+            <!-- Shield -->
+            <path d="M180 45 L300 75 L300 150 C300 200 240 230 180 245 C120 230 60 200 60 150 L60 75 Z"
+                  fill="url(#g1)" opacity="0.95"/>
+            <path d="M180 70 L270 92 L270 150 C270 185 225 205 180 216 C135 205 90 185 90 150 L90 92 Z"
+                  fill="rgba(15,23,42,0.55)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+
+            <!-- Lock -->
+            <rect x="155" y="118" width="50" height="52" rx="10" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.18)"/>
+            <path d="M167 118 v-10 c0-10 6-18 13-18 s13 8 13 18 v10" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="180" cy="143" r="6" fill="rgba(255,255,255,0.55)"/>
+
+            <!-- Badge / star -->
+            <g transform="translate(420,60)">
+              <circle cx="0" cy="0" r="68" fill="rgba(59,130,246,0.14)" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+              <path d="M0,-40 L10,-10 L40,0 L10,10 L0,40 L-10,10 L-40,0 L-10,-10 Z"
+                    fill="url(#g1)"/>
+              <circle cx="0" cy="0" r="10" fill="rgba(15,23,42,0.6)"/>
+            </g>
+
+            <!-- Text -->
+            <text x="520" y="118" fill="rgba(255,255,255,0.92)" font-size="34" font-family="system-ui" font-weight="800">
+              Cyber Hygiene for Police
+            </text>
+            <text x="520" y="154" fill="rgba(156,163,175,0.95)" font-size="18" font-family="system-ui" font-weight="600">
+              Phishing • MFA • Secure Devices • Incident Reporting
+            </text>
+
+            <!-- Decorative nodes -->
+            <g opacity="0.65">
+              <circle cx="620" cy="60" r="6" fill="#3b82f6"/>
+              <circle cx="700" cy="210" r="6" fill="#8b5cf6"/>
+              <circle cx="820" cy="160" r="6" fill="#22c55e"/>
+              <path d="M620 60 L820 160" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+              <path d="M700 210 L820 160" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+            </g>
+          </svg>
+        </div>
+
+        <h2>Quick Snapshot</h2>
+        <p class="muted">
+          Cyber threats like phishing, ransomware, social engineering and data leaks can impact police operations,
+          investigations and personal safety. This site converts research into practical awareness.
+        </p>
+        <ul class="hero-list">
+          <li>✔ Threat awareness + prevention checklists</li>
+          <li>✔ Survey + charts + media + chatbot</li>
+          <li>✔ Community discussion for shared learning</li>
+        </ul>
+        <div class="pills">
+          <span class="pill">Status: Ready</span>
+          <span class="pill soft">Version 1.0</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOME CONTENT -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Home</h2>
+        <p>
+          This section defines and elaborates the topic according to community awareness: purpose,
+          objectives and scope of awareness for police and citizens.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card reveal">
+          <h3>Introduction / Purpose</h3>
+          <p class="muted">
+            Build cyber awareness for police personnel by highlighting threats, safe digital behaviour,
+            and incident-response fundamentals — for both official and personal device usage.
+          </p>
+        </div>
+
+        <div class="card reveal">
+          <h3>Objectives</h3>
+          <ul class="list">
+            <li>Educate about phishing, malware and social engineering.</li>
+            <li>Promote MFA, strong passwords and secure communication.</li>
+            <li>Encourage timely reporting and basic incident response steps.</li>
+            <li>Support awareness campaigns with reusable learning material.</li>
+          </ul>
+        </div>
+
+        <div class="card reveal">
+          <h3>Scope of Awareness</h3>
+          <ul class="list">
+            <li>Target audience: police staff + general public.</li>
+            <li>Focus: digital hygiene, safe devices, data protection.</li>
+            <li>Content: guides, case studies, survey, media, forum.</li>
+            <li>Outcome: reduced cyber risk through awareness.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH FINDINGS -->
+  <section id="research" class="section alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Research Findings</h2>
+        <p>Abstract/summary, charts & graphs, key insights, and downloadable full research paper.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <h3>Summary</h3>
+          <p class="muted">
+            The research highlights common cyber risks affecting police and the community such as phishing,
+            weak authentication, device compromise, and data leakage. It emphasizes training, secure practices,
+            and fast reporting to reduce operational impact.
+          </p>
+
+          <div class="mini">Key Insights</div>
+          <ul class="list">
+            <li>Most common entry point: phishing and impersonation.</li>
+            <li>Weak passwords + no MFA increases account takeover risk.</li>
+            <li>Updates and device hygiene reduce malware incidents.</li>
+            <li>Clear reporting steps reduce damage and response time.</li>
+          </ul>
+
+          <div class="actions">
+            <a class="btn-primary" href="research-paper.pdf" download>Download Full Research Paper</a>
+            <button class="btn-ghost" id="swapCharts" type="button">Switch Chart View</button>
+          </div>
+          <p class="tiny muted">Tip: Put your report PDF in the same folder as this file and name it <b>research-paper.pdf</b>.</p>
+        </div>
+
+        <div class="card reveal">
+          <h3>Charts & Graphs</h3>
+          <p class="muted">Canvas-based charts (no external libraries). Replace values with your survey later.</p>
+          <div class="chart-wrap">
+            <canvas id="chartCanvas" width="900" height="520"></canvas>
+          </div>
+          <div class="legend" id="chartLegend"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARENESS TIPS -->
+  <section id="tips" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Awareness Tips</h2>
+        <p>Do’s & Don’ts, step-by-step guides, safety practices, and real-life stories/case studies.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card reveal">
+          <h3>Do’s</h3>
+          <ul class="list">
+            <li>Enable MFA on official accounts.</li>
+            <li>Verify sender identity before clicking links.</li>
+            <li>Update OS/apps and use approved security tools.</li>
+            <li>Use official channels for sensitive communication.</li>
+          </ul>
+        </div>
+
+        <div class="card reveal">
+          <h3>Don’ts</h3>
+          <ul class="list">
+            <li>Don’t share OTP/passwords or case details on chat apps.</li>
+            <li>Don’t install apps from unknown sources.</li>
+            <li>Don’t use public Wi-Fi for confidential tasks.</li>
+            <li>Don’t ignore security alerts/suspicious logins.</li>
+          </ul>
+        </div>
+
+        <div class="card reveal">
+          <h3>Safety Practices</h3>
+          <ul class="list">
+            <li>Separate personal vs official device usage.</li>
+            <li>Lock screen + auto timeout on devices.</li>
+            <li>Use backups where policy allows.</li>
+            <li>Report incidents immediately.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid-2 mt">
+        <div class="card reveal">
+          <h3>Step-by-Step Guides</h3>
+          <div class="accordion">
+            <button class="acc-btn" type="button" data-acc="a1">How to identify a phishing message</button>
+            <div class="acc-panel" id="a1">
+              <ol class="steps">
+                <li>Check sender domain carefully (typos are common).</li>
+                <li>Hover on links to preview real URL.</li>
+                <li>Look for urgency/threat language.</li>
+                <li>Verify via official contact method.</li>
+                <li>Report to IT/cyber cell; do not forward to others.</li>
+              </ol>
+            </div>
+
+            <button class="acc-btn" type="button" data-acc="a2">How to secure your phone used for duty</button>
+            <div class="acc-panel" id="a2">
+              <ol class="steps">
+                <li>Update OS/apps; remove unused apps.</li>
+                <li>Enable PIN/biometric + auto-lock.</li>
+                <li>Disable unnecessary permissions.</li>
+                <li>Enable MFA for email and official apps.</li>
+                <li>Turn off Bluetooth/NFC when not needed.</li>
+              </ol>
+            </div>
+
+            <button class="acc-btn" type="button" data-acc="a3">If you suspect compromise (quick response)</button>
+            <div class="acc-panel" id="a3">
+              <ol class="steps">
+                <li>Disconnect from network (if possible).</li>
+                <li>Inform supervisor/IT/cyber cell immediately.</li>
+                <li>Change passwords from a clean device + revoke sessions.</li>
+                <li>Preserve evidence (screenshots/logs) as per policy.</li>
+                <li>Follow incident response procedures.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <h3>Real-Life Stories / Case Studies</h3>
+          <div class="case">
+            <h4>Case Study 1: Spear-Phishing on Official Email</h4>
+            <p class="muted">Attacker impersonated a vendor and requested urgent document access.</p>
+            <p><b>Lesson:</b> Verify requests via trusted channel; use MFA & link scanning.</p>
+          </div>
+          <div class="case">
+            <h4>Case Study 2: Unknown App Compromised a Phone</h4>
+            <p class="muted">Sideloaded app captured messages and enabled account takeover.</p>
+            <p><b>Lesson:</b> Install only approved apps; keep device patched and locked.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURVEY / FEEDBACK -->
+  <section id="survey" class="section alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Survey / Feedback</h2>
+        <p>Embedded Google Form + Quick Polls (Dynamic)</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <h3>Embedded Google Form</h3>
+          <p class="muted">Your Google Form is embedded below (working). Users can fill it inside the website.</p>
+
+          <div class="iframe-wrap">
+            <iframe
+              title="Cybersecurity Awareness Survey"
+              src="https://docs.google.com/forms/d/e/1FAIpQLSdnWVOCL_QLaCjsYTSme2yrGTWFmmy_oADonJH9vuqQIxzoew/viewform?embedded=true"
+              width="100%"
+              height="900"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0">
+              Loading…
+            </iframe>
+          </div>
+
+          <p class="tiny muted">If you want bigger height, change <b>height="900"</b> to 1100/1300.</p>
+        </div>
+
+        <div class="card reveal">
+          <h3>Quick Polls (Dynamic)</h3>
+          <p class="muted">Vote and instantly see results (stored locally in the browser for demo).</p>
+
+          <div class="mini">Poll Question</div>
+          <p class="muted"><b>How confident are you in identifying phishing?</b></p>
+
+          <div class="poll-options">
+            <button class="btn-ghost poll-btn" data-choice="Very Confident" type="button">Very Confident</button>
+            <button class="btn-ghost poll-btn" data-choice="Somewhat Confident" type="button">Somewhat Confident</button>
+            <button class="btn-ghost poll-btn" data-choice="Not Confident" type="button">Not Confident</button>
+          </div>
+
+          <div class="poll-result" id="pollResult"></div>
+
+          <div class="actions">
+            <button class="btn-outline" id="resetPoll" type="button">Reset Poll</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA GALLERY -->
+  <section id="media" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Media Gallery</h2>
+        <p>Infographics, awareness posters, and videos/tutorials (placeholders — you can replace later).</p>
+      </div>
+
+      <div class="media-grid">
+        <div class="media-card reveal">
+          <div class="thumb">INFO</div>
+          <div class="media-body">
+            <h3>Phishing Red Flags</h3>
+            <p class="muted">Add infographic image / poster screenshot.</p>
+            <a class="btn-ghost" href="#survey">Open Survey</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="thumb">POST</div>
+          <div class="media-body">
+            <h3>Password & MFA Poster</h3>
+            <p class="muted">Awareness poster for station noticeboard.</p>
+            <a class="btn-ghost" href="#tips">Open Tips</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="thumb">VID</div>
+          <div class="media-body">
+            <h3>Secure Device Practices</h3>
+            <p class="muted">Embed YouTube / MP4 tutorial link.</p>
+            <a class="btn-ghost" href="#chatbot">Ask Chatbot</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHATBOT -->
+  <section id="chatbot" class="section alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Interactive Chatbot</h2>
+        <p>FAQs + Quick links to sections (rule-based for safe college demo).</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <h3>Quick Links</h3>
+          <div class="quick-links">
+            <button class="btn-ghost ql" data-link="#tips" type="button">Awareness Tips</button>
+            <button class="btn-ghost ql" data-link="#research" type="button">Research</button>
+            <button class="btn-ghost ql" data-link="#survey" type="button">Survey</button>
+            <button class="btn-ghost ql" data-link="#resources" type="button">Resources</button>
+          </div>
+
+          <div class="mini">FAQs</div>
+          <ul class="list">
+            <li>What is phishing?</li>
+            <li>How to report suspicious email?</li>
+            <li>What to do if device is hacked?</li>
+            <li>How to secure passwords/MFA?</li>
+          </ul>
+        </div>
+
+        <div class="card reveal">
+          <h3>Chat</h3>
+          <div class="chatbox" id="chatbox">
+            <div class="chat-msg bot"><div class="bubble">
+              Hi! I’m your cyber safety assistant. Ask about phishing, passwords, MFA, incident reporting, or device security.
+            </div></div>
+          </div>
+
+          <div class="chat-input">
+            <input id="chatInput" type="text" placeholder='Type: "What is phishing?"' />
+            <button class="btn-primary" id="sendChat" type="button">Send</button>
+          </div>
+          <p class="tiny muted">Tip: Use short questions for best responses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORUM -->
+  <section id="forum" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Community Forum / Discussion</h2>
+        <p>Share experiences / ask questions (demo forum using localStorage).</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <h3>Post a Message</h3>
+          <form id="forumForm">
+            <div class="field">
+              <label for="fname">Name</label>
+              <input id="fname" type="text" placeholder="Your name" required />
+            </div>
+            <div class="field">
+              <label for="fmsg">Message</label>
+              <textarea id="fmsg" rows="4" placeholder="Share an experience or ask a question..." required></textarea>
+            </div>
+            <button class="btn-primary" type="submit" style="width:100%;">Post</button>
+            <p class="tiny muted" id="forumStatus" style="min-height:18px;margin-top:8px;"></p>
+          </form>
+
+          <div class="actions">
+            <button class="btn-outline" id="clearForum" type="button">Clear All (Local)</button>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <h3>Recent Posts</h3>
+          <div class="posts" id="posts"></div>
+          <p class="tiny muted">Posts are stored only in this browser (demo).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources" class="section alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Resources / Links</h2>
+        <p>Government portals, helplines, and learning resources (add official links later).</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card reveal">
+          <h3>Government Portals</h3>
+          <ul class="list">
+            <li>National Cyber Crime Reporting Portal (add link)</li>
+            <li>CERT-In Advisories (add link)</li>
+            <li>State Cyber Cell Portal (add link)</li>
+          </ul>
+        </div>
+
+        <div class="card reveal">
+          <h3>Helplines</h3>
+          <ul class="list">
+            <li>Emergency: <b>112</b></li>
+            <li>Police: <b>100</b></li>
+            <li>Cyber helpdesk: <b>As per department</b></li>
+          </ul>
+        </div>
+
+        <div class="card reveal">
+          <h3>Learning Resources</h3>
+          <ul class="list">
+            <li>Password & MFA basics</li>
+            <li>Phishing awareness guides</li>
+            <li>Incident reporting checklist</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Contact / References</h2>
+        <p>Student details and sources used in your research/report.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <h3>Student</h3>
+          <ul class="list">
+            <li><b>Name:</b> Afaque Ansari</li>
+            <li><b>Department:</b> SyBSC IT</li>
+            <li><b>College:</b> M.D.G.C College of Commerce</li>
+            <li><b>Email:</b> yourmail@example.com</li>
+          </ul>
+        </div>
+
+        <div class="card reveal">
+          <h3>Sources / References</h3>
+          <ul class="list">
+            <li>Research paper / journal references (add)</li>
+            <li>Government advisory / portal references (add)</li>
+            <li>Cybersecurity training document references (add)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>© <span id="year"></span> • Protecting the Force • Afaque Ansari</p>
+      <p class="small">M.D.G.C College of Commerce • SyBSC IT • HTML/CSS/JS</p>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" title="Back to top" aria-label="Back to top">↑</button>
+
+  <script>
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile nav
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+    navToggle.addEventListener("click", () => navLinks.classList.toggle("show"));
+    navLinks.addEventListener("click", (e) => {
+      if (e.target.tagName === "A") navLinks.classList.remove("show");
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById("themeToggle");
+    let darkMode = true;
+    themeToggle.addEventListener("click", () => {
+      darkMode = !darkMode;
+      document.body.classList.toggle("light", !darkMode);
+      themeToggle.textContent = darkMode ? "Dark" : "Light";
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll(".reveal");
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.classList.add("visible");
+          obs.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => obs.observe(el));
+
+    // Accordion
+    document.querySelectorAll(".acc-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-acc");
+        const panel = document.getElementById(id);
+        const open = panel.style.display === "block";
+        document.querySelectorAll(".acc-panel").forEach(p => p.style.display = "none");
+        panel.style.display = open ? "none" : "block";
+      });
+    });
+
+    // Back-to-top + progress
+    const toTop = document.getElementById("toTop");
+    const progress = document.getElementById("progress");
+
+    function onScroll(){
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const pct = docH > 0 ? (scrollTop / docH) * 100 : 0;
+      progress.style.width = pct + "%";
+      toTop.classList.toggle("show", scrollTop > 600);
+    }
+    window.addEventListener("scroll", onScroll);
+    onScroll();
+
+    toTop.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+    // Quick links (chatbot section)
+    document.querySelectorAll(".ql").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const link = btn.getAttribute("data-link");
+        document.querySelector(link)?.scrollIntoView({behavior:"smooth"});
+      });
+    });
+
+    /* -------------------------
+       Charts (Canvas) - demo data
+    ------------------------- */
+    const canvas = document.getElementById("chartCanvas");
+    const ctx = canvas.getContext("2d");
+    const legend = document.getElementById("chartLegend");
+    const swapBtn = document.getElementById("swapCharts");
+
+    let chartMode = "bar";
+
+    const chartData = [
+      { label: "Phishing", value: 46 },
+      { label: "Weak Passwords", value: 22 },
+      { label: "Device Malware", value: 18 },
+      { label: "Data Leakage", value: 14 }
+    ];
+
+    function clearCanvas(){ ctx.clearRect(0,0,canvas.width,canvas.height); }
+
+    function drawTitle(t){
+      ctx.save();
+      ctx.fillStyle = "rgba(156,163,175,.95)";
+      ctx.font = "20px system-ui";
+      ctx.fillText(t, 24, 40);
+      ctx.restore();
+    }
+
+    function roundRect(x,y,w,h,r){
+      const min = Math.min(w,h);
+      const rr = Math.min(r, min/2);
+      ctx.beginPath();
+      ctx.moveTo(x+rr, y);
+      ctx.arcTo(x+w, y, x+w, y+h, rr);
+      ctx.arcTo(x+w, y+h, x, y+h, rr);
+      ctx.arcTo(x, y+h, x, y, rr);
+      ctx.arcTo(x, y, x+w, y, rr);
+      ctx.closePath();
+    }
+
+    function drawBarChart(){
+      clearCanvas();
+      drawTitle("Top Threat Types (Demo)");
+
+      const padding = 70;
+      const w = canvas.width - padding*2;
+      const h = canvas.height - 140;
+      const x0 = padding;
+      const y0 = canvas.height - 70;
+
+      // axes
+      ctx.save();
+      ctx.strokeStyle = "rgba(148,163,184,.35)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(x0, 70);
+      ctx.lineTo(x0, y0);
+      ctx.lineTo(x0+w, y0);
+      ctx.stroke();
+      ctx.restore();
+
+      const maxVal = Math.max(...chartData.map(d=>d.value)) * 1.15;
+      const gap = 24;
+      const barW = (w - gap*(chartData.length-1)) / chartData.length;
+
+      chartData.forEach((d,i)=>{
+        const barH = (d.value / maxVal) * h;
+        const x = x0 + i*(barW+gap);
+        const y = y0 - barH;
+
+        const grad = ctx.createLinearGradient(x, y, x, y0);
+        grad.addColorStop(0, "rgba(59,130,246,0.95)");
+        grad.addColorStop(1, "rgba(139,92,246,0.65)");
+
+        ctx.fillStyle = grad;
+        roundRect(x,y,barW,barH,14);
+        ctx.fill();
+
+        ctx.fillStyle = "rgba(249,250,251,.92)";
+        ctx.font = "16px system-ui";
+        ctx.fillText(d.value+"%", x+10, y-10);
+
+        ctx.fillStyle = "rgba(156,163,175,.95)";
+        ctx.font = "16px system-ui";
+        ctx.fillText(d.label, x+4, y0+28);
+      });
+    }
+
+    function drawDonutChart(){
+      clearCanvas();
+      drawTitle("Threat Distribution (Demo)");
+
+      const total = chartData.reduce((a,b)=>a+b.value,0);
+      const cx = canvas.width/2;
+      const cy = canvas.height/2 + 10;
+      const outerR = 170;
+      const innerR = 95;
+
+      let start = -Math.PI/2;
+
+      chartData.forEach((d,idx)=>{
+        const angle = (d.value/total) * (Math.PI*2);
+        const end = start + angle;
+
+        const a1 = 0.88 - idx*0.12;
+        const a2 = 0.60 - idx*0.08;
+
+        const grad = ctx.createRadialGradient(cx, cy, innerR, cx, cy, outerR);
+        grad.addColorStop(0, `rgba(59,130,246,${Math.max(a2,0.25)})`);
+        grad.addColorStop(1, `rgba(139,92,246,${Math.max(a1,0.35)})`);
+
+        ctx.beginPath();
+        ctx.moveTo(cx,cy);
+        ctx.arc(cx,cy,outerR,start,end);
+        ctx.closePath();
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        start = end;
+      });
+
+      ctx.beginPath();
+      ctx.arc(cx,cy,innerR,0,Math.PI*2);
+      ctx.fillStyle = "rgba(15,23,42,.95)";
+      ctx.fill();
+
+      ctx.fillStyle = "rgba(249,250,251,.92)";
+      ctx.font = "18px system-ui";
+      ctx.textAlign = "center";
+      ctx.fillText("Total", cx, cy-6);
+      ctx.fillStyle = "rgba(156,163,175,.95)";
+      ctx.font = "22px system-ui";
+      ctx.fillText(total+"%", cx, cy+22);
+      ctx.textAlign = "start";
+    }
+
+    function renderLegend(){
+      legend.innerHTML = "";
+      chartData.forEach((d,idx)=>{
+        const item = document.createElement("div");
+        item.className = "item";
+
+        const dot = document.createElement("span");
+        dot.className = "dot";
+        dot.style.opacity = String(0.95 - idx*0.12);
+
+        const text = document.createElement("span");
+        text.textContent = `${d.label}: ${d.value}%`;
+
+        item.appendChild(dot);
+        item.appendChild(text);
+        legend.appendChild(item);
+      });
+    }
+
+    function renderChart(){
+      renderLegend();
+      if(chartMode==="bar") drawBarChart();
+      else drawDonutChart();
+    }
+
+    swapBtn.addEventListener("click", ()=>{
+      chartMode = chartMode==="bar" ? "donut" : "bar";
+      renderChart();
+    });
+
+    renderChart();
+
+    /* -------------------------
+       Poll (localStorage)
+    ------------------------- */
+    const pollKey = "ptf_poll_v2";
+    const pollResult = document.getElementById("pollResult");
+    const resetPollBtn = document.getElementById("resetPoll");
+
+    function getPollData(){
+      const raw = localStorage.getItem(pollKey);
+      if(!raw) return {"Very Confident":0,"Somewhat Confident":0,"Not Confident":0};
+      try { return JSON.parse(raw); } catch { return {"Very Confident":0,"Somewhat Confident":0,"Not Confident":0}; }
+    }
+    function setPollData(d){ localStorage.setItem(pollKey, JSON.stringify(d)); }
+
+    function renderPoll(){
+      const data = getPollData();
+      const total = Object.values(data).reduce((a,b)=>a+b,0) || 1;
+
+      pollResult.innerHTML = "";
+      Object.keys(data).forEach((k)=>{
+        const count = data[k];
+        const pct = Math.round((count/total)*100);
+
+        const row = document.createElement("div");
+        row.style.marginTop = "10px";
+        row.innerHTML = `<div class="muted">${k} — <b>${pct}%</b> (${count} votes)</div>`;
+
+        const bar = document.createElement("div");
+        bar.className = "bar";
+        const fill = document.createElement("div");
+        fill.style.width = pct + "%";
+        bar.appendChild(fill);
+
+        row.appendChild(bar);
+        pollResult.appendChild(row);
+      });
+    }
+
+    document.querySelectorAll(".poll-btn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const choice = btn.getAttribute("data-choice");
+        const data = getPollData();
+        data[choice] = (data[choice] || 0) + 1;
+        setPollData(data);
+        renderPoll();
+      });
+    });
+
+    resetPollBtn.addEventListener("click", ()=>{
+      localStorage.removeItem(pollKey);
+      renderPoll();
+    });
+
+    renderPoll();
+
+    /* -------------------------
+       Chatbot (rule-based)
+    ------------------------- */
+    const chatbox = document.getElementById("chatbox");
+    const chatInput = document.getElementById("chatInput");
+    const sendChat = document.getElementById("sendChat");
+
+    function addMsg(text, who="bot"){
+      const wrap = document.createElement("div");
+      wrap.className = "chat-msg " + who;
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      bubble.textContent = text;
+      wrap.appendChild(bubble);
+      chatbox.appendChild(wrap);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function botReply(qRaw){
+      const q = qRaw.toLowerCase();
+      if(q.includes("phishing")) return "Phishing is a scam where attackers impersonate trusted sources to steal passwords/OTP or make you click malicious links. Verify sender and avoid unknown links.";
+      if(q.includes("password")) return "Use long unique passwords (12+), avoid reuse, and enable MFA. Never share OTP/passwords and avoid saving them in plain text.";
+      if(q.includes("mfa") || q.includes("2fa")) return "MFA adds a second verification step beyond passwords (authenticator app/OTP). It greatly reduces account takeover risk.";
+      if(q.includes("report") || q.includes("suspicious")) return "Report immediately: don’t click further, capture evidence (as per policy), inform IT/cyber cell, and follow incident response steps.";
+      if(q.includes("hacked") || q.includes("compromise") || q.includes("malware")) return "If compromised: disconnect from network, inform IT/cyber cell, change passwords from a clean device, preserve evidence, and follow official procedures.";
+      if(q.includes("link") || q.includes("section")) return "Use quick links: Tips, Research, Survey, Resources (buttons on the left panel).";
+      return "Ask me about: phishing, passwords, MFA, reporting incidents, device security. Example: 'What is phishing?'";
+    }
+
+    function sendMessage(){
+      const text = chatInput.value.trim();
+      if(!text) return;
+      addMsg(text, "user");
+      chatInput.value = "";
+      setTimeout(()=> addMsg(botReply(text), "bot"), 220);
+    }
+
+    sendChat.addEventListener("click", sendMessage);
+    chatInput.addEventListener("keydown", (e)=>{ if(e.key==="Enter") sendMessage(); });
+
+    /* -------------------------
+       Forum (localStorage demo)
+    ------------------------- */
+    const forumKey = "ptf_forum_v2";
+    const forumForm = document.getElementById("forumForm");
+    const postsEl = document.getElementById("posts");
+    const forumStatus = document.getElementById("forumStatus");
+    const clearForum = document.getElementById("clearForum");
+
+    function loadPosts(){
+      const raw = localStorage.getItem(forumKey);
+      if(!raw) return [];
+      try { return JSON.parse(raw); } catch { return []; }
+    }
+    function savePosts(p){ localStorage.setItem(forumKey, JSON.stringify(p)); }
+
+    function renderPosts(){
+      const posts = loadPosts();
+      postsEl.innerHTML = "";
+      if(posts.length === 0){
+        postsEl.innerHTML = `<p class="muted">No posts yet. Be the first to share a tip or question.</p>`;
+        return;
+      }
+      posts.slice().reverse().forEach(p=>{
+        const div = document.createElement("div");
+        div.className = "post";
+        div.innerHTML = `
+          <div class="head">
+            <span class="name">${escapeHtml(p.name)}</span>
+            <span>${escapeHtml(p.time)}</span>
+          </div>
+          <div class="muted">${escapeHtml(p.message)}</div>
+        `;
+        postsEl.appendChild(div);
+      });
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;");
+    }
+
+    forumForm.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const name = document.getElementById("fname").value.trim();
+      const message = document.getElementById("fmsg").value.trim();
+      if(!name || !message) return;
+
+      const posts = loadPosts();
+      posts.push({name, message, time: new Date().toLocaleString()});
+      savePosts(posts);
+
+      forumForm.reset();
+      forumStatus.textContent = "Posted successfully (demo).";
+      setTimeout(()=> forumStatus.textContent="", 2500);
+      renderPosts();
+    });
+
+    clearForum.addEventListener("click", ()=>{
+      localStorage.removeItem(forumKey);
+      renderPosts();
+    });
+
+    renderPosts();
+  </script>
+</body>
+</html>
