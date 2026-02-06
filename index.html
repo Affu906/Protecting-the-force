@@ -1,1521 +1,2047 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Protecting the Force: Cybersecurity Strategies for Police</title>
-  <meta name="description" content="Cybersecurity awareness website for police personnel: research findings, tips, survey, media, chatbot, and community discussion."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protecting the Force – Cybersecurity Strategies for Police</title>
+
+  <!-- ICONS -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <!-- FONT -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
   <style>
-    :root{
-      --bg:#050816;
-      --bg2:#020617;
-      --card:#0c1024;
-      --card2:#111630;
-      --text:#f9fafb;
-      --muted:#9ca3af;
-      --border:rgba(148,163,184,.22);
-      --accent:#3b82f6;   /* police-blue */
-      --accent2:#8b5cf6;  /* violet */
-      --accentSoft: rgba(59,130,246,.16);
-      --shadow: 0 18px 34px rgba(0,0,0,.35);
-      --shadow2: 0 22px 50px rgba(15,23,42,.65);
+    :root {
+      --bg: #020617;
+      --card: #020617;
+      --border: #1f2937;
+      --accent: #22c55e;
+      --accent2: #22d3ee;
+      --accent3: #a3e635;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
     }
 
-    *{margin:0;padding:0;box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top, rgba(59,130,246,.18) 0, transparent 45%),
-        radial-gradient(circle at 80% 10%, rgba(139,92,246,.14) 0, transparent 50%),
-        radial-gradient(circle at 20% 60%, rgba(34,197,94,.10) 0, transparent 45%),
-        var(--bg2);
-      line-height:1.6;
-      scroll-behavior:smooth;
+    body.theme-blue {
+      --accent: #6366f1;
+      --accent2: #22d3ee;
+      --accent3: #a855f7;
+      --bg: #020617;
+      --card: #020617;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      background: radial-gradient(circle at top left, #1e293b, var(--bg));
     }
 
-    /* subtle grid */
-    body::before{
-      content:"";
-      position:fixed; inset:0;
-      background-image:
-        linear-gradient(to right, rgba(148,163,184,.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(148,163,184,.06) 1px, transparent 1px);
-      background-size: 52px 52px;
-      opacity:.35;
-      pointer-events:none;
-      z-index:-1;
+    body.theme-pink {
+      --accent: #fb37ff;
+      --accent2: #c4b5fd;
+      --accent3: #f97316;
+      --bg: #020617;
+      --card: #020617;
+      --border: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      background: radial-gradient(circle at top left, #4c1d95, #020617);
     }
 
-    .container{width:min(1120px,92%);margin:0 auto}
-    a{color:inherit}
-    .muted{color:var(--muted)}
-    .tiny{font-size:.80rem}
-
-    /* Top progress bar */
-    .progress{
-      position:fixed; top:0; left:0; height:3px; width:0%;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      z-index:9999;
-      box-shadow: 0 0 14px rgba(59,130,246,.55);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* Header / Nav */
-    .header{
-      position:sticky; top:0; z-index:60;
-      background:rgba(2,6,23,.86);
-      backdrop-filter: blur(16px);
-      border-bottom:1px solid var(--border);
+    body {
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top left, #022c22, var(--bg));
+      color: var(--text);
+      scroll-behavior: smooth;
+      background-size: 200% 200%;
+      animation: bodyGlow 18s ease-in-out infinite alternate;
     }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:14px; padding:10px 0;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px; font-weight:800;
-      letter-spacing:.02em;
-    }
-    .brand-dot{
-      width:18px;height:18px;border-radius:999px;
-      background: radial-gradient(circle at 30% 30%, var(--accent2), var(--accent));
-      box-shadow:0 0 16px rgba(59,130,246,.65);
-    }
-    .brand small{display:block; font-weight:600; color:var(--muted); letter-spacing:0}
-    .nav-links{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-    }
-    .nav-links a{
-      text-decoration:none;
-      font-size:.92rem;
-      color:var(--muted);
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid transparent;
-      transition: all .18s ease;
-    }
-    .nav-links a:hover{
-      color:var(--text);
-      border-color:var(--border);
-      background:rgba(15,23,42,.8);
-    }
-    .nav-actions{display:flex; gap:8px; align-items:center}
 
-    .btn-primary,.btn-ghost,.btn-outline{
-      display:inline-flex; align-items:center; justify-content:center;
-      border-radius:999px; border:1px solid transparent;
-      padding:9px 16px; font-size:.92rem; font-weight:700;
-      cursor:pointer; transition: all .18s ease;
-      text-decoration:none;
-      white-space:nowrap;
+    @keyframes bodyGlow {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 80%; }
     }
-    .btn-primary{
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* NAVBAR -------------------------------------------------------------- */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(2, 6, 23, 0.96);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid #111827;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 7%;
+      gap: 10px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* 3D animated shield logo */
+    .logo-icon {
+      position: relative;
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 20%, #ecfdf5, #bbf7d0 28%, #022c22 75%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 0 1px rgba(22, 163, 74, 0.7),
+        0 0 24px rgba(22, 163, 74, 0.95);
+      overflow: hidden;
+      transform: translateZ(0);
+      animation: logoFloat 4.5s ease-in-out infinite alternate;
+    }
+
+    .logo-icon::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(
+        from 210deg,
+        rgba(34, 197, 94, 0),
+        rgba(34, 197, 94, 0.7),
+        rgba(56, 189, 248, 0.8),
+        rgba(251, 191, 36, 0.8),
+        rgba(34, 197, 94, 0)
+      );
+      mix-blend-mode: screen;
+      opacity: 0.7;
+      animation: logoSpin 7s linear infinite;
+    }
+
+    .logo-icon::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 11px;
+      background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9), rgba(15, 23, 42, 0.95));
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.8);
+    }
+
+    .logo-icon i {
+      position: relative;
+      z-index: 1;
+      font-size: 1rem;
+      color: #bbf7d0;
+      text-shadow:
+        0 0 6px rgba(34, 197, 94, 0.9),
+        0 0 14px rgba(34, 197, 94, 0.9);
+    }
+
+    @keyframes logoSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes logoFloat {
+      0% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+      100% { transform: translateY(-3px) rotateX(10deg) rotateY(-6deg); }
+    }
+
+    .logo-text-main {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-text-main span:first-child {
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color:#fff;
-      box-shadow: 0 12px 28px rgba(59,130,246,.25);
-    }
-    .btn-primary:hover{transform:translateY(-1px); box-shadow:0 16px 34px rgba(59,130,246,.34)}
-    .btn-ghost{
-      background:transparent;
-      border-color:var(--border);
-      color:var(--muted);
-    }
-    .btn-ghost:hover{background:rgba(15,23,42,.85); color:var(--text); border-color:rgba(59,130,246,.35)}
-    .btn-outline{
-      background:transparent;
-      border-color:var(--border);
-      color:var(--muted);
-    }
-    .btn-outline:hover{border-color:var(--accent); color:var(--accent)}
-    .nav-toggle{
-      display:none;
-      background:transparent; border:none; color:var(--text);
-      font-size:1.35rem; cursor:pointer;
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
-    /* Hero */
-    .hero{position:relative; overflow:hidden; padding:72px 0 62px}
-    .hero-bg{
-      position:absolute; inset:0; z-index:-1;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(59,130,246,.18), transparent 55%),
-        radial-gradient(circle at 100% 0%, rgba(139,92,246,.14), transparent 55%);
-    }
-    .blob{
-      position:absolute; border-radius:999px; filter: blur(30px); opacity:.75;
-      animation: float 18s infinite alternate ease-in-out;
-    }
-    .b1{width:280px;height:280px; background:rgba(59,130,246,.55); top:-70px; left:-70px}
-    .b2{width:260px;height:260px; background:rgba(139,92,246,.45); bottom:-90px; right:-50px}
-    .b3{width:220px;height:220px; background:rgba(34,197,94,.35); top:42%; left:68%}
-    @keyframes float{
-      0%{transform:translate3d(0,0,0) scale(1)}
-      100%{transform:translate3d(40px,-30px,0) scale(1.08)}
+    .logo-text-main span:last-child {
+      color: #9ca3af;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
     }
 
-    .hero-grid{
-      display:grid;
-      grid-template-columns: minmax(0,1.45fr) minmax(0,1fr);
-      gap:22px;
-      align-items:center;
-    }
-    .tag{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:5px 10px;
-      border-radius:999px;
-      font-size:.78rem;
-      color:rgba(255,255,255,.88);
-      background:rgba(15,23,42,.75);
-      border:1px solid rgba(59,130,246,.28);
-      margin-bottom:10px;
-    }
-    .tag .dot{
-      width:8px;height:8px;border-radius:999px;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      box-shadow:0 0 12px rgba(59,130,246,.55);
+    .nav-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
     }
 
-    h1{
-      font-size: clamp(2.2rem, 4vw, 3.1rem);
-      line-height:1.12;
-      margin-bottom:10px;
-      letter-spacing:-0.02em;
-    }
-    .hl{color:var(--accent)}
-    .subtitle{color:var(--muted); max-width:56ch; margin-bottom:16px}
-    .hero-actions{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px}
-    .meta{
-      display:flex; flex-wrap:wrap; gap:10px;
-      font-size:.82rem;
-    }
-    .meta .chip{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(15,23,42,.78);
-    }
-    .meta .k{display:block; color:var(--muted); font-weight:700}
-    .meta .v{font-weight:800}
-
-    .hero-card{
-      background:
-        radial-gradient(circle at top left, rgba(59,130,246,.16), transparent 45%),
-        radial-gradient(circle at top right, rgba(139,92,246,.12), transparent 45%),
-        rgba(12,16,36,.92);
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:16px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-    }
-    .hero-card::after{
-      content:"";
-      position:absolute; inset:-1px;
-      background: linear-gradient(120deg, rgba(59,130,246,.18), rgba(139,92,246,.14), transparent 55%);
-      opacity:.7;
-      pointer-events:none;
-      mask-image: radial-gradient(circle at 25% 15%, black 0, transparent 55%);
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      font-size: 0.84rem;
     }
 
-    /* inline illustration */
-    .illus{
-      width:100%;
-      border-radius:16px;
-      border:1px solid rgba(148,163,184,.22);
-      background: rgba(15,23,42,.65);
-      padding:14px;
-      margin-bottom:12px;
-      overflow:hidden;
+    .nav-links a {
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: 0.22s;
+      white-space: nowrap;
     }
-    .hero-card h2{font-size:1.12rem; margin-bottom:8px}
-    .hero-list{list-style:none; margin:10px 0 12px; color:var(--muted); font-size:.92rem}
-    .hero-list li{margin-bottom:6px}
-    .pills{display:flex; gap:8px; flex-wrap:wrap}
-    .pill{
-      display:inline-flex; align-items:center;
-      padding:5px 10px;
-      border-radius:999px;
-      border:1px solid rgba(59,130,246,.42);
-      background: rgba(59,130,246,.12);
-      color: rgba(255,255,255,.9);
-      font-size:.76rem;
-      font-weight:800;
+
+    .nav-links a:hover {
+      color: #f9fafb;
+      border-color: #1f2937;
+      background: rgba(15, 23, 42, 0.95);
+      transform: translateY(-1px);
     }
-    .pill.soft{
-      border-color: var(--border);
-      background: rgba(15,23,42,.75);
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-cta {
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #020617;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.8rem;
+      box-shadow: 0 10px 26px rgba(22, 163, 74, 0.7);
+      transition: 0.25s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(22, 163, 74, 0.9);
+    }
+
+    .nav-theme-btn {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: rgba(15, 23, 42, 0.98);
+      color: var(--muted);
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-theme-btn i {
+      font-size: 0.95rem;
+    }
+
+    .nav-theme-btn:hover {
+      background: rgba(15, 23, 42, 1);
+      color: #e5e7eb;
+      border-color: #374151;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .nav-center {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 860px) {
+      nav {
+        padding-inline: 5%;
+      }
+      .nav-center {
+        position: relative;
+      }
+      .nav-links {
+        display: none;
+      }
+      .nav-links.mobile-open {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 46px;
+        right: 0;
+        background: rgba(5, 13, 30, 0.98);
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid #1f2937;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+      }
+      .nav-toggle {
+        display: block;
+      }
+    }
+
+    section {
+      padding: 80px 7%;
+    }
+
+    .section-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    /* HERO ----------------------------------------------------------------- */
+    .hero {
+      min-height: 100vh;
+      padding: 110px 4% 80px;
+      position: relative;
+      overflow: hidden;
+      perspective: 1400px;
+    }
+
+    .hero-bg-img {
+      position: absolute;
+      inset: -40px;
+      background-image:
+        linear-gradient(120deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9)),
+        url("https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1400&q=80");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.55;
+      filter: saturate(1.1);
+      z-index: 0;
+      animation: bgPan 30s linear infinite alternate;
+    }
+
+    body.theme-blue .hero-bg-img {
+      background-image:
+        linear-gradient(120deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9)),
+        url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80");
+    }
+
+    body.theme-pink .hero-bg-img {
+      background-image:
+        linear-gradient(120deg, rgba(24,16,60,0.96), rgba(15,23,42,0.9)),
+        url("https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=1400&q=80");
+    }
+
+    @keyframes bgPan {
+      0% { transform: scale(1.05) translateX(-10px); }
+      100% { transform: scale(1.1) translateX(10px); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.95fr);
+      gap: 34px;
+      align-items: center;
+      transform-style: preserve-3d;
+    }
+
+    @media (max-width: 960px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-left {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      padding: 22px 24px;
+      box-shadow:
+        0 26px 80px rgba(0, 0, 0, 0.95),
+        0 0 0 1px rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      transform: rotateY(-6deg) translateZ(40px);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .hero-left:hover {
+      transform: rotateY(-4deg) translateZ(55px) translateY(-4px);
+      box-shadow:
+        0 32px 90px rgba(0, 0, 0, 1),
+        0 0 0 1px rgba(148, 163, 184, 0.8);
+    }
+
+    .hero-left h1 {
+      font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-left h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid #1e293b;
+      margin-bottom: 12px;
+      font-size: 0.75rem;
       color: var(--muted);
     }
 
-    /* Sections */
-    .section{padding:54px 0}
-    .section.alt{
-      background:
-        radial-gradient(circle at center, rgba(15,23,42,.88), var(--bg2));
-      border-top:1px solid rgba(148,163,184,.08);
-      border-bottom:1px solid rgba(148,163,184,.08);
+    .hero-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent2);
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.9);
     }
-    .section-head{margin-bottom:22px}
-    .section-head h2{font-size:1.65rem; margin-bottom:6px}
-    .section-head p{color:var(--muted); max-width:70ch}
 
-    .grid-3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
-    .grid-2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
-    .mt{margin-top:16px}
+    .hero-left p {
+      color: var(--muted);
+      max-width: 540px;
+      margin-top: 10px;
+      font-size: 0.96rem;
+    }
 
-    .card{
-      background: rgba(12,16,36,.9);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:16px;
-      box-shadow: var(--shadow);
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
     }
-    .card h3{font-size:1.05rem; margin-bottom:8px}
-    .mini{font-size:.92rem; margin:12px 0 8px; font-weight:900}
-    .list{margin-left:18px; color:var(--muted)}
-    .list li{margin-bottom:6px}
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
 
-    /* Charts */
-    .chart-wrap{
-      margin-top:10px;
-      border:1px solid var(--border);
-      border-radius:16px;
-      overflow:hidden;
-      background: rgba(15,23,42,.65);
+    .btn-primary,
+    .btn-secondary {
+      padding: 11px 20px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      transition: 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
-    canvas{display:block; width:100%; height:auto}
-    .legend{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
-    .legend .item{
-      display:flex; align-items:center; gap:8px;
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.7);
-      padding:6px 10px;
-      border-radius:999px;
-      color:var(--muted);
-      font-size:.82rem;
-    }
-    .legend .dot{
-      width:10px; height:10px; border-radius:999px;
+
+    .btn-primary {
       background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #020617;
+      font-weight: 600;
+      box-shadow: 0 16px 32px rgba(22, 163, 74, 0.7);
     }
 
-    /* Accordion */
-    .accordion{display:flex; flex-direction:column; gap:10px}
-    .acc-btn{
-      width:100%;
-      text-align:left;
-      background: rgba(15,23,42,.82);
-      border:1px solid var(--border);
-      color: var(--text);
-      padding:10px 12px;
-      border-radius:14px;
-      cursor:pointer;
-      font-weight:900;
-    }
-    .acc-btn:hover{border-color: rgba(59,130,246,.45)}
-    .acc-panel{
-      display:none;
-      background: rgba(17,22,48,.9);
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:10px 12px;
-    }
-    .steps{margin-left:18px; color:var(--muted)}
-    .steps li{margin-bottom:6px}
-
-    /* Case study */
-    .case{
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.6);
-      border-radius:14px;
-      padding:10px 12px;
-      margin-top:10px;
-    }
-    .case h4{font-size:.95rem; margin-bottom:6px}
-
-    /* iframe */
-    .iframe-wrap{
-      border:1px solid var(--border);
-      border-radius:16px;
-      overflow:hidden;
-      background: rgba(15,23,42,.65);
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid #064e3b;
+      color: var(--muted);
+      font-weight: 500;
     }
 
-    /* Poll */
-    .poll-options{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-    .poll-result{margin-top:12px; color:var(--muted)}
-    .bar{
-      height:10px; border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.85);
-      overflow:hidden;
-      margin-top:6px;
-    }
-    .bar > div{
-      height:100%;
-      width:0%;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      transition: width .35s ease;
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.9);
     }
 
-    /* Media */
-    .media-grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:16px;
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 18px;
     }
-    .media-card{
-      display:flex; gap:12px;
-      border:1px solid var(--border);
-      border-radius:18px;
-      overflow:hidden;
-      background: rgba(12,16,36,.9);
-      box-shadow: var(--shadow);
-    }
-    .thumb{
-      width:120px; min-height:120px;
-      display:flex; align-items:center; justify-content:center;
-      font-weight:1000;
-      background: linear-gradient(135deg, rgba(59,130,246,.85), rgba(139,92,246,.75));
-      color: rgba(255,255,255,.92);
-    }
-    .media-body{padding:12px}
 
-    /* Chatbot */
-    .chatbox{
-      height:320px;
-      overflow:auto;
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:10px;
-      background: rgba(15,23,42,.62);
+    .meta-pill {
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid #064e3b;
     }
-    .chat-msg{display:flex; margin:8px 0}
-    .chat-msg.bot{justify-content:flex-start}
-    .chat-msg.user{justify-content:flex-end}
-    .bubble{
-      max-width:82%;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.86);
-      color: var(--text);
-      font-size:.92rem;
-    }
-    .chat-msg.user .bubble{
-      background: linear-gradient(135deg, rgba(59,130,246,.25), rgba(139,92,246,.18));
-    }
-    .chat-input{
-      display:flex; gap:10px; margin-top:10px;
-    }
-    .chat-input input{
-      flex:1;
-      border-radius:12px;
-      border:1px solid var(--border);
-      padding:10px 10px;
-      background: rgba(15,23,42,.86);
-      color: var(--text);
-      outline:none;
-      font-weight:700;
-    }
-    .chat-input input:focus{border-color: rgba(59,130,246,.55)}
-    .quick-links{display:flex; gap:10px; flex-wrap:wrap}
 
-    /* Forum */
-    .field{display:flex; flex-direction:column; gap:4px; margin-bottom:10px}
-    label{font-size:.78rem; color:var(--muted); font-weight:800}
-    input,textarea{
-      border-radius:12px;
-      border:1px solid var(--border);
-      padding:10px 10px;
-      background: rgba(15,23,42,.86);
-      color: var(--text);
-      outline:none;
-      font-weight:700;
+    .meta-pill b {
+      color: #e5e7eb;
     }
-    input:focus,textarea:focus{
-      border-color: rgba(59,130,246,.55);
-      box-shadow: 0 0 0 1px rgba(59,130,246,.18);
-    }
-    .posts{display:flex; flex-direction:column; gap:10px; margin-top:8px}
-    .post{
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.55);
-      border-radius:14px;
-      padding:10px 12px;
-    }
-    .post .head{
-      display:flex; justify-content:space-between; gap:10px;
-      color:var(--muted);
-      font-size:.82rem;
-      margin-bottom:6px;
-    }
-    .post .name{color:var(--text); font-weight:1000}
 
-    /* Reveal animations */
-    .reveal{opacity:0; transform: translateY(18px); transition: all .55s ease-out}
-    .reveal.visible{opacity:1; transform: translateY(0)}
-    .delay{transition-delay:.12s}
-
-    /* Footer */
-    .footer{
-      border-top:1px solid rgba(148,163,184,.10);
-      background: rgba(2,6,23,.95);
-      padding:16px 0 20px;
+    .hero-right {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      transform: rotateY(9deg) translateZ(40px);
+      transition: transform 0.4s ease;
     }
-    .footer p{color:var(--muted); font-size:.86rem}
-    .footer .small{font-size:.78rem}
 
-    /* Back-to-top */
-    .to-top{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      width:44px; height:44px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.82);
-      color: var(--text);
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer;
-      opacity:0; transform: translateY(10px);
-      transition: all .18s ease;
-      z-index:70;
-      box-shadow: 0 18px 30px rgba(0,0,0,.25);
+    .hero-right:hover {
+      transform: rotateY(7deg) translateZ(55px) translateY(-3px);
     }
-    .to-top.show{opacity:1; transform: translateY(0)}
-    .to-top:hover{border-color: rgba(59,130,246,.55)}
 
-    /* Light theme */
-    body.light{
-      --card:#ffffff;
-      --card2:#f3f4ff;
-      --text:#0b1020;
-      --muted:#4b5563;
-      --border:rgba(148,163,184,.65);
-      --shadow: 0 14px 24px rgba(0,0,0,.08);
-      --shadow2: 0 18px 40px rgba(0,0,0,.10);
+    .hero-card {
       background:
-        radial-gradient(circle at top, rgba(59,130,246,.12) 0, transparent 45%),
-        radial-gradient(circle at 80% 10%, rgba(139,92,246,.10) 0, transparent 50%),
-        #f7f8ff;
+        radial-gradient(circle at top left, rgba(34, 197, 94, 0.18), transparent 55%),
+        rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(34, 197, 94, 0.6);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.95);
+      max-width: 460px;
+      width: 100%;
+      transition: 0.4s ease;
     }
-    body.light .header{background: rgba(255,255,255,.78)}
-    body.light .nav-links a:hover{background: rgba(229,231,235,.85)}
-    body.light .chatbox, body.light .chart-wrap, body.light .iframe-wrap{background: rgba(243,244,246,.9)}
-    body.light .bubble{background: rgba(255,255,255,.9)}
-    body.light .hero-card{background: rgba(255,255,255,.86)}
 
-    /* Responsive */
-    @media (max-width: 980px){
-      .hero-grid{grid-template-columns:1fr}
-      .grid-3{grid-template-columns:1fr}
-      .grid-2{grid-template-columns:1fr}
-      .media-grid{grid-template-columns:1fr}
+    .hero-card:hover {
+      transform: translateY(-6px) rotateX(6deg) rotateY(-4deg);
+      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.98);
     }
-    @media (max-width: 780px){
-      .nav-toggle{display:block}
-      .nav-links{
-        position:absolute; top:56px; left:4%; right:4%;
-        background: rgba(2,6,23,.96);
-        border:1px solid var(--border);
-        border-radius:14px;
-        padding:10px;
-        display:flex;
-        flex-direction:column;
-        gap:6px;
-        transform-origin: top;
-        transform: scaleY(.65);
-        opacity:0;
-        pointer-events:none;
-        transition: all .18s ease;
+
+    .hero-thumb {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(34, 197, 94, 0.7);
+      margin-bottom: 10px;
+      position: relative;
+      padding-top: 70%;
+      background: #020617;
+    }
+
+    .hero-thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.06);
+      transition: 0.85s;
+    }
+
+    .hero-thumb:hover img {
+      transform: scale(1.14);
+    }
+
+    .hero-thumb::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background-image: repeating-linear-gradient(
+        120deg,
+        rgba(56, 189, 248, 0) 0,
+        rgba(56, 189, 248, 0.9) 3px,
+        rgba(56, 189, 248, 0) 6px
+      );
+      opacity: 0.45;
+      mix-blend-mode: screen;
+      animation: heroScan 8s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero-thumb::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(34, 197, 94, 0.3), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.3), transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.6;
+      animation: heroGlow 16s linear infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes heroScan {
+      0% { transform: translateX(-80px); }
+      100% { transform: translateX(80px); }
+    }
+
+    @keyframes heroGlow {
+      0% { transform: translate(-10px, -10px) rotate(0deg); }
+      100% { transform: translate(10px, 10px) rotate(18deg); }
+    }
+
+    .hero-pulse {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(8, 47, 73, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #a7f3d0;
+      font-size: 0.7rem;
+      box-shadow: 0 0 16px rgba(34, 197, 94, 0.9);
+      z-index: 3;
+      animation: heroPulse 5s ease-in-out infinite;
+    }
+
+    .hero-pulse-1 { top: 18%; left: 14%; animation-delay: 0s; }
+    .hero-pulse-2 { bottom: 18%; right: 14%; animation-delay: 1s; }
+    .hero-pulse-3 { top: 50%; right: 24%; animation-delay: 2s; }
+
+    @keyframes heroPulse {
+      0% { transform: translateY(0) scale(0.9); opacity: 0.6; }
+      50% { transform: translateY(-4px) scale(1.08); opacity: 1; }
+      100% { transform: translateY(0) scale(0.9); opacity: 0.6; }
+    }
+
+    .hero-badge-strip {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(2, 6, 23, 0.94);
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #e5e7eb;
+      z-index: 2;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .hero-chip {
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(34, 197, 94, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+    }
+
+    @media (max-width: 960px) {
+      .hero-left,
+      .hero-right {
+        transform: none;
       }
-      .nav-links.show{
-        opacity:1;
-        transform: scaleY(1);
-        pointer-events:auto;
+      .hero {
+        padding-top: 95px;
+      }
+    }
+
+    /* SECTION HEADER + GRID ----------------------------------------------- */
+    .section-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 30px;
+    }
+
+    .section-head h2 {
+      font-size: 2rem;
+      margin-bottom: 4px;
+    }
+
+    .section-head span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @media (max-width: 960px) {
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(6, 95, 70, 0.65), rgba(2, 6, 23, 0.98));
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      padding: 18px;
+      box-shadow:
+        0 18px 40px rgba(7, 0, 33, 0.95),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      transition: 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    body.theme-blue .card {
+      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.7), #020617);
+    }
+
+    body.theme-pink .card {
+      background: radial-gradient(circle at top left, rgba(147, 51, 234, 0.7), #020617);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(34, 197, 94, 0.15), transparent 55%);
+      opacity: 0;
+      transition: 0.3s;
+      pointer-events: none;
+    }
+
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) rotate3d(1, -1, 0, 6deg);
+      box-shadow:
+        0 26px 70px rgba(0, 0, 0, 0.98),
+        0 0 0 1px rgba(148, 163, 184, 0.6);
+    }
+
+    .card i {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: var(--accent);
+      transition: 0.3s;
+      z-index: 1;
+    }
+
+    .card:hover i {
+      transform: translateY(-3px) scale(1.05);
+      color: var(--accent2);
+    }
+
+    .card h3 {
+      font-size: 1.02rem;
+      margin-bottom: 6px;
+      z-index: 1;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      z-index: 1;
+    }
+
+    .tagline {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+      z-index: 1;
+    }
+
+    /* LOOP / MEDIA PANELS ------------------------------------------------- */
+    .loop-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loop-card .loop-bg {
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(
+        from 200deg,
+        rgba(34, 197, 94, 0),
+        rgba(34, 197, 94, 0.4),
+        rgba(56, 189, 248, 0.4),
+        rgba(236, 72, 153, 0.4),
+        rgba(34, 197, 94, 0)
+      );
+      filter: blur(26px);
+      opacity: 0.95;
+      animation: loopSpin 20s linear infinite;
+    }
+
+    @keyframes loopSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loop-card .overlay-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .image-card {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #064e3b;
+      background: #020617;
+      margin-bottom: 10px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .image-card img {
+      width: 100%;
+      display: block;
+      transition: 0.5s;
+    }
+
+    .image-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .image-card.media-anim::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background-image: repeating-linear-gradient(
+        135deg,
+        rgba(56, 189, 248, 0) 0,
+        rgba(56, 189, 248, 0.9) 3px,
+        rgba(56, 189, 248, 0) 6px
+      );
+      opacity: 0.5;
+      mix-blend-mode: screen;
+      animation: mediaScan 6s linear infinite;
+      pointer-events: none;
+    }
+
+    .image-card.media-anim::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.4);
+      border-radius: 16px;
+      opacity: 0.8;
+      animation: mediaBorderPulse 5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes mediaScan {
+      0% { transform: translateX(-80px); }
+      100% { transform: translateX(80px); }
+    }
+
+    @keyframes mediaBorderPulse {
+      0% { box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.3); }
+      50% { box-shadow: inset 0 0 0 3px rgba(34, 197, 94, 0.9); }
+      100% { box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.3); }
+    }
+
+    .video-wrap {
+      position: relative;
+      padding-top: 56.25%;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+      border: 1px solid #064e3b;
+      background: #020617;
+      z-index: 1;
+    }
+
+    /* animated cyber panels */
+    .video-wrap.loop-bg-box {
+      background: linear-gradient(135deg, #22c55e, #22d3ee, #a855f7, #22c55e);
+      background-size: 260% 260%;
+      animation: bgPulseStrong 4.8s ease-in-out infinite alternate;
+    }
+
+    .video-wrap.loop-bg-box::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background: conic-gradient(
+        from 140deg,
+        rgba(34, 197, 94, 0),
+        rgba(34, 197, 94, 0.65),
+        rgba(56, 189, 248, 0.7),
+        rgba(168, 85, 247, 0.7),
+        rgba(34, 197, 94, 0)
+      );
+      opacity: 0.8;
+      mix-blend-mode: screen;
+      animation: loopSpin 14s linear infinite;
+    }
+
+    .video-wrap.loop-bg-box::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 60%);
+      mix-blend-mode: screen;
+    }
+
+    .video-wrap.loop-lines {
+      background: #020617;
+    }
+
+    .video-wrap.loop-lines::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background-image: repeating-linear-gradient(
+        135deg,
+        rgba(56, 189, 248, 0) 0,
+        rgba(56, 189, 248, 0.85) 3px,
+        rgba(56, 189, 248, 0) 6px
+      );
+      opacity: 0.95;
+      animation: scanLines 2.6s linear infinite;
+    }
+
+    .video-wrap.loop-lines::after {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border-radius: 18px;
+      box-shadow:
+        0 0 24px rgba(34, 197, 94, 0.6),
+        0 0 36px rgba(56, 189, 248, 0.5);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    @keyframes bgPulseStrong {
+      0% { background-position: 0 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0 50%; }
+    }
+
+    @keyframes scanLines {
+      0% { transform: translateX(-60px); }
+      100% { transform: translateX(60px); }
+    }
+
+    .video-illustration {
+      position: absolute;
+      inset: 12%;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .video-illustration svg {
+      width: 80%;
+      max-width: 260px;
+      animation: floatPanelImg 4.2s ease-in-out infinite alternate;
+      filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.8));
+    }
+
+    .video-illustration.second svg {
+      animation: floatPanelImg 4.8s ease-in-out infinite alternate, pulseGlow 3.2s ease-in-out infinite;
+    }
+
+    .video-illustration.third svg {
+      animation: floatPanelImg 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatPanelImg {
+      0% { transform: translateY(6px) scale(1); }
+      100% { transform: translateY(-6px) scale(1.03); }
+    }
+
+    @keyframes pulseGlow {
+      0% { filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.4)); }
+      100% { filter: drop-shadow(0 0 22px rgba(34, 197, 94, 0.9)); }
+    }
+
+    .media-card {
+      animation: mediaFloat 7s ease-in-out infinite alternate;
+    }
+
+    .media-card:nth-child(2) {
+      animation-duration: 8s;
+    }
+
+    .media-card:nth-child(3) {
+      animation-duration: 9s;
+    }
+
+    @keyframes mediaFloat {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-6px); }
+    }
+
+    /* STATS BAR ----------------------------------------------------------- */
+    .stats {
+      background: radial-gradient(circle at top, #022c22, #020617);
+      border-block: 1px solid #111827;
+    }
+
+    body.theme-blue .stats {
+      background: radial-gradient(circle at top, #0f172a, #020617);
+    }
+
+    body.theme-pink .stats {
+      background: radial-gradient(circle at top, #312e81, #020617);
+    }
+
+    .stat-row {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 7%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat h3 {
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 2px;
+    }
+
+    .stat p {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 720px) {
+      .stat-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* SURVEY -------------------------------------------------------------- */
+    .survey-frame {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid #064e3b;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+      background: #020617;
+    }
+
+    .survey-frame iframe {
+      width: 100%;
+      height: 900px;
+      border: none;
+    }
+
+    .poll-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+    }
+
+    .poll-option {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      cursor: pointer;
+      color: var(--muted);
+      background: #020617;
+      transition: 0.2s;
+    }
+
+    .poll-option.active {
+      border-color: var(--accent2);
+      background: rgba(34, 197, 94, 0.16);
+      color: #e0f2fe;
+    }
+
+    /* CHATBOT / FORUM ----------------------------------------------------- */
+    .chat-window,
+    .forum-window {
+      background: #020617;
+      border-radius: 16px;
+      border: 1px solid #064e3b;
+      padding: 12px;
+      height: 260px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+    }
+
+    .chat-messages,
+    .forum-messages {
+      flex: 1;
+      overflow-y: auto;
+      font-size: 0.82rem;
+      margin-bottom: 8px;
+    }
+
+    .msg-bot,
+    .msg-user {
+      margin-bottom: 6px;
+      padding: 6px 9px;
+      border-radius: 10px;
+    }
+
+    .msg-bot {
+      background: #111827;
+      color: #e5e7eb;
+      align-self: flex-start;
+    }
+
+    .msg-user {
+      background: #1f2937;
+      color: #e5e7eb;
+      align-self: flex-end;
+    }
+
+    .chat-input-row input,
+    .forum-input-row input {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: #e5e7eb;
+      padding: 7px 10px;
+      font-size: 0.82rem;
+      outline: none;
+    }
+
+    .chat-input-row,
+    .forum-input-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .chat-input-row button,
+    .forum-input-row button {
+      border-radius: 999px;
+      border: none;
+      padding: 7px 10px;
+      background: var(--accent);
+      color: #020617;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .resource-list {
+      list-style: none;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .resource-list li {
+      margin-bottom: 6px;
+    }
+
+    .resource-list li a {
+      color: #6ee7b7;
+    }
+
+    footer {
+      padding: 16px 7% 20px;
+      border-top: 1px solid #111827;
+      background: #020617;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer b {
+      color: #e5e7eb;
+    }
+
+    /* REVEAL + BACK HOME -------------------------------------------------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 0.7s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 {
+      transition-delay: 0.12s;
+    }
+
+    .delay-2 {
+      transition-delay: 0.22s;
+    }
+
+    .delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    #backHomeBtn {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: none;
+      background: conic-gradient(
+        from 200deg,
+        var(--accent),
+        var(--accent3),
+        var(--accent2),
+        var(--accent)
+      );
+      color: #020617;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 18px 40px rgba(7, 0, 33, 0.95);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s;
+      z-index: 1200;
+    }
+
+    #backHomeBtn span {
+      position: absolute;
+      right: 52px;
+      background: #020617;
+      color: var(--text);
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid #064e3b;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(8px);
+      transition: 0.2s;
+    }
+
+    #backHomeBtn.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #backHomeBtn:hover {
+      transform: translateY(-3px);
+    }
+
+    #backHomeBtn:hover span {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @media (max-width: 640px) {
+      section {
+        padding-inline: 5%;
+      }
+      .stat-row {
+        padding-inline: 5%;
       }
     }
   </style>
 </head>
 <body>
-  <div class="progress" id="progress"></div>
-
-  <!-- HEADER -->
-  <header class="header">
-    <div class="container nav">
-      <div class="brand">
-        <span class="brand-dot"></span>
-        <div>
-          Protecting the Force
-          <small>Cybersecurity Strategies for Police</small>
-        </div>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fa-solid fa-shield-halved"></i>
       </div>
-
-      <nav class="nav-links" id="navLinks">
-        <a href="#home">Home</a>
-        <a href="#research">Research</a>
-        <a href="#tips">Awareness</a>
-        <a href="#survey">Survey</a>
-        <a href="#media">Media</a>
-        <a href="#chatbot">Chatbot</a>
-        <a href="#forum">Forum</a>
-        <a href="#resources">Resources</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <div class="nav-actions">
-        <button class="btn-outline" id="themeToggle" type="button">Dark</button>
-        <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu">☰</button>
+      <div class="logo-text-main">
+        <span>Protecting the Force</span>
+        <span>Cyber Awareness</span>
       </div>
     </div>
-  </header>
 
-  <!-- HERO -->
-  <section id="home" class="hero">
-    <div class="hero-bg"></div>
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
-
-    <div class="container hero-grid">
-      <div class="reveal">
-        <div class="tag"><span class="dot"></span> M.D.G.C College of Commerce • SyBSC IT • 2026</div>
-        <h1>Protecting the Force:<br><span class="hl">Cybersecurity Strategies for Police</span></h1>
-        <p class="subtitle">
-          A professional awareness platform designed to educate police personnel and the community about
-          common cyber threats, safe practices, and quick incident-response actions.
-        </p>
-
-        <div class="hero-actions">
-          <a class="btn-primary" href="#research">View Research Findings</a>
-          <a class="btn-ghost" href="#survey">Open Survey</a>
-        </div>
-
-        <div class="meta">
-          <div class="chip">
-            <span class="k">Student</span>
-            <span class="v">Afaque Ansari</span>
-          </div>
-          <div class="chip">
-            <span class="k">Department</span>
-            <span class="v">SyBSC IT</span>
-          </div>
-          <div class="chip">
-            <span class="k">College</span>
-            <span class="v">M.D.G.C College of Commerce</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-card reveal delay">
-        <div class="illus" aria-hidden="true">
-          <!-- Inline professional illustration (no external image needed) -->
-          <svg viewBox="0 0 900 260" width="100%" height="auto">
-            <defs>
-              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#3b82f6" stop-opacity="0.9"/>
-                <stop offset="1" stop-color="#8b5cf6" stop-opacity="0.85"/>
-              </linearGradient>
-              <radialGradient id="glow" cx="40%" cy="30%" r="70%">
-                <stop offset="0" stop-color="#3b82f6" stop-opacity="0.45"/>
-                <stop offset="1" stop-color="#000000" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-
-            <rect x="0" y="0" width="900" height="260" rx="18" fill="rgba(2,6,23,0.25)"/>
-            <circle cx="210" cy="120" r="120" fill="url(#glow)"/>
-            <circle cx="750" cy="60" r="130" fill="rgba(139,92,246,0.12)"/>
-
-            <!-- Shield -->
-            <path d="M180 45 L300 75 L300 150 C300 200 240 230 180 245 C120 230 60 200 60 150 L60 75 Z"
-                  fill="url(#g1)" opacity="0.95"/>
-            <path d="M180 70 L270 92 L270 150 C270 185 225 205 180 216 C135 205 90 185 90 150 L90 92 Z"
-                  fill="rgba(15,23,42,0.55)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
-
-            <!-- Lock -->
-            <rect x="155" y="118" width="50" height="52" rx="10" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.18)"/>
-            <path d="M167 118 v-10 c0-10 6-18 13-18 s13 8 13 18 v10" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="6" stroke-linecap="round"/>
-            <circle cx="180" cy="143" r="6" fill="rgba(255,255,255,0.55)"/>
-
-            <!-- Badge / star -->
-            <g transform="translate(420,60)">
-              <circle cx="0" cy="0" r="68" fill="rgba(59,130,246,0.14)" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
-              <path d="M0,-40 L10,-10 L40,0 L10,10 L0,40 L-10,10 L-40,0 L-10,-10 Z"
-                    fill="url(#g1)"/>
-              <circle cx="0" cy="0" r="10" fill="rgba(15,23,42,0.6)"/>
-            </g>
-
-            <!-- Text -->
-            <text x="520" y="118" fill="rgba(255,255,255,0.92)" font-size="34" font-family="system-ui" font-weight="800">
-              Cyber Hygiene for Police
-            </text>
-            <text x="520" y="154" fill="rgba(156,163,175,0.95)" font-size="18" font-family="system-ui" font-weight="600">
-              Phishing • MFA • Secure Devices • Incident Reporting
-            </text>
-
-            <!-- Decorative nodes -->
-            <g opacity="0.65">
-              <circle cx="620" cy="60" r="6" fill="#3b82f6"/>
-              <circle cx="700" cy="210" r="6" fill="#8b5cf6"/>
-              <circle cx="820" cy="160" r="6" fill="#22c55e"/>
-              <path d="M620 60 L820 160" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
-              <path d="M700 210 L820 160" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
-            </g>
-          </svg>
-        </div>
-
-        <h2>Quick Snapshot</h2>
-        <p class="muted">
-          Cyber threats like phishing, ransomware, social engineering and data leaks can impact police operations,
-          investigations and personal safety. This site converts research into practical awareness.
-        </p>
-        <ul class="hero-list">
-          <li>✔ Threat awareness + prevention checklists</li>
-          <li>✔ Survey + charts + media + chatbot</li>
-          <li>✔ Community discussion for shared learning</li>
-        </ul>
-        <div class="pills">
-          <span class="pill">Status: Ready</span>
-          <span class="pill soft">Version 1.0</span>
-        </div>
+    <div class="nav-center">
+      <div class="nav-links" id="navLinks">
+        <a href="#home">1. Home</a>
+        <a href="#research">2. Research</a>
+        <a href="#awareness">3. Awareness Tips</a>
+        <a href="#survey">4. Survey</a>
+        <a href="#media">5. Media</a>
+        <a href="#chatbot">6. Chatbot</a>
+        <a href="#forum">7. Forum</a>
+        <a href="#resources">8. Resources</a>
+        <a href="#contact">9. Contact</a>
       </div>
     </div>
-  </section>
 
-  <!-- HOME CONTENT -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head reveal">
-        <h2>Home</h2>
+    <div class="nav-right">
+      <button class="nav-theme-btn" id="themeToggle">
+        <i id="themeIcon" class="fa-solid fa-sun"></i>
+        <span id="themeLabel">Green</span>
+      </button>
+
+      <button
+        class="nav-cta"
+        onclick="document.getElementById('survey').scrollIntoView({behavior:'smooth'})"
+      >
+        <i class="fa-solid fa-list-check"></i> Take Survey
+      </button>
+
+      <button class="nav-toggle" id="navToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 1. HOME ------------------------------------------------------------- -->
+  <section class="hero" id="home">
+    <div class="hero-bg-img"></div>
+    <div class="hero-inner">
+      <div class="hero-left reveal">
+        <div class="hero-tag">
+          <span class="hero-dot"></span>
+          1. Home – Introduction • Objectives • Scope
+        </div>
+        <h1>
+          Protecting the Force:<br />
+          <span>Cybersecurity Strategies for Police</span>
+        </h1>
         <p>
-          This section defines and elaborates the topic according to community awareness: purpose,
-          objectives and scope of awareness for police and citizens.
+          A structured awareness website designed to educate police personnel and
+          citizens about cyber threats, safe practices and secure digital policing.
+        </p>
+        <div class="hero-buttons">
+          <button
+            class="btn-primary"
+            onclick="document.getElementById('research').scrollIntoView({behavior:'smooth'})"
+          >
+            Go to Research (2)
+          </button>
+          <button
+            class="btn-secondary"
+            onclick="document.getElementById('awareness').scrollIntoView({behavior:'smooth'})"
+          >
+            Awareness Tips (3)
+          </button>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-pill"><b>Student:</b> Afaque Ansari</div>
+          <div class="meta-pill"><b>Dept:</b> SyBSC IT</div>
+          <div class="meta-pill"><b>College:</b> M.D.G.C College of Commerce</div>
+        </div>
+      </div>
+
+      <div class="hero-right reveal delay-1">
+        <div class="hero-card">
+          <div class="hero-thumb">
+            <img
+              src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+              alt="Cybersecurity command center"
+            />
+            <div class="hero-pulse hero-pulse-1">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div class="hero-pulse hero-pulse-2">
+              <i class="fa-solid fa-wifi"></i>
+            </div>
+            <div class="hero-pulse hero-pulse-3">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="hero-badge-strip">
+              <i class="fa-solid fa-microchip"></i> AI-Assisted Cyber Command
+            </div>
+          </div>
+          <p style="font-size:0.85rem;color:var(--muted);">
+            <b>Introduction:</b> Modern police forces rely on AI-driven monitoring and
+            secure digital systems to track cyber threats in real time.
+          </p>
+          <div class="hero-badges">
+            <div class="hero-chip">
+              <i class="fa-solid fa-bullseye"></i> Objectives
+            </div>
+            <div class="hero-chip">
+              <i class="fa-solid fa-earth-americas"></i> Scope of Awareness
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR ----------------------------------------------------------- -->
+  <div class="stats">
+    <div class="stat-row">
+      <div class="stat">
+        <h3>24×7</h3>
+        <p>Monitoring of cyber incidents</p>
+      </div>
+      <div class="stat">
+        <h3>AI</h3>
+        <p>Used for threat detection &amp; alerts</p>
+      </div>
+      <div class="stat">
+        <h3>100%</h3>
+        <p>Focus on secure digital policing</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. RESEARCH FINDINGS ------------------------------------------------ -->
+  <section id="research">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>2. Research Findings</span></h2>
+        <p>
+          Summary of survey responses, key insights and visual representation of
+          cybersecurity awareness levels in the target group.
         </p>
       </div>
 
-      <div class="grid-3">
+      <div class="grid grid-2">
+        <!-- Summary -->
         <div class="card reveal">
-          <h3>Introduction / Purpose</h3>
-          <p class="muted">
-            Build cyber awareness for police personnel by highlighting threats, safe digital behaviour,
-            and incident-response fundamentals — for both official and personal device usage.
+          <div class="tagline">ABSTRACT / SUMMARY</div>
+          <i class="fa-solid fa-file-lines"></i>
+          <h3>Overall Awareness</h3>
+          <p>
+            Majority respondents show basic knowledge of passwords and device safety,
+            but advanced topics like phishing, data backup and incident reporting are
+            still under-practiced.
           </p>
         </div>
 
-        <div class="card reveal">
-          <h3>Objectives</h3>
-          <ul class="list">
-            <li>Educate about phishing, malware and social engineering.</li>
-            <li>Promote MFA, strong passwords and secure communication.</li>
-            <li>Encourage timely reporting and basic incident response steps.</li>
-            <li>Support awareness campaigns with reusable learning material.</li>
-          </ul>
-        </div>
-
-        <div class="card reveal">
-          <h3>Scope of Awareness</h3>
-          <ul class="list">
-            <li>Target audience: police staff + general public.</li>
-            <li>Focus: digital hygiene, safe devices, data protection.</li>
-            <li>Content: guides, case studies, survey, media, forum.</li>
-            <li>Outcome: reduced cyber risk through awareness.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RESEARCH FINDINGS -->
-  <section id="research" class="section alt">
-    <div class="container">
-      <div class="section-head reveal">
-        <h2>Research Findings</h2>
-        <p>Abstract/summary, charts & graphs, key insights, and downloadable full research paper.</p>
-      </div>
-
-      <div class="grid-2">
-        <div class="card reveal">
-          <h3>Summary</h3>
-          <p class="muted">
-            The research highlights common cyber risks affecting police and the community such as phishing,
-            weak authentication, device compromise, and data leakage. It emphasizes training, secure practices,
-            and fast reporting to reduce operational impact.
+        <!-- Charts -->
+        <div class="card reveal delay-1">
+          <div class="tagline">CHARTS &amp; GRAPHS</div>
+          <i class="fa-solid fa-chart-column"></i>
+          <h3>Visualised Results</h3>
+          <p>
+            Bar and pie charts can show awareness level by age group, device usage,
+            training received and preferred reporting channel (phone, portal, cyber cell).
           </p>
-
-          <div class="mini">Key Insights</div>
-          <ul class="list">
-            <li>Most common entry point: phishing and impersonation.</li>
-            <li>Weak passwords + no MFA increases account takeover risk.</li>
-            <li>Updates and device hygiene reduce malware incidents.</li>
-            <li>Clear reporting steps reduce damage and response time.</li>
-          </ul>
-
-          <div class="actions">
-            <a class="btn-primary" href="research-paper.pdf" download>Download Full Research Paper</a>
-            <button class="btn-ghost" id="swapCharts" type="button">Switch Chart View</button>
-          </div>
-          <p class="tiny muted">Tip: Put your report PDF in the same folder as this file and name it <b>research-paper.pdf</b>.</p>
         </div>
 
-        <div class="card reveal">
-          <h3>Charts & Graphs</h3>
-          <p class="muted">Canvas-based charts (no external libraries). Replace values with your survey later.</p>
-          <div class="chart-wrap">
-            <canvas id="chartCanvas" width="900" height="520"></canvas>
-          </div>
-          <div class="legend" id="chartLegend"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- AWARENESS TIPS -->
-  <section id="tips" class="section">
-    <div class="container">
-      <div class="section-head reveal">
-        <h2>Awareness Tips</h2>
-        <p>Do’s & Don’ts, step-by-step guides, safety practices, and real-life stories/case studies.</p>
-      </div>
-
-      <div class="grid-3">
-        <div class="card reveal">
-          <h3>Do’s</h3>
-          <ul class="list">
-            <li>Enable MFA on official accounts.</li>
-            <li>Verify sender identity before clicking links.</li>
-            <li>Update OS/apps and use approved security tools.</li>
-            <li>Use official channels for sensitive communication.</li>
-          </ul>
+        <!-- Key insights -->
+        <div class="card reveal delay-2">
+          <div class="tagline">KEY INSIGHTS</div>
+          <i class="fa-solid fa-lightbulb"></i>
+          <h3>Common Gaps</h3>
+          <p>
+            Weak passwords used on multiple sites, delayed reporting and lack of
+            verification of unknown links are identified as major gaps.
+          </p>
         </div>
 
-        <div class="card reveal">
-          <h3>Don’ts</h3>
-          <ul class="list">
-            <li>Don’t share OTP/passwords or case details on chat apps.</li>
-            <li>Don’t install apps from unknown sources.</li>
-            <li>Don’t use public Wi-Fi for confidential tasks.</li>
-            <li>Don’t ignore security alerts/suspicious logins.</li>
-          </ul>
-        </div>
-
-        <div class="card reveal">
-          <h3>Safety Practices</h3>
-          <ul class="list">
-            <li>Separate personal vs official device usage.</li>
-            <li>Lock screen + auto timeout on devices.</li>
-            <li>Use backups where policy allows.</li>
-            <li>Report incidents immediately.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="grid-2 mt">
-        <div class="card reveal">
-          <h3>Step-by-Step Guides</h3>
-          <div class="accordion">
-            <button class="acc-btn" type="button" data-acc="a1">How to identify a phishing message</button>
-            <div class="acc-panel" id="a1">
-              <ol class="steps">
-                <li>Check sender domain carefully (typos are common).</li>
-                <li>Hover on links to preview real URL.</li>
-                <li>Look for urgency/threat language.</li>
-                <li>Verify via official contact method.</li>
-                <li>Report to IT/cyber cell; do not forward to others.</li>
-              </ol>
-            </div>
-
-            <button class="acc-btn" type="button" data-acc="a2">How to secure your phone used for duty</button>
-            <div class="acc-panel" id="a2">
-              <ol class="steps">
-                <li>Update OS/apps; remove unused apps.</li>
-                <li>Enable PIN/biometric + auto-lock.</li>
-                <li>Disable unnecessary permissions.</li>
-                <li>Enable MFA for email and official apps.</li>
-                <li>Turn off Bluetooth/NFC when not needed.</li>
-              </ol>
-            </div>
-
-            <button class="acc-btn" type="button" data-acc="a3">If you suspect compromise (quick response)</button>
-            <div class="acc-panel" id="a3">
-              <ol class="steps">
-                <li>Disconnect from network (if possible).</li>
-                <li>Inform supervisor/IT/cyber cell immediately.</li>
-                <li>Change passwords from a clean device + revoke sessions.</li>
-                <li>Preserve evidence (screenshots/logs) as per policy.</li>
-                <li>Follow incident response procedures.</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <h3>Real-Life Stories / Case Studies</h3>
-          <div class="case">
-            <h4>Case Study 1: Spear-Phishing on Official Email</h4>
-            <p class="muted">Attacker impersonated a vendor and requested urgent document access.</p>
-            <p><b>Lesson:</b> Verify requests via trusted channel; use MFA & link scanning.</p>
-          </div>
-          <div class="case">
-            <h4>Case Study 2: Unknown App Compromised a Phone</h4>
-            <p class="muted">Sideloaded app captured messages and enabled account takeover.</p>
-            <p><b>Lesson:</b> Install only approved apps; keep device patched and locked.</p>
-          </div>
+        <!-- Download paper -->
+        <div class="card reveal delay-3">
+          <div class="tagline">DOWNLOAD FULL RESEARCH PAPER</div>
+          <i class="fa-solid fa-file-pdf"></i>
+          <h3>Full Research Paper</h3>
+          <p>
+            Final field project report (PDF) with watermark, header–footer, methodology,
+            analysis and recommendations. <br />Place your file as
+            <b>research-paper.pdf</b> in the project folder and link it here.
+          </p>
+          <p style="margin-top:8px;">
+            <a href="research-paper.pdf" target="_blank"
+              ><i class="fa-solid fa-download"></i> Download research paper</a
+            >
+            (demo link)
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SURVEY / FEEDBACK -->
-  <section id="survey" class="section alt">
-    <div class="container">
-      <div class="section-head reveal">
-        <h2>Survey / Feedback</h2>
-        <p>Embedded Google Form + Quick Polls (Dynamic)</p>
+  <!-- 3. AWARENESS TIPS --------------------------------------------------- -->
+  <section id="awareness">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>3. Awareness Tips</span></h2>
+        <p>
+          Practical guidance for police personnel and citizens – do’s &amp; don’ts,
+          step-wise approach and real-life cybercrime stories.
+        </p>
       </div>
 
-      <div class="grid-2">
+      <div class="grid grid-2">
+        <!-- Do's & Don'ts -->
         <div class="card reveal">
-          <h3>Embedded Google Form</h3>
-          <p class="muted">Your Google Form is embedded below (working). Users can fill it inside the website.</p>
+          <div class="tagline">DO’S &amp; DON’TS</div>
+          <i class="fa-solid fa-shield-heart"></i>
+          <h3>Safe Digital Habits</h3>
+          <p>
+            <b>Do:</b> Use strong passwords, enable 2-factor authentication, verify links
+            before clicking, report suspicious messages to cyber cell. <br /><br />
+            <b>Don’t:</b> Share OTP / PIN, install unknown apps, respond to prize / KYC
+            messages or transfer money without verification.
+          </p>
+        </div>
 
-          <div class="iframe-wrap">
+        <!-- Step-by-step -->
+        <div class="card reveal delay-1">
+          <div class="tagline">STEP-BY-STEP GUIDES</div>
+          <i class="fa-solid fa-list-ol"></i>
+          <h3>Awareness Campaign Flow</h3>
+          <p>
+            Identify → Research → Plan → Create → Launch → Engage → Feedback → Improve.
+            Simple instructions explaining how to start a cyber awareness drive inside
+            a police station or community.
+          </p>
+        </div>
+
+        <!-- Safety practices -->
+        <div class="card reveal delay-2">
+          <div class="tagline">SAFETY PRACTICES</div>
+          <i class="fa-solid fa-user-shield"></i>
+          <h3>Safety Practices for Police</h3>
+          <p>
+            Use official email only, secure case files and evidence drives, lock screen
+            when leaving desk, never plug unknown USB devices and follow cyber hygiene
+            SOPs issued by the department.
+          </p>
+        </div>
+
+        <!-- Real-life case -->
+        <div class="card reveal delay-3">
+          <div class="tagline">REAL-LIFE STORIES / CASE STUDIES</div>
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <h3>UPI Fraud Case Study (Example)</h3>
+          <p>
+            A fraudster created a fake “customer care” number. The victim called,
+            shared OTP and lost money from account. <br /><br />
+            <b>Lesson:</b> Banks / police never ask for OTP. Victims must immediately
+            call helpline <b>1930</b> and file a complaint on the
+            <b>National Cyber Crime Portal</b>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. SURVEY / FEEDBACK ------------------------------------------------ -->
+  <section id="survey">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>4. Survey &amp; Feedback</span></h2>
+        <p>
+          Field project survey embedded using Google Form and a small quick poll for
+          instant classroom responses.
+        </p>
+      </div>
+
+      <div class="grid grid-2">
+        <!-- Google Form -->
+        <div class="card reveal">
+          <div class="tagline">EMBEDDED GOOGLE FORM</div>
+          <i class="fa-solid fa-square-poll-vertical"></i>
+          <h3>Field Project Survey</h3>
+          <p style="margin-bottom:10px;">
+            Students and officers can submit responses directly from this page.
+          </p>
+          <div class="survey-frame">
             <iframe
-              title="Cybersecurity Awareness Survey"
               src="https://docs.google.com/forms/d/e/1FAIpQLSdnWVOCL_QLaCjsYTSme2yrGTWFmmy_oADonJH9vuqQIxzoew/viewform?embedded=true"
-              width="100%"
-              height="900"
-              frameborder="0"
-              marginheight="0"
-              marginwidth="0">
-              Loading…
-            </iframe>
+              >Loading…</iframe
+            >
           </div>
-
-          <p class="tiny muted">If you want bigger height, change <b>height="900"</b> to 1100/1300.</p>
         </div>
 
-        <div class="card reveal">
-          <h3>Quick Polls (Dynamic)</h3>
-          <p class="muted">Vote and instantly see results (stored locally in the browser for demo).</p>
-
-          <div class="mini">Poll Question</div>
-          <p class="muted"><b>How confident are you in identifying phishing?</b></p>
-
+        <!-- Quick poll -->
+        <div class="card reveal delay-1">
+          <div class="tagline">QUICK POLLS (DYNAMIC)</div>
+          <i class="fa-solid fa-gauge-high"></i>
+          <h3>Instant Awareness Check</h3>
+          <p>
+            Select an answer to see a demo result. (Only front-end – no data stored.)
+          </p>
           <div class="poll-options">
-            <button class="btn-ghost poll-btn" data-choice="Very Confident" type="button">Very Confident</button>
-            <button class="btn-ghost poll-btn" data-choice="Somewhat Confident" type="button">Somewhat Confident</button>
-            <button class="btn-ghost poll-btn" data-choice="Not Confident" type="button">Not Confident</button>
+            <div class="poll-option">I always verify links before clicking</div>
+            <div class="poll-option">Sometimes I forget to check</div>
+            <div class="poll-option">I click without checking</div>
           </div>
-
-          <div class="poll-result" id="pollResult"></div>
-
-          <div class="actions">
-            <button class="btn-outline" id="resetPoll" type="button">Reset Poll</button>
-          </div>
+          <p id="pollResult" style="margin-top:10px;font-size:0.82rem;color:var(--muted);">
+            Choose one option to simulate poll result.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MEDIA GALLERY -->
-  <section id="media" class="section">
-    <div class="container">
-      <div class="section-head reveal">
-        <h2>Media Gallery</h2>
-        <p>Infographics, awareness posters, and videos/tutorials (placeholders — you can replace later).</p>
+  <!-- 5. MEDIA GALLERY ---------------------------------------------------- -->
+  <section id="media">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>5. Media Gallery</span></h2>
+        <p>
+          Infographics, awareness posters and animated cyber panels that support the
+          campaign.
+        </p>
       </div>
 
-      <div class="media-grid">
-        <div class="media-card reveal">
-          <div class="thumb">INFO</div>
-          <div class="media-body">
-            <h3>Phishing Red Flags</h3>
-            <p class="muted">Add infographic image / poster screenshot.</p>
-            <a class="btn-ghost" href="#survey">Open Survey</a>
-          </div>
-        </div>
-        <div class="media-card reveal">
-          <div class="thumb">POST</div>
-          <div class="media-body">
-            <h3>Password & MFA Poster</h3>
-            <p class="muted">Awareness poster for station noticeboard.</p>
-            <a class="btn-ghost" href="#tips">Open Tips</a>
-          </div>
-        </div>
-        <div class="media-card reveal">
-          <div class="thumb">VID</div>
-          <div class="media-body">
-            <h3>Secure Device Practices</h3>
-            <p class="muted">Embed YouTube / MP4 tutorial link.</p>
-            <a class="btn-ghost" href="#chatbot">Ask Chatbot</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CHATBOT -->
-  <section id="chatbot" class="section alt">
-    <div class="container">
-      <div class="section-head reveal">
-        <h2>Interactive Chatbot</h2>
-        <p>FAQs + Quick links to sections (rule-based for safe college demo).</p>
-      </div>
-
-      <div class="grid-2">
-        <div class="card reveal">
-          <h3>Quick Links</h3>
-          <div class="quick-links">
-            <button class="btn-ghost ql" data-link="#tips" type="button">Awareness Tips</button>
-            <button class="btn-ghost ql" data-link="#research" type="button">Research</button>
-            <button class="btn-ghost ql" data-link="#survey" type="button">Survey</button>
-            <button class="btn-ghost ql" data-link="#resources" type="button">Resources</button>
-          </div>
-
-          <div class="mini">FAQs</div>
-          <ul class="list">
-            <li>What is phishing?</li>
-            <li>How to report suspicious email?</li>
-            <li>What to do if device is hacked?</li>
-            <li>How to secure passwords/MFA?</li>
-          </ul>
-        </div>
-
-        <div class="card reveal">
-          <h3>Chat</h3>
-          <div class="chatbox" id="chatbox">
-            <div class="chat-msg bot"><div class="bubble">
-              Hi! I’m your cyber safety assistant. Ask about phishing, passwords, MFA, incident reporting, or device security.
-            </div></div>
-          </div>
-
-          <div class="chat-input">
-            <input id="chatInput" type="text" placeholder='Type: "What is phishing?"' />
-            <button class="btn-primary" id="sendChat" type="button">Send</button>
-          </div>
-          <p class="tiny muted">Tip: Use short questions for best responses.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FORUM -->
-  <section id="forum" class="section">
-    <div class="container">
-      <div class="section-head reveal">
-        <h2>Community Forum / Discussion</h2>
-        <p>Share experiences / ask questions (demo forum using localStorage).</p>
-      </div>
-
-      <div class="grid-2">
-        <div class="card reveal">
-          <h3>Post a Message</h3>
-          <form id="forumForm">
-            <div class="field">
-              <label for="fname">Name</label>
-              <input id="fname" type="text" placeholder="Your name" required />
+      <div class="grid grid-3">
+        <!-- Animation panel 1 -->
+        <div class="card media-card reveal">
+          <div class="tagline">CYBER ANIMATION PANEL (1)</div>
+          <div class="video-wrap loop-bg-box">
+            <div class="video-illustration">
+              <!-- Simple SVG illustration -->
+              <svg viewBox="0 0 200 200">
+                <defs>
+                  <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#22c55e" />
+                    <stop offset="50%" stop-color="#22d3ee" />
+                    <stop offset="100%" stop-color="#a855f7" />
+                  </linearGradient>
+                </defs>
+                <rect
+                  x="35"
+                  y="40"
+                  width="130"
+                  height="90"
+                  rx="16"
+                  ry="16"
+                  fill="#020617"
+                  stroke="url(#grad1)"
+                  stroke-width="4"
+                />
+                <circle cx="65" cy="70" r="11" fill="#22c55e" />
+                <rect x="90" y="62" width="55" height="8" rx="4" fill="#22d3ee" />
+                <rect x="50" y="95" width="90" height="9" rx="4" fill="#0f172a" />
+                <rect x="65" y="125" width="70" height="10" rx="5" fill="url(#grad1)" />
+              </svg>
             </div>
-            <div class="field">
-              <label for="fmsg">Message</label>
-              <textarea id="fmsg" rows="4" placeholder="Share an experience or ask a question..." required></textarea>
-            </div>
-            <button class="btn-primary" type="submit" style="width:100%;">Post</button>
-            <p class="tiny muted" id="forumStatus" style="min-height:18px;margin-top:8px;"></p>
-          </form>
+          </div>
+          <p style="font-size:0.85rem;margin-top:10px;">
+            Live cyber-attack simulation animation – works like a moving banner instead
+            of a video.
+          </p>
+        </div>
 
-          <div class="actions">
-            <button class="btn-outline" id="clearForum" type="button">Clear All (Local)</button>
+        <!-- Animation panel 2 -->
+        <div class="card media-card reveal delay-1">
+          <div class="tagline">CYBER ANIMATION PANEL (2)</div>
+          <div class="video-wrap loop-lines">
+            <div class="video-illustration second">
+              <svg viewBox="0 0 200 200">
+                <defs>
+                  <linearGradient id="grad2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#22d3ee" />
+                    <stop offset="100%" stop-color="#22c55e" />
+                  </linearGradient>
+                </defs>
+                <circle cx="100" cy="80" r="38" fill="#020617" stroke="url(#grad2)" stroke-width="4" />
+                <path
+                  d="M80 80 L96 96 L122 64"
+                  stroke="#22c55e"
+                  stroke-width="5"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <rect x="60" y="130" width="80" height="12" rx="6" fill="#0f172a" />
+                <rect x="75" y="130" width="50" height="12" rx="6" fill="#22c55e" />
+              </svg>
+            </div>
+          </div>
+          <p style="font-size:0.85rem;margin-top:10px;">
+            Data security &amp; encryption loop animation – symbolises secure records
+            and case-files.
+          </p>
+        </div>
+
+        <!-- Poster / static image -->
+        <div class="card media-card reveal delay-2">
+          <div class="tagline">AWARENESS POSTER (PRINTABLE)</div>
+          <div class="image-card media-anim">
+            <img
+              src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1000&q=80"
+              alt="Cyber awareness poster"
+            />
+          </div>
+          <p style="font-size:0.85rem;">
+            Posters can be printed and displayed at police stations and training
+            centres to remind staff about safe digital behaviour.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. INTERACTIVE CHATBOT ---------------------------------------------- -->
+  <section id="chatbot">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>6. Interactive Chatbot</span></h2>
+        <p>
+          Simple FAQ-style chatbot that answers common questions and gives quick links
+          to important sections of the website.
+        </p>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="chat-window reveal">
+          <div class="tagline">FAQ CHATBOT (DEMO)</div>
+          <div class="chat-messages" id="chatMessages">
+            <div class="msg-bot">
+              <b>Bot:</b> Namaste! I can help with basic cyber safety questions for police
+              and citizens. Type your doubt below.
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <input
+              type="text"
+              id="chatInput"
+              placeholder="Example: Someone is asking for my OTP on call – what should I do?"
+            />
+            <button onclick="fakeChat()">Send</button>
           </div>
         </div>
 
-        <div class="card reveal">
-          <h3>Recent Posts</h3>
-          <div class="posts" id="posts"></div>
-          <p class="tiny muted">Posts are stored only in this browser (demo).</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RESOURCES -->
-  <section id="resources" class="section alt">
-    <div class="container">
-      <div class="section-head reveal">
-        <h2>Resources / Links</h2>
-        <p>Government portals, helplines, and learning resources (add official links later).</p>
-      </div>
-
-      <div class="grid-3">
-        <div class="card reveal">
-          <h3>Government Portals</h3>
-          <ul class="list">
-            <li>National Cyber Crime Reporting Portal (add link)</li>
-            <li>CERT-In Advisories (add link)</li>
-            <li>State Cyber Cell Portal (add link)</li>
-          </ul>
-        </div>
-
-        <div class="card reveal">
-          <h3>Helplines</h3>
-          <ul class="list">
-            <li>Emergency: <b>112</b></li>
-            <li>Police: <b>100</b></li>
-            <li>Cyber helpdesk: <b>As per department</b></li>
-          </ul>
-        </div>
-
-        <div class="card reveal">
-          <h3>Learning Resources</h3>
-          <ul class="list">
-            <li>Password & MFA basics</li>
-            <li>Phishing awareness guides</li>
-            <li>Incident reporting checklist</li>
+        <div class="card reveal delay-1">
+          <div class="tagline">QUICK LINKS</div>
+          <i class="fa-solid fa-link"></i>
+          <h3>Go directly to sections</h3>
+          <p style="margin-bottom:10px;">
+            Frequently used shortcuts for users accessing the website from mobile.
+          </p>
+          <ul class="resource-list">
+            <li>
+              <a href="#awareness"><i class="fa-solid fa-arrow-right"></i> Awareness Tips –
+                Do’s &amp; Don’ts</a>
+            </li>
+            <li>
+              <a href="#survey"><i class="fa-solid fa-arrow-right"></i> Online Survey / Feedback Form</a>
+            </li>
+            <li>
+              <a href="#media"><i class="fa-solid fa-arrow-right"></i> Media Gallery – Posters &amp; Panels</a>
+            </li>
+            <li>
+              <a href="#resources"><i class="fa-solid fa-arrow-right"></i> Official Government Portals &amp; Helplines</a>
+            </li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="section">
-    <div class="container">
-      <div class="section-head reveal">
-        <h2>Contact / References</h2>
-        <p>Student details and sources used in your research/report.</p>
+  <!-- 7. COMMUNITY FORUM -------------------------------------------------- -->
+  <section id="forum">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>7. Community Forum / Discussion</span></h2>
+        <p>
+          Space where participants can share experiences or ask questions during the
+          awareness program (demo only).
+        </p>
       </div>
 
-      <div class="grid-2">
-        <div class="card reveal">
-          <h3>Student</h3>
-          <ul class="list">
-            <li><b>Name:</b> Afaque Ansari</li>
-            <li><b>Department:</b> SyBSC IT</li>
-            <li><b>College:</b> M.D.G.C College of Commerce</li>
-            <li><b>Email:</b> yourmail@example.com</li>
-          </ul>
+      <div class="grid grid-2">
+        <div class="forum-window reveal">
+          <div class="tagline">SHARE EXPERIENCES / ASK QUESTIONS</div>
+          <div class="forum-messages" id="forumMessages">
+            <div class="msg-bot">
+              <b>Sample Post:</b> “I received a call saying my bank KYC is pending and I
+              must click a link. Is this genuine?”
+            </div>
+            <div class="msg-bot">
+              <b>Reply:</b> This is likely a phishing attempt. Never click unknown links.
+              Visit your bank branch or official website directly.
+            </div>
+          </div>
+          <div class="forum-input-row">
+            <input
+              type="text"
+              id="forumInput"
+              placeholder="Type your story or question (demo, not saved)..."
+            />
+            <button onclick="fakeForum()">Post</button>
+          </div>
         </div>
 
-        <div class="card reveal">
-          <h3>Sources / References</h3>
-          <ul class="list">
-            <li>Research paper / journal references (add)</li>
-            <li>Government advisory / portal references (add)</li>
-            <li>Cybersecurity training document references (add)</li>
-          </ul>
+        <div class="card reveal delay-1">
+          <div class="tagline">GROUND RULES</div>
+          <i class="fa-solid fa-handshake-angle"></i>
+          <h3>Safe &amp; Respectful Discussion</h3>
+          <p>
+            • Do not share real personal data (account numbers, phone, address).<br />
+            • Use case IDs instead of victim names.<br />
+            • Respect privacy and follow IT Act &amp; cyber-crime guidelines.<br />
+            • Escalate serious cases to official channels instead of only forum.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <p>© <span id="year"></span> • Protecting the Force • Afaque Ansari</p>
-      <p class="small">M.D.G.C College of Commerce • SyBSC IT • HTML/CSS/JS</p>
+  <!-- 8. RESOURCES / LINKS ----------------------------------------------- -->
+  <section id="resources">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>8. Resources &amp; Links</span></h2>
+        <p>
+          Official portals, helplines and learning resources that support police in
+          investigating and preventing cybercrime.
+        </p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card reveal">
+          <div class="tagline">GOVERNMENT PORTALS</div>
+          <i class="fa-solid fa-globe"></i>
+          <h3>National Cyber Crime Reporting Portal</h3>
+          <p>
+            Portal for reporting online financial frauds, social media abuse and other
+            cyber offences.
+          </p>
+          <p style="margin-top:8px;font-size:0.86rem;">
+            <b>Website:</b> <em>www.cybercrime.gov.in</em> (type directly in browser).
+          </p>
+        </div>
+
+        <div class="card reveal delay-1">
+          <div class="tagline">HELPLINES</div>
+          <i class="fa-solid fa-phone-volume"></i>
+          <h3>Emergency Numbers</h3>
+          <p>
+            <b>1930</b> – National helpline for cyber financial fraud.<br />
+            <b>112</b> – Emergency response support system (ERSS).<br />
+            Local cyber police station contact numbers can be added by faculty.
+          </p>
+        </div>
+
+        <div class="card reveal delay-2">
+          <div class="tagline">LEARNING RESOURCES</div>
+          <i class="fa-solid fa-graduation-cap"></i>
+          <h3>E-Learning &amp; Video Modules</h3>
+          <p>
+            • CERT-In advisories<br />
+            • RBI &amp; NPCI awareness videos<br />
+            • Police academy training modules on cybercrime investigation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CONTACT / REFERENCES -------------------------------------------- -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>9. Contact &amp; References</span></h2>
+        <p>
+          Project details, student contact and major references used for the
+          cybersecurity awareness website.
+        </p>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="card reveal">
+          <div class="tagline">STUDENT DETAILS</div>
+          <i class="fa-solid fa-id-card"></i>
+          <h3>Project Owner</h3>
+          <p>
+            <b>Student Name:</b> Afaque Ansari<br />
+            <b>Department:</b> SyBSC IT<br />
+            <b>College:</b> M.D.G.C College of Commerce
+          </p>
+          <p style="margin-top:10px;">
+            <b>Email:</b> your.email@example.com<br />
+            <b>Social Handles:</b> @yourhandle (Instagram / LinkedIn) – optional.
+          </p>
+        </div>
+
+        <div class="card reveal delay-1">
+          <div class="tagline">SOURCES / REFERENCES</div>
+          <i class="fa-solid fa-book-open-reader"></i>
+          <h3>Key References</h3>
+          <p style="font-size:0.88rem;">
+            • National Cyber Crime Reporting Portal guidelines<br />
+            • CERT-In advisories and incident response handbook<br />
+            • RBI “RBI Kehta Hai” cyber safety material<br />
+            • Select research papers / articles on cybercrime against police and citizens.
+          </p>
+          <p style="margin-top:8px;font-size:0.8rem;color:var(--muted);">
+            All logos and trademarks belong to respective organisations and are used
+            here only for academic awareness purposes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -------------------------------------------------------------- -->
+  <footer>
+    <div>
+      © <span id="year"></span> <b>Afaque Ansari</b> • Protecting the Force – Cybersecurity
+      Strategies for Police • Academic Awareness Project
     </div>
   </footer>
 
-  <button class="to-top" id="toTop" title="Back to top" aria-label="Back to top">↑</button>
+  <!-- BACK TO HOME BUTTON ------------------------------------------------- -->
+  <button id="backHomeBtn">
+    <i class="fa-solid fa-arrow-up"></i>
+    <span>Back to Home</span>
+  </button>
 
+  <!-- SCRIPTS ------------------------------------------------------------- -->
   <script>
-    // Year
+    // Year in footer
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Mobile nav
+    // Mobile nav toggle
     const navToggle = document.getElementById("navToggle");
     const navLinks = document.getElementById("navLinks");
-    navToggle.addEventListener("click", () => navLinks.classList.toggle("show"));
-    navLinks.addEventListener("click", (e) => {
-      if (e.target.tagName === "A") navLinks.classList.remove("show");
-    });
+    if (navToggle) {
+      navToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("mobile-open");
+      });
+    }
 
-    // Theme toggle
-    const themeToggle = document.getElementById("themeToggle");
-    let darkMode = true;
-    themeToggle.addEventListener("click", () => {
-      darkMode = !darkMode;
-      document.body.classList.toggle("light", !darkMode);
-      themeToggle.textContent = darkMode ? "Dark" : "Light";
-    });
+    // Reveal on scroll
+    const reveals = document.querySelectorAll(".reveal");
+    function handleReveal() {
+      const wh = window.innerHeight;
+      reveals.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < wh - 80) el.classList.add("visible");
+      });
+    }
+    window.addEventListener("scroll", handleReveal);
+    handleReveal();
 
-    // Scroll reveal
-    const revealEls = document.querySelectorAll(".reveal");
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (en.isIntersecting) {
-          en.target.classList.add("visible");
-          obs.unobserve(en.target);
+    // Quick poll
+    const pollOptions = document.querySelectorAll(".poll-option");
+    const pollResult = document.getElementById("pollResult");
+    pollOptions.forEach((opt) => {
+      opt.addEventListener("click", () => {
+        pollOptions.forEach((o) => o.classList.remove("active"));
+        opt.classList.add("active");
+        if (pollResult) {
+          pollResult.textContent =
+            "You selected: " +
+            opt.textContent +
+            " (demo only – data not saved).";
         }
       });
-    }, { threshold: 0.12 });
-    revealEls.forEach(el => obs.observe(el));
-
-    // Accordion
-    document.querySelectorAll(".acc-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-acc");
-        const panel = document.getElementById(id);
-        const open = panel.style.display === "block";
-        document.querySelectorAll(".acc-panel").forEach(p => p.style.display = "none");
-        panel.style.display = open ? "none" : "block";
-      });
     });
 
-    // Back-to-top + progress
-    const toTop = document.getElementById("toTop");
-    const progress = document.getElementById("progress");
+    // Simple chatbot
+    function fakeChat() {
+      const input = document.getElementById("chatInput");
+      const msgBox = document.getElementById("chatMessages");
+      if (!input || !msgBox) return;
+      const text = input.value.trim();
+      if (!text) return;
 
-    function onScroll(){
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const pct = docH > 0 ? (scrollTop / docH) * 100 : 0;
-      progress.style.width = pct + "%";
-      toTop.classList.toggle("show", scrollTop > 600);
+      const userDiv = document.createElement("div");
+      userDiv.className = "msg-user";
+      userDiv.innerHTML = "<b>You:</b> " + text;
+      msgBox.appendChild(userDiv);
+
+      const botDiv = document.createElement("div");
+      botDiv.className = "msg-bot";
+      botDiv.innerHTML =
+        "<b>Bot:</b> Never share OTP, PIN or passwords. If you suspect fraud, immediately call 1930 or contact your nearest cyber cell.";
+      msgBox.appendChild(botDiv);
+
+      msgBox.scrollTop = msgBox.scrollHeight;
+      input.value = "";
     }
-    window.addEventListener("scroll", onScroll);
-    onScroll();
+    window.fakeChat = fakeChat;
 
-    toTop.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+    // Simple forum
+    function fakeForum() {
+      const input = document.getElementById("forumInput");
+      const box = document.getElementById("forumMessages");
+      if (!input || !box) return;
+      const text = input.value.trim();
+      if (!text) return;
 
-    // Quick links (chatbot section)
-    document.querySelectorAll(".ql").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const link = btn.getAttribute("data-link");
-        document.querySelector(link)?.scrollIntoView({behavior:"smooth"});
-      });
-    });
-
-    /* -------------------------
-       Charts (Canvas) - demo data
-    ------------------------- */
-    const canvas = document.getElementById("chartCanvas");
-    const ctx = canvas.getContext("2d");
-    const legend = document.getElementById("chartLegend");
-    const swapBtn = document.getElementById("swapCharts");
-
-    let chartMode = "bar";
-
-    const chartData = [
-      { label: "Phishing", value: 46 },
-      { label: "Weak Passwords", value: 22 },
-      { label: "Device Malware", value: 18 },
-      { label: "Data Leakage", value: 14 }
-    ];
-
-    function clearCanvas(){ ctx.clearRect(0,0,canvas.width,canvas.height); }
-
-    function drawTitle(t){
-      ctx.save();
-      ctx.fillStyle = "rgba(156,163,175,.95)";
-      ctx.font = "20px system-ui";
-      ctx.fillText(t, 24, 40);
-      ctx.restore();
+      const msg = document.createElement("div");
+      msg.className = "msg-user";
+      msg.innerHTML = "<b>New Post:</b> " + text;
+      box.appendChild(msg);
+      box.scrollTop = box.scrollHeight;
+      input.value = "";
     }
+    window.fakeForum = fakeForum;
 
-    function roundRect(x,y,w,h,r){
-      const min = Math.min(w,h);
-      const rr = Math.min(r, min/2);
-      ctx.beginPath();
-      ctx.moveTo(x+rr, y);
-      ctx.arcTo(x+w, y, x+w, y+h, rr);
-      ctx.arcTo(x+w, y+h, x, y+h, rr);
-      ctx.arcTo(x, y+h, x, y, rr);
-      ctx.arcTo(x, y, x+w, y, rr);
-      ctx.closePath();
+    // Back to home button
+    const backBtn = document.getElementById("backHomeBtn");
+    function handleBackBtn() {
+      if (!backBtn) return;
+      if (window.scrollY > 350) backBtn.classList.add("show");
+      else backBtn.classList.remove("show");
+    }
+    window.addEventListener("scroll", handleBackBtn);
+    handleBackBtn();
+    if (backBtn) {
+      backBtn.addEventListener("click", () =>
+        document.getElementById("home").scrollIntoView({ behavior: "smooth" })
+      );
     }
 
-    function drawBarChart(){
-      clearCanvas();
-      drawTitle("Top Threat Types (Demo)");
+    // Theme toggle: green → blue → neon pink
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeLabel = document.getElementById("themeLabel");
+    const themes = ["green", "blue", "pink"];
+    let currentThemeIndex = 0;
 
-      const padding = 70;
-      const w = canvas.width - padding*2;
-      const h = canvas.height - 140;
-      const x0 = padding;
-      const y0 = canvas.height - 70;
-
-      // axes
-      ctx.save();
-      ctx.strokeStyle = "rgba(148,163,184,.35)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(x0, 70);
-      ctx.lineTo(x0, y0);
-      ctx.lineTo(x0+w, y0);
-      ctx.stroke();
-      ctx.restore();
-
-      const maxVal = Math.max(...chartData.map(d=>d.value)) * 1.15;
-      const gap = 24;
-      const barW = (w - gap*(chartData.length-1)) / chartData.length;
-
-      chartData.forEach((d,i)=>{
-        const barH = (d.value / maxVal) * h;
-        const x = x0 + i*(barW+gap);
-        const y = y0 - barH;
-
-        const grad = ctx.createLinearGradient(x, y, x, y0);
-        grad.addColorStop(0, "rgba(59,130,246,0.95)");
-        grad.addColorStop(1, "rgba(139,92,246,0.65)");
-
-        ctx.fillStyle = grad;
-        roundRect(x,y,barW,barH,14);
-        ctx.fill();
-
-        ctx.fillStyle = "rgba(249,250,251,.92)";
-        ctx.font = "16px system-ui";
-        ctx.fillText(d.value+"%", x+10, y-10);
-
-        ctx.fillStyle = "rgba(156,163,175,.95)";
-        ctx.font = "16px system-ui";
-        ctx.fillText(d.label, x+4, y0+28);
-      });
-    }
-
-    function drawDonutChart(){
-      clearCanvas();
-      drawTitle("Threat Distribution (Demo)");
-
-      const total = chartData.reduce((a,b)=>a+b.value,0);
-      const cx = canvas.width/2;
-      const cy = canvas.height/2 + 10;
-      const outerR = 170;
-      const innerR = 95;
-
-      let start = -Math.PI/2;
-
-      chartData.forEach((d,idx)=>{
-        const angle = (d.value/total) * (Math.PI*2);
-        const end = start + angle;
-
-        const a1 = 0.88 - idx*0.12;
-        const a2 = 0.60 - idx*0.08;
-
-        const grad = ctx.createRadialGradient(cx, cy, innerR, cx, cy, outerR);
-        grad.addColorStop(0, `rgba(59,130,246,${Math.max(a2,0.25)})`);
-        grad.addColorStop(1, `rgba(139,92,246,${Math.max(a1,0.35)})`);
-
-        ctx.beginPath();
-        ctx.moveTo(cx,cy);
-        ctx.arc(cx,cy,outerR,start,end);
-        ctx.closePath();
-        ctx.fillStyle = grad;
-        ctx.fill();
-
-        start = end;
-      });
-
-      ctx.beginPath();
-      ctx.arc(cx,cy,innerR,0,Math.PI*2);
-      ctx.fillStyle = "rgba(15,23,42,.95)";
-      ctx.fill();
-
-      ctx.fillStyle = "rgba(249,250,251,.92)";
-      ctx.font = "18px system-ui";
-      ctx.textAlign = "center";
-      ctx.fillText("Total", cx, cy-6);
-      ctx.fillStyle = "rgba(156,163,175,.95)";
-      ctx.font = "22px system-ui";
-      ctx.fillText(total+"%", cx, cy+22);
-      ctx.textAlign = "start";
-    }
-
-    function renderLegend(){
-      legend.innerHTML = "";
-      chartData.forEach((d,idx)=>{
-        const item = document.createElement("div");
-        item.className = "item";
-
-        const dot = document.createElement("span");
-        dot.className = "dot";
-        dot.style.opacity = String(0.95 - idx*0.12);
-
-        const text = document.createElement("span");
-        text.textContent = `${d.label}: ${d.value}%`;
-
-        item.appendChild(dot);
-        item.appendChild(text);
-        legend.appendChild(item);
-      });
-    }
-
-    function renderChart(){
-      renderLegend();
-      if(chartMode==="bar") drawBarChart();
-      else drawDonutChart();
-    }
-
-    swapBtn.addEventListener("click", ()=>{
-      chartMode = chartMode==="bar" ? "donut" : "bar";
-      renderChart();
-    });
-
-    renderChart();
-
-    /* -------------------------
-       Poll (localStorage)
-    ------------------------- */
-    const pollKey = "ptf_poll_v2";
-    const pollResult = document.getElementById("pollResult");
-    const resetPollBtn = document.getElementById("resetPoll");
-
-    function getPollData(){
-      const raw = localStorage.getItem(pollKey);
-      if(!raw) return {"Very Confident":0,"Somewhat Confident":0,"Not Confident":0};
-      try { return JSON.parse(raw); } catch { return {"Very Confident":0,"Somewhat Confident":0,"Not Confident":0}; }
-    }
-    function setPollData(d){ localStorage.setItem(pollKey, JSON.stringify(d)); }
-
-    function renderPoll(){
-      const data = getPollData();
-      const total = Object.values(data).reduce((a,b)=>a+b,0) || 1;
-
-      pollResult.innerHTML = "";
-      Object.keys(data).forEach((k)=>{
-        const count = data[k];
-        const pct = Math.round((count/total)*100);
-
-        const row = document.createElement("div");
-        row.style.marginTop = "10px";
-        row.innerHTML = `<div class="muted">${k} — <b>${pct}%</b> (${count} votes)</div>`;
-
-        const bar = document.createElement("div");
-        bar.className = "bar";
-        const fill = document.createElement("div");
-        fill.style.width = pct + "%";
-        bar.appendChild(fill);
-
-        row.appendChild(bar);
-        pollResult.appendChild(row);
-      });
-    }
-
-    document.querySelectorAll(".poll-btn").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        const choice = btn.getAttribute("data-choice");
-        const data = getPollData();
-        data[choice] = (data[choice] || 0) + 1;
-        setPollData(data);
-        renderPoll();
-      });
-    });
-
-    resetPollBtn.addEventListener("click", ()=>{
-      localStorage.removeItem(pollKey);
-      renderPoll();
-    });
-
-    renderPoll();
-
-    /* -------------------------
-       Chatbot (rule-based)
-    ------------------------- */
-    const chatbox = document.getElementById("chatbox");
-    const chatInput = document.getElementById("chatInput");
-    const sendChat = document.getElementById("sendChat");
-
-    function addMsg(text, who="bot"){
-      const wrap = document.createElement("div");
-      wrap.className = "chat-msg " + who;
-      const bubble = document.createElement("div");
-      bubble.className = "bubble";
-      bubble.textContent = text;
-      wrap.appendChild(bubble);
-      chatbox.appendChild(wrap);
-      chatbox.scrollTop = chatbox.scrollHeight;
-    }
-
-    function botReply(qRaw){
-      const q = qRaw.toLowerCase();
-      if(q.includes("phishing")) return "Phishing is a scam where attackers impersonate trusted sources to steal passwords/OTP or make you click malicious links. Verify sender and avoid unknown links.";
-      if(q.includes("password")) return "Use long unique passwords (12+), avoid reuse, and enable MFA. Never share OTP/passwords and avoid saving them in plain text.";
-      if(q.includes("mfa") || q.includes("2fa")) return "MFA adds a second verification step beyond passwords (authenticator app/OTP). It greatly reduces account takeover risk.";
-      if(q.includes("report") || q.includes("suspicious")) return "Report immediately: don’t click further, capture evidence (as per policy), inform IT/cyber cell, and follow incident response steps.";
-      if(q.includes("hacked") || q.includes("compromise") || q.includes("malware")) return "If compromised: disconnect from network, inform IT/cyber cell, change passwords from a clean device, preserve evidence, and follow official procedures.";
-      if(q.includes("link") || q.includes("section")) return "Use quick links: Tips, Research, Survey, Resources (buttons on the left panel).";
-      return "Ask me about: phishing, passwords, MFA, reporting incidents, device security. Example: 'What is phishing?'";
-    }
-
-    function sendMessage(){
-      const text = chatInput.value.trim();
-      if(!text) return;
-      addMsg(text, "user");
-      chatInput.value = "";
-      setTimeout(()=> addMsg(botReply(text), "bot"), 220);
-    }
-
-    sendChat.addEventListener("click", sendMessage);
-    chatInput.addEventListener("keydown", (e)=>{ if(e.key==="Enter") sendMessage(); });
-
-    /* -------------------------
-       Forum (localStorage demo)
-    ------------------------- */
-    const forumKey = "ptf_forum_v2";
-    const forumForm = document.getElementById("forumForm");
-    const postsEl = document.getElementById("posts");
-    const forumStatus = document.getElementById("forumStatus");
-    const clearForum = document.getElementById("clearForum");
-
-    function loadPosts(){
-      const raw = localStorage.getItem(forumKey);
-      if(!raw) return [];
-      try { return JSON.parse(raw); } catch { return []; }
-    }
-    function savePosts(p){ localStorage.setItem(forumKey, JSON.stringify(p)); }
-
-    function renderPosts(){
-      const posts = loadPosts();
-      postsEl.innerHTML = "";
-      if(posts.length === 0){
-        postsEl.innerHTML = `<p class="muted">No posts yet. Be the first to share a tip or question.</p>`;
-        return;
+    function applyTheme() {
+      document.body.classList.remove("theme-blue", "theme-pink");
+      const theme = themes[currentThemeIndex];
+      if (theme === "blue") {
+        document.body.classList.add("theme-blue");
+        themeIcon.className = "fa-solid fa-moon";
+        themeLabel.textContent = "Blue";
+      } else if (theme === "pink") {
+        document.body.classList.add("theme-pink");
+        themeIcon.className = "fa-solid fa-heart";
+        themeLabel.textContent = "Neon Pink";
+      } else {
+        themeIcon.className = "fa-solid fa-sun";
+        themeLabel.textContent = "Green";
       }
-      posts.slice().reverse().forEach(p=>{
-        const div = document.createElement("div");
-        div.className = "post";
-        div.innerHTML = `
-          <div class="head">
-            <span class="name">${escapeHtml(p.name)}</span>
-            <span>${escapeHtml(p.time)}</span>
-          </div>
-          <div class="muted">${escapeHtml(p.message)}</div>
-        `;
-        postsEl.appendChild(div);
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+        applyTheme();
       });
     }
-
-    function escapeHtml(str){
-      return String(str)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;");
-    }
-
-    forumForm.addEventListener("submit", (e)=>{
-      e.preventDefault();
-      const name = document.getElementById("fname").value.trim();
-      const message = document.getElementById("fmsg").value.trim();
-      if(!name || !message) return;
-
-      const posts = loadPosts();
-      posts.push({name, message, time: new Date().toLocaleString()});
-      savePosts(posts);
-
-      forumForm.reset();
-      forumStatus.textContent = "Posted successfully (demo).";
-      setTimeout(()=> forumStatus.textContent="", 2500);
-      renderPosts();
-    });
-
-    clearForum.addEventListener("click", ()=>{
-      localStorage.removeItem(forumKey);
-      renderPosts();
-    });
-
-    renderPosts();
+    applyTheme();
   </script>
 </body>
 </html>
