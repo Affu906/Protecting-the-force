@@ -3,2031 +3,2159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Protecting the Force: Cybersecurity Strategies for Police</title>
-  <meta
-    name="description"
-    content="Cybersecurity awareness website for police personnel: research findings, awareness tips, survey, media, chatbot, and resources."
-  />
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <!-- Font Awesome for icons -->
+  <title>Protecting the Force – Cybersecurity Strategies for Police</title>
+
+  <!-- ICONS -->
   <link
     rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <!-- FONT -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
   />
 
   <style>
     :root {
       --bg: #020617;
-      --bg-alt: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
-      --card: rgba(15, 23, 42, 0.96);
-      --card-soft: rgba(15, 23, 42, 0.92);
+      --card: #020617;
+      --border: #1f2937;
       --accent: #22c55e;
-      --accent-soft: rgba(34, 197, 94, 0.18);
-      --accent-alt: #e879f9;
-      --accent-alt-soft: rgba(232, 121, 249, 0.2);
-      --border: rgba(148, 163, 184, 0.4);
-      --text: #f9fafb;
+      --accent2: #22d3ee;
+      --accent3: #a3e635;
+      --text: #e5e7eb;
       --muted: #9ca3af;
-      --shadow: 0 24px 60px rgba(0, 0, 0, 0.72);
-      --radius-lg: 28px;
-      --radius-pill: 999px;
-      --nav-height: 76px;
+    }
+
+    body.theme-blue {
+      --accent: #6366f1;
+      --accent2: #22d3ee;
+      --accent3: #a855f7;
+      --bg: #020617;
+      --card: #020617;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      background: radial-gradient(circle at top left, #1e293b, var(--bg));
+    }
+
+    body.theme-pink {
+      --accent: #fb37ff;
+      --accent2: #c4b5fd;
+      --accent3: #f97316;
+      --bg: #020617;
+      --card: #020617;
+      --border: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      background: radial-gradient(circle at top left, #4c1d95, #020617);
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
-    html,
     body {
-      scroll-behavior: smooth;
-      background: var(--bg);
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top left, #022c22, var(--bg));
       color: var(--text);
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      scroll-behavior: smooth;
+      background-size: 200% 200%;
+      animation: bodyGlow 18s ease-in-out infinite alternate;
     }
 
-    body {
-      min-height: 100vh;
-      background: var(--bg-alt);
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
+    @keyframes bodyGlow {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 80%; }
     }
 
     a {
-      color: inherit;
       text-decoration: none;
+      color: inherit;
     }
 
-    /* Layout */
-
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1.2rem 1.2rem 3rem;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(22px);
-      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.75));
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.75);
-      margin-bottom: 1.5rem;
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.6rem 1.4rem;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-weight: 600;
-    }
-
-    .brand-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 20%, #bbf7d0 0, #22c55e 25%, #22c55e 45%, #052e16 100%);
-      display: grid;
-      place-items: center;
-      box-shadow: 0 0 22px rgba(34, 197, 94, 0.9);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .brand-logo::after {
-      content: "";
-      position: absolute;
-      inset: 8px;
-      border-radius: inherit;
-      border: 2px solid rgba(15, 23, 42, 0.8);
-    }
-
-    .brand-logo i {
-      position: relative;
-      z-index: 1;
-      color: #022c22;
-      font-size: 1.1rem;
-    }
-
-    .brand-text {
-      line-height: 1.15;
-      font-size: 0.9rem;
-    }
-
-    .brand-text span {
-      display: block;
-    }
-
-    .brand-text-small {
-      font-size: 0.7rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
+    /* NAVBAR -------------------------------------------------------------- */
     nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(2, 6, 23, 0.96);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid #111827;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 6%;
+      gap: 10px;
+    }
+
+    .logo {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
     }
 
-    .nav-link {
-      font-size: 0.78rem;
-      padding: 0.4rem 0.7rem;
-      border-radius: var(--radius-pill);
-      color: var(--muted);
-      border: 1px solid transparent;
-      cursor: pointer;
-      background: transparent;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .nav-link span {
-      opacity: 0.8;
-    }
-
-    .nav-link strong {
-      opacity: 1;
-      color: var(--text);
-    }
-
-    .nav-link:hover {
-      border-color: rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.8);
-      color: var(--text);
-    }
-
-    .nav-link.active {
-      background: radial-gradient(circle at 0 0, rgba(74, 222, 128, 0.4), rgba(15, 23, 42, 0.95));
-      border-color: rgba(74, 222, 128, 0.8);
-      color: var(--text);
-      box-shadow: 0 0 22px rgba(34, 197, 94, 0.7);
-    }
-
-    .header-actions {
-      display: flex;
-      gap: 0.6rem;
-      align-items: center;
-    }
-
-    .pill-button {
-      border-radius: 999px;
-      border: 1px solid rgba(34, 197, 94, 0.9);
-      padding: 0.45rem 0.9rem;
-      font-size: 0.78rem;
-      background: radial-gradient(circle at 0 0, rgba(52, 211, 153, 0.8), #16a34a);
-      color: #022c22;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 0 24px rgba(34, 197, 94, 0.8);
-      transition: transform 0.16s ease, box-shadow 0.16s ease;
-      white-space: nowrap;
-    }
-
-    .pill-button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 30px rgba(34, 197, 94, 1);
-    }
-
-    .theme-toggle {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      padding: 0.38rem 0.9rem;
-      font-size: 0.75rem;
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .theme-toggle i {
-      color: var(--accent-alt);
-    }
-
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
-    }
-
-    section {
-      scroll-margin-top: calc(var(--nav-height) + 18px);
-    }
-
-    .section-label {
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-weight: 600;
-      font-size: 0.72rem;
-      color: var(--accent-alt);
-      margin-bottom: 0.25rem;
-    }
-
-    .section-title {
-      font-size: 1.6rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .section-subtitle {
-      font-size: 0.9rem;
-      color: var(--muted);
-      max-width: 640px;
-    }
-
-    .card {
-      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.08), rgba(15, 23, 42, 0.98));
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      padding: 1.4rem 1.6rem;
+    /* 3D animated shield logo – now theme based */
+    .logo-icon {
       position: relative;
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 20%, #ecfdf5, var(--accent) 32%, #020617 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 0 24px rgba(34, 197, 94, 0.95);
       overflow: hidden;
+      transform: translateZ(0);
+      animation: logoFloat 4.5s ease-in-out infinite alternate;
     }
 
-    .card::before {
+    body.theme-blue .logo-icon {
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 0 24px rgba(99, 102, 241, 0.95);
+    }
+
+    body.theme-pink .logo-icon {
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 0 24px rgba(251, 55, 255, 0.95);
+    }
+
+    .logo-icon::before {
       content: "";
       position: absolute;
       inset: -40%;
-      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 60%);
-      opacity: 0.9;
-      pointer-events: none;
+      background: conic-gradient(
+        from 210deg,
+        rgba(34, 197, 94, 0),
+        rgba(34, 197, 94, 0.7),
+        rgba(56, 189, 248, 0.9),
+        rgba(251, 191, 36, 0.9),
+        rgba(34, 197, 94, 0)
+      );
+      mix-blend-mode: screen;
+      opacity: 0.75;
+      animation: logoSpin 7s linear infinite;
     }
 
-    .card-inner {
+    body.theme-blue .logo-icon::before {
+      background: conic-gradient(
+        from 210deg,
+        rgba(99, 102, 241, 0),
+        rgba(99, 102, 241, 0.75),
+        rgba(56, 189, 248, 0.9),
+        rgba(168, 85, 247, 0.9),
+        rgba(99, 102, 241, 0)
+      );
+    }
+
+    body.theme-pink .logo-icon::before {
+      background: conic-gradient(
+        from 210deg,
+        rgba(251, 55, 255, 0),
+        rgba(251, 55, 255, 0.8),
+        rgba(244, 114, 182, 0.9),
+        rgba(249, 115, 22, 0.9),
+        rgba(251, 55, 255, 0)
+      );
+    }
+
+    .logo-icon::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 11px;
+      background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9), rgba(15, 23, 42, 0.95));
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.8);
+    }
+
+    .logo-icon i {
       position: relative;
       z-index: 1;
+      font-size: 1rem;
+      color: #bbf7d0;
+      text-shadow:
+        0 0 6px rgba(34, 197, 94, 0.9),
+        0 0 14px rgba(34, 197, 94, 0.9);
     }
 
-    .pill-tag {
+    body.theme-blue .logo-icon i {
+      color: #c7d2fe;
+      text-shadow:
+        0 0 6px rgba(129, 140, 248, 0.9),
+        0 0 14px rgba(129, 140, 248, 0.9);
+    }
+
+    body.theme-pink .logo-icon i {
+      color: #f9a8ff;
+      text-shadow:
+        0 0 6px rgba(251, 55, 255, 0.9),
+        0 0 14px rgba(251, 55, 255, 0.9);
+    }
+
+    @keyframes logoSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes logoFloat {
+      0% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+      100% { transform: translateY(-3px) rotateX(10deg) rotateY(-6deg); }
+    }
+
+    .logo-text-main {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-text-main span:first-child {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .logo-text-main span:last-child {
+      color: #9ca3af;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .nav-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      font-size: 0.84rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: 0.22s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: #f9fafb;
+      border-color: #1f2937;
+      background: rgba(15, 23, 42, 0.95);
+      transform: translateY(-1px);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .nav-cta {
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #020617;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.8rem;
+      box-shadow: 0 10px 26px rgba(22, 163, 74, 0.7);
+      transition: 0.25s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(22, 163, 74, 0.9);
+    }
+
+    .nav-theme-btn {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: rgba(15, 23, 42, 0.98);
+      color: var(--muted);
+      font-size: 0.78rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      padding: 0.25rem 0.8rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.92);
-      color: var(--muted);
-      font-size: 0.7rem;
-      margin-bottom: 0.6rem;
+      gap: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+      white-space: nowrap;
     }
 
-    .pill-dot {
+    .nav-theme-btn i {
+      font-size: 0.95rem;
+    }
+
+    .nav-theme-btn:hover {
+      background: rgba(15, 23, 42, 1);
+      color: #e5e7eb;
+      border-color: #374151;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .nav-center {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 860px) {
+      nav {
+        padding-inline: 4%;
+      }
+
+      .nav-center {
+        position: relative;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-links.mobile-open {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 46px;
+        right: 0;
+        background: rgba(5, 13, 30, 0.98);
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid #1f2937;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+    }
+
+    @media (max-width: 520px) {
+      nav {
+        padding-inline: 3%;
+      }
+      .nav-right {
+        gap: 6px;
+      }
+      .nav-cta {
+        padding: 6px 11px;
+        font-size: 0.74rem;
+      }
+      .nav-theme-btn {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+      }
+      .logo-text-main span:first-child {
+        font-size: 0.9rem;
+      }
+    }
+
+    section {
+      padding: 80px 7%;
+    }
+
+    .section-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    /* HERO ----------------------------------------------------------------- */
+    .hero {
+      min-height: 100vh;
+      padding: 110px 4% 80px;
+      position: relative;
+      overflow: hidden;
+      perspective: 1400px;
+    }
+
+    .hero-bg-img {
+      position: absolute;
+      inset: -40px;
+      background-image:
+        linear-gradient(120deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9)),
+        url("https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1400&q=80");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.55;
+      filter: saturate(1.1);
+      z-index: 0;
+      animation: bgPan 30s linear infinite alternate;
+    }
+
+    body.theme-blue .hero-bg-img {
+      background-image:
+        linear-gradient(120deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9)),
+        url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80");
+    }
+
+    body.theme-pink .hero-bg-img {
+      background-image:
+        linear-gradient(120deg, rgba(24,16,60,0.96), rgba(15,23,42,0.9)),
+        url("https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=1400&q=80");
+    }
+
+    @keyframes bgPan {
+      0% { transform: scale(1.05) translateX(-10px); }
+      100% { transform: scale(1.1) translateX(10px); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.95fr);
+      gap: 34px;
+      align-items: center;
+      transform-style: preserve-3d;
+    }
+
+    @media (max-width: 960px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-left {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      padding: 22px 24px;
+      box-shadow:
+        0 26px 80px rgba(0, 0, 0, 0.95),
+        0 0 0 1px rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      transform: rotateY(-6deg) translateZ(40px);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .hero-left:hover {
+      transform: rotateY(-4deg) translateZ(55px) translateY(-4px);
+      box-shadow:
+        0 32px 90px rgba(0, 0, 0, 1),
+        0 0 0 1px rgba(148, 163, 184, 0.8);
+    }
+
+    .hero-left h1 {
+      font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-left h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid #1e293b;
+      margin-bottom: 12px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .hero-dot {
       width: 8px;
       height: 8px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #a5b4fc, #38bdf8);
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.9);
+      border-radius: 999px;
+      background: var(--accent2);
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.9);
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.1fr);
-      gap: 1.5rem;
-      align-items: stretch;
-    }
-
-    .hero-title {
-      font-size: clamp(1.9rem, 3.3vw, 2.6rem);
-      line-height: 1.1;
-      margin-bottom: 0.7rem;
-    }
-
-    .hero-title span.highlight {
-      display: block;
-      background: linear-gradient(120deg, #22c55e, #22c55e, #22d3ee);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero-title span.accent-alt {
-      display: block;
-      background: linear-gradient(120deg, #e879f9, #fb7185, #facc15);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero-text {
-      font-size: 0.92rem;
+    .hero-left p {
       color: var(--muted);
       max-width: 540px;
-      margin-bottom: 1.2rem;
+      margin-top: 10px;
+      font-size: 0.96rem;
     }
 
-    .hero-actions {
+    .hero-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 1rem;
+      gap: 10px;
+      margin-top: 18px;
     }
 
-    .secondary-pill {
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      padding: 0.45rem 0.9rem;
-      font-size: 0.78rem;
-      background: rgba(15, 23, 42, 0.96);
-      color: var(--muted);
+    .btn-primary,
+    .btn-secondary {
+      padding: 11px 20px;
+      border-radius: 999px;
+      font-size: 0.9rem;
       cursor: pointer;
+      border: none;
+      transition: 0.25s;
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      transition: all 0.18s ease;
+      gap: 8px;
     }
 
-    .secondary-pill i {
-      font-size: 0.9rem;
-      color: var(--accent-alt);
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #020617;
+      font-weight: 600;
+      box-shadow: 0 16px 32px rgba(22, 163, 74, 0.7);
     }
 
-    .secondary-pill:hover {
-      border-color: rgba(94, 234, 212, 0.9);
-      color: var(--text);
-      box-shadow: 0 0 18px rgba(45, 212, 191, 0.8);
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid #064e3b;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.9);
     }
 
     .hero-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.55rem;
-      margin-top: 0.3rem;
-    }
-
-    .meta-chip {
-      padding: 0.35rem 0.9rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.95);
-      font-size: 0.74rem;
+      gap: 8px;
+      font-size: 0.78rem;
       color: var(--muted);
+      margin-top: 18px;
     }
 
-    .meta-chip strong {
-      color: var(--text);
+    .meta-pill {
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid #064e3b;
     }
 
-    .hero-visual {
+    .meta-pill b {
+      color: #e5e7eb;
+    }
+
+    .hero-right {
       position: relative;
-      isolation: isolate;
+      display: flex;
+      justify-content: flex-end;
+      transform: rotateY(9deg) translateZ(40px);
+      transition: transform 0.4s ease;
     }
 
-    .hero-visual-card {
-      height: 100%;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--accent-soft);
-      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.18), rgba(15, 23, 42, 0.97));
-      box-shadow: 0 26px 60px rgba(0, 0, 0, 0.85);
-      padding: 1.2rem 1.2rem 1.4rem;
-      position: relative;
+    .hero-right:hover {
+      transform: rotateY(7deg) translateZ(55px) translateY(-3px);
+    }
+
+    .hero-card {
+      background:
+        radial-gradient(circle at top left, rgba(34, 197, 94, 0.18), transparent 55%),
+        rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(34, 197, 94, 0.6);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.95);
+      max-width: 460px;
+      width: 100%;
+      transition: 0.4s ease;
+    }
+
+    body.theme-blue .hero-card {
+      border-color: rgba(99, 102, 241, 0.75);
+      background:
+        radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), transparent 55%),
+        rgba(15, 23, 42, 0.96);
+    }
+
+    body.theme-pink .hero-card {
+      border-color: rgba(251, 55, 255, 0.8);
+      background:
+        radial-gradient(circle at top left, rgba(251, 55, 255, 0.2), transparent 55%),
+        rgba(15, 23, 42, 0.96);
+    }
+
+    .hero-card:hover {
+      transform: translateY(-6px) rotateX(6deg) rotateY(-4deg);
+      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.98);
+    }
+
+    .hero-thumb {
+      border-radius: 18px;
       overflow: hidden;
+      border: 1px solid rgba(34, 197, 94, 0.7);
+      margin-bottom: 10px;
+      position: relative;
+      padding-top: 70%;
+      background: #020617;
     }
 
-    .hero-visual-card::before {
+    body.theme-blue .hero-thumb {
+      border-color: rgba(129, 140, 248, 0.9);
+    }
+    body.theme-pink .hero-thumb {
+      border-color: rgba(251, 55, 255, 0.9);
+    }
+
+    .hero-thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.06);
+      transition: 0.85s;
+    }
+
+    .hero-thumb:hover img {
+      transform: scale(1.14);
+    }
+
+    .hero-thumb::before {
       content: "";
       position: absolute;
       inset: -40%;
-      background: radial-gradient(circle at 10% 0, rgba(52, 211, 153, 0.2), transparent 60%);
-      opacity: 0.9;
-    }
-
-    .hero-visual-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      gap: 0.75rem;
-    }
-
-    .chip-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    .chip-row span.badge {
-      padding: 0.18rem 0.6rem;
-      border-radius: 999px;
-      border: 1px solid rgba(74, 222, 128, 0.9);
-      background: radial-gradient(circle at 0 0, rgba(22, 163, 74, 0.7), rgba(22, 101, 52, 0.9));
-      font-size: 0.7rem;
-      color: #ecfdf5;
-    }
-
-    .hero-image-frame {
-      flex: 1;
-      border-radius: 22px;
-      border: 1px solid rgba(34, 197, 94, 0.8);
-      background: radial-gradient(circle at top, rgba(15, 118, 110, 0.35), rgba(15, 23, 42, 0.98));
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero-image-frame::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg?auto=compress&cs=tinysrgb&w=1200");
-      background-size: cover;
-      background-position: center;
-      opacity: 0.7;
+      background-image: repeating-linear-gradient(
+        120deg,
+        rgba(56, 189, 248, 0) 0,
+        rgba(56, 189, 248, 0.9) 3px,
+        rgba(56, 189, 248, 0) 6px
+      );
+      opacity: 0.45;
       mix-blend-mode: screen;
-    }
-
-    .hero-image-overlay {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 0, rgba(45, 212, 191, 0.25), transparent 50%),
-        radial-gradient(circle at 80% 100%, rgba(59, 130, 246, 0.4), transparent 55%);
+      animation: heroScan 8s linear infinite;
       pointer-events: none;
     }
 
-    .hero-visual-text {
-      font-size: 0.76rem;
-      color: var(--muted);
-      margin-top: 0.4rem;
+    .hero-thumb::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(34, 197, 94, 0.3), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.3), transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.6;
+      animation: heroGlow 16s linear infinite alternate;
+      pointer-events: none;
     }
 
-    .hero-visual-buttons {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-top: 0.4rem;
+    @keyframes heroScan {
+      0% { transform: translateX(-80px); }
+      100% { transform: translateX(80px); }
     }
 
-    .hero-visual-pill {
+    @keyframes heroGlow {
+      0% { transform: translate(-10px, -10px) rotate(0deg); }
+      100% { transform: translate(10px, 10px) rotate(18deg); }
+    }
+
+    .hero-pulse {
+      position: absolute;
+      width: 28px;
+      height: 28px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.75);
-      padding: 0.32rem 0.7rem;
+      background: rgba(8, 47, 73, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #a7f3d0;
       font-size: 0.7rem;
+      box-shadow: 0 0 16px rgba(34, 197, 94, 0.9);
+      z-index: 3;
+      animation: heroPulse 5s ease-in-out infinite;
+    }
+
+    body.theme-blue .hero-pulse {
+      background: rgba(30, 64, 175, 0.95);
+      color: #c7d2fe;
+      box-shadow: 0 0 16px rgba(129, 140, 248, 0.9);
+    }
+
+    body.theme-pink .hero-pulse {
+      background: rgba(109, 40, 217, 0.95);
+      color: #f9a8ff;
+      box-shadow: 0 0 16px rgba(251, 55, 255, 0.95);
+    }
+
+    .hero-pulse-1 { top: 18%; left: 14%; animation-delay: 0s; }
+    .hero-pulse-2 { bottom: 18%; right: 14%; animation-delay: 1s; }
+    .hero-pulse-3 { top: 50%; right: 24%; animation-delay: 2s; }
+
+    @keyframes heroPulse {
+      0% { transform: translateY(0) scale(0.9); opacity: 0.6; }
+      50% { transform: translateY(-4px) scale(1.08); opacity: 1; }
+      100% { transform: translateY(0) scale(0.9); opacity: 0.6; }
+    }
+
+    .hero-badge-strip {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(2, 6, 23, 0.94);
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #e5e7eb;
+      z-index: 2;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .hero-chip {
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(34, 197, 94, 0.7);
       background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+    }
+
+    body.theme-blue .hero-chip {
+      border-color: rgba(129, 140, 248, 0.9);
+    }
+
+    body.theme-pink .hero-chip {
+      border-color: rgba(251, 55, 255, 0.9);
+    }
+
+    @media (max-width: 960px) {
+      .hero-left,
+      .hero-right {
+        transform: none;
+      }
+      .hero {
+        padding-top: 95px;
+      }
+    }
+
+    /* SECTION HEADER + GRID ----------------------------------------------- */
+    .section-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 30px;
+    }
+
+    .section-head h2 {
+      font-size: 2rem;
+      margin-bottom: 4px;
+    }
+
+    .section-head span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .section-head p {
       color: var(--muted);
-      cursor: pointer;
-      transition: all 0.18s;
+      font-size: 0.92rem;
     }
 
-    .hero-visual-pill:hover {
-      border-color: rgba(94, 234, 212, 1);
-      color: var(--text);
-      box-shadow: 0 0 16px rgba(45, 212, 191, 0.8);
-    }
-
-    /* Home sub sections */
-
-    .home-detail-grid {
-      margin-top: 1.8rem;
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
+      gap: 20px;
     }
 
-    .mini-card {
-      background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.14), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      border-radius: 22px;
-      padding: 1rem;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @media (max-width: 960px) {
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(6, 95, 70, 0.65), rgba(2, 6, 23, 0.98));
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      padding: 18px;
+      box-shadow:
+        0 18px 40px rgba(7, 0, 33, 0.95),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      transition: 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    body.theme-blue .card {
+      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.7), #020617);
+    }
+
+    body.theme-pink .card {
+      background: radial-gradient(circle at top left, rgba(147, 51, 234, 0.7), #020617);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(34, 197, 94, 0.15), transparent 55%);
+      opacity: 0;
+      transition: 0.3s;
+      pointer-events: none;
+    }
+
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) rotate3d(1, -1, 0, 6deg);
+      box-shadow:
+        0 26px 70px rgba(0, 0, 0, 0.98),
+        0 0 0 1px rgba(148, 163, 184, 0.6);
+    }
+
+    .card i {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: var(--accent);
+      transition: 0.3s;
+      z-index: 1;
+    }
+
+    .card:hover i {
+      transform: translateY(-3px) scale(1.05);
+      color: var(--accent2);
+    }
+
+    .card h3 {
+      font-size: 1.02rem;
+      margin-bottom: 6px;
+      z-index: 1;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      z-index: 1;
+    }
+
+    .tagline {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+      z-index: 1;
+    }
+
+    /* LOOP / MEDIA PANELS ------------------------------------------------- */
+    .loop-card {
       position: relative;
       overflow: hidden;
     }
 
-    .mini-card h3 {
-      font-size: 1rem;
-      margin-bottom: 0.35rem;
+    .loop-card .loop-bg {
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(
+        from 200deg,
+        rgba(34, 197, 94, 0),
+        rgba(34, 197, 94, 0.4),
+        rgba(56, 189, 248, 0.4),
+        rgba(236, 72, 153, 0.4),
+        rgba(34, 197, 94, 0)
+      );
+      filter: blur(26px);
+      opacity: 0.95;
+      animation: loopSpin 20s linear infinite;
     }
 
-    .mini-card p {
-      font-size: 0.83rem;
-      color: var(--muted);
+    @keyframes loopSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
-    .mini-card span.label {
+    .loop-card .overlay-content {
       position: relative;
       z-index: 1;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent-alt);
-      margin-bottom: 0.3rem;
     }
 
-    .mini-card::before {
+    .image-card {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #064e3b;
+      background: #020617;
+      margin-bottom: 10px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .image-card img {
+      width: 100%;
+      display: block;
+      transition: 0.5s;
+    }
+
+    .image-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .image-card.media-anim::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background-image: repeating-linear-gradient(
+        135deg,
+        rgba(56, 189, 248, 0) 0,
+        rgba(56, 189, 248, 0.9) 3px,
+        rgba(56, 189, 248, 0) 6px
+      );
+      opacity: 0.5;
+      mix-blend-mode: screen;
+      animation: mediaScan 6s linear infinite;
+      pointer-events: none;
+    }
+
+    .image-card.media-anim::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.4);
+      border-radius: 16px;
+      opacity: 0.8;
+      animation: mediaBorderPulse 5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes mediaScan {
+      0% { transform: translateX(-80px); }
+      100% { transform: translateX(80px); }
+    }
+
+    @keyframes mediaBorderPulse {
+      0% { box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.3); }
+      50% { box-shadow: inset 0 0 0 3px rgba(34, 197, 94, 0.9); }
+      100% { box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.3); }
+    }
+
+    .video-wrap {
+      position: relative;
+      padding-top: 56.25%;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+      border: 1px solid #064e3b;
+      background: #020617;
+      z-index: 1;
+    }
+
+    /* animated cyber panels */
+    .video-wrap.loop-bg-box {
+      background: linear-gradient(135deg, #22c55e, #22d3ee, #a855f7, #22c55e);
+      background-size: 260% 260%;
+      animation: bgPulseStrong 4.8s ease-in-out infinite alternate;
+    }
+
+    .video-wrap.loop-bg-box::before {
       content: "";
       position: absolute;
       inset: -30%;
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.22), transparent 60%);
-      opacity: 0.7;
+      background: conic-gradient(
+        from 140deg,
+        rgba(34, 197, 94, 0),
+        rgba(34, 197, 94, 0.65),
+        rgba(56, 189, 248, 0.7),
+        rgba(168, 85, 247, 0.7),
+        rgba(34, 197, 94, 0)
+      );
+      opacity: 0.8;
+      mix-blend-mode: screen;
+      animation: loopSpin 14s linear infinite;
     }
 
-    .pill-link {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.65);
-      padding: 0.3rem 0.8rem;
-      font-size: 0.74rem;
-      background: rgba(15, 23, 42, 0.93);
-      color: var(--muted);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      margin-right: 0.4rem;
-      margin-top: 0.2rem;
-      transition: all 0.2s;
+    .video-wrap.loop-bg-box::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 60%);
+      mix-blend-mode: screen;
     }
 
-    .pill-link i {
-      font-size: 0.78rem;
-      color: var(--accent);
+    .video-wrap.loop-lines {
+      background: #020617;
     }
 
-    .pill-link:hover {
-      border-color: rgba(94, 234, 212, 0.95);
-      color: var(--text);
-      box-shadow: 0 0 16px rgba(45, 212, 191, 0.9);
+    .video-wrap.loop-lines::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background-image: repeating-linear-gradient(
+        135deg,
+        rgba(56, 189, 248, 0) 0,
+        rgba(56, 189, 248, 0.85) 3px,
+        rgba(56, 189, 248, 0) 6px
+      );
+      opacity: 0.95;
+      animation: scanLines 2.6s linear infinite;
     }
 
-    /* Research section */
-
-    .section-grid {
-      margin-top: 1.4rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
-      gap: 1.4rem;
-    }
-
-    .stack {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .card-title {
-      font-size: 1.05rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .card-body {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .badge-soft {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.14rem 0.7rem;
-      font-size: 0.7rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      margin-bottom: 0.4rem;
-    }
-
-    .badge-soft i {
-      color: var(--accent-alt);
-    }
-
-    .chart-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.75rem;
-      margin-top: 0.4rem;
-    }
-
-    .chart-card {
+    .video-wrap.loop-lines::after {
+      content: "";
+      position: absolute;
+      inset: 12%;
       border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(59, 130, 246, 0.24), rgba(15, 23, 42, 0.98));
-      padding: 0.6rem;
-      font-size: 0.78rem;
-      color: var(--muted);
+      box-shadow:
+        0 0 24px rgba(34, 197, 94, 0.6),
+        0 0 36px rgba(56, 189, 248, 0.5);
+      opacity: 0.7;
+      pointer-events: none;
     }
 
-    .chart-card img {
-      border-radius: 14px;
-      margin-bottom: 0.4rem;
+    @keyframes bgPulseStrong {
+      0% { background-position: 0 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0 50%; }
     }
 
-    .download-box {
+    @keyframes scanLines {
+      0% { transform: translateX(-60px); }
+      100% { transform: translateX(60px); }
+    }
+
+    .video-illustration {
+      position: absolute;
+      inset: 12%;
+      border-radius: 16px;
       display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-    }
-
-    .download-button {
-      display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      padding: 0.55rem 0.95rem;
-      border-radius: 999px;
-      border: 1px solid rgba(34, 197, 94, 0.9);
-      background: radial-gradient(circle at 0 0, rgba(74, 222, 128, 0.8), #16a34a);
-      color: #022c22;
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 0 24px rgba(34, 197, 94, 0.9);
-      width: fit-content;
-    }
-
-    .download-button i {
-      font-size: 0.95rem;
-    }
-
-    .download-note {
-      font-size: 0.76rem;
-      color: var(--muted);
-    }
-
-    /* Survey section */
-
-    .survey-grid {
-      margin-top: 1.4rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.1fr);
-      gap: 1.4rem;
-      align-items: flex-start;
-    }
-
-    .iframe-wrapper {
-      border-radius: 20px;
+      justify-content: center;
       overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.78);
     }
 
-    .iframe-wrapper iframe {
-      width: 100%;
-      border: none;
-      display: block;
-      height: 520px;
+    .video-illustration svg {
+      width: 80%;
+      max-width: 260px;
+      animation: floatPanelImg 4.2s ease-in-out infinite alternate;
+      filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.8));
     }
 
-    .poll-card {
-      border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), rgba(15, 23, 42, 0.98));
-      padding: 0.85rem 1rem;
-      font-size: 0.82rem;
-      color: var(--muted);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.72);
+    .video-illustration.second svg {
+      animation: floatPanelImg 4.8s ease-in-out infinite alternate, pulseGlow 3.2s ease-in-out infinite;
     }
 
-    .poll-card h4 {
-      font-size: 0.9rem;
-      margin-bottom: 0.25rem;
-      color: var(--text);
+    .video-illustration.third svg {
+      animation: floatPanelImg 5s ease-in-out infinite alternate;
     }
 
-    .poll-options {
-      margin: 0.4rem 0 0.6rem;
+    @keyframes floatPanelImg {
+      0% { transform: translateY(6px) scale(1); }
+      100% { transform: translateY(-6px) scale(1.03); }
     }
 
-    .poll-options label {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      margin-bottom: 0.25rem;
-      cursor: pointer;
-    }
-
-    .poll-options input {
-      accent-color: var(--accent);
-    }
-
-    .poll-submit {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      padding: 0.25rem 0.7rem;
-      font-size: 0.75rem;
-      background: rgba(15, 23, 42, 0.96);
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .poll-submit:hover {
-      border-color: rgba(94, 234, 212, 0.95);
-      box-shadow: 0 0 14px rgba(45, 212, 191, 0.9);
-    }
-
-    .poll-result {
-      font-size: 0.76rem;
-      color: var(--accent-alt);
-      min-height: 1rem;
-    }
-
-    /* Media gallery */
-
-    .media-grid {
-      margin-top: 1.4rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
+    @keyframes pulseGlow {
+      0% { filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.4)); }
+      100% { filter: drop-shadow(0 0 22px rgba(34, 197, 94, 0.9)); }
     }
 
     .media-card {
-      border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(37, 99, 235, 0.25), rgba(15, 23, 42, 0.98));
-      padding: 0.9rem 1rem 1rem;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-      position: relative;
-      overflow: hidden;
+      animation: mediaFloat 7s ease-in-out infinite alternate;
     }
 
-    .media-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent-alt);
-      margin-bottom: 0.35rem;
+    .media-card:nth-child(2) {
+      animation-duration: 8s;
     }
 
-    .media-title {
-      font-size: 0.95rem;
-      margin-bottom: 0.4rem;
+    .media-card:nth-child(3) {
+      animation-duration: 9s;
     }
 
-    .media-body {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
+    @keyframes mediaFloat {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-6px); }
     }
 
-    .media-anim {
-      border-radius: 16px;
-      border: 1px solid rgba(56, 189, 248, 0.8);
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.28), rgba(15, 23, 42, 0.98));
-      height: 170px;
-      position: relative;
-      overflow: hidden;
+    /* STATS BAR ----------------------------------------------------------- */
+    .stats {
+      background: radial-gradient(circle at top, #022c22, #020617);
+      border-block: 1px solid #111827;
     }
 
-    .anim-pulse {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.5), transparent 60%),
-        radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.6), transparent 60%);
-      mix-blend-mode: screen;
-      animation: pulse 6s ease-in-out infinite alternate;
+    body.theme-blue .stats {
+      background: radial-gradient(circle at top, #0f172a, #020617);
     }
 
-    .anim-lines {
-      position: absolute;
-      inset: 0;
-      background-image: linear-gradient(120deg, rgba(15, 23, 42, 0.1) 40%, rgba(15, 23, 42, 0.9) 60%);
-      background-size: 260% 260%;
-      animation: slide 7s linear infinite;
-      opacity: 0.9;
+    body.theme-pink .stats {
+      background: radial-gradient(circle at top, #312e81, #020617);
     }
 
-    .anim-icon {
-      position: absolute;
-      width: 60px;
-      height: 60px;
-      border-radius: 20px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.95);
+    .stat-row {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 7%;
       display: grid;
-      place-items: center;
-      color: var(--accent);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 25px rgba(59, 130, 246, 0.9);
-      animation: float 4.5s ease-in-out infinite alternate;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat h3 {
       font-size: 1.6rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 2px;
     }
 
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-        opacity: 0.9;
-      }
-
-      100% {
-        transform: scale(1.08);
-        opacity: 0.7;
-      }
-    }
-
-    @keyframes slide {
-      0% {
-        background-position: 0% 0%;
-      }
-
-      100% {
-        background-position: -200% 0%;
-      }
-    }
-
-    @keyframes float {
-      0% {
-        transform: translate(-50%, -52%);
-      }
-
-      100% {
-        transform: translate(-50%, -46%);
-      }
-    }
-
-    .poster-img {
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-    }
-
-    /* Chatbot */
-
-    .chat-layout {
-      margin-top: 1.4rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.05fr);
-      gap: 1.4rem;
-    }
-
-    .chat-card {
-      border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(59, 130, 246, 0.25), rgba(15, 23, 42, 0.98));
-      padding: 1rem 1.1rem;
-      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.82);
-    }
-
-    .chat-window {
-      height: 260px;
-      border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.97);
-      padding: 0.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      font-size: 0.8rem;
-      overflow-y: auto;
-    }
-
-    .chat-msg {
-      padding: 0.4rem 0.65rem;
-      border-radius: 14px;
-      max-width: 92%;
-    }
-
-    .chat-msg.user {
-      align-self: flex-end;
-      background: rgba(34, 197, 94, 0.18);
-      border: 1px solid rgba(34, 197, 94, 0.7);
-    }
-
-    .chat-msg.bot {
-      align-self: flex-start;
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--muted);
-    }
-
-    .chat-input-row {
-      margin-top: 0.6rem;
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .chat-input-row input {
-      flex: 1;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text);
-      padding: 0.4rem 0.8rem;
-      font-size: 0.8rem;
-      outline: none;
-    }
-
-    .chat-input-row button {
-      border-radius: 999px;
-      border: 1px solid rgba(59, 130, 246, 0.9);
-      background: radial-gradient(circle at 0 0, rgba(96, 165, 250, 0.9), #1d4ed8);
-      color: #eff6ff;
-      font-size: 0.8rem;
-      padding: 0.4rem 0.9rem;
-      cursor: pointer;
-      box-shadow: 0 0 22px rgba(37, 99, 235, 0.9);
-    }
-
-    .faq-list {
-      margin-top: 0.7rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .faq-list li {
-      margin-bottom: 0.25rem;
-    }
-
-    /* Forum */
-
-    .forum-card {
-      margin-top: 1.4rem;
-      border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(59, 130, 246, 0.22), rgba(15, 23, 42, 0.98));
-      padding: 1rem 1.2rem;
-      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.82);
-      font-size: 0.84rem;
-      color: var(--muted);
-    }
-
-    .forum-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.6rem;
-    }
-
-    .forum-tag {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.95);
-      padding: 0.3rem 0.7rem;
-      font-size: 0.74rem;
-    }
-
-    /* Resources */
-
-    .resource-grid {
-      margin-top: 1.4rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-    }
-
-    .resource-card {
-      border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.24), rgba(15, 23, 42, 0.98));
-      padding: 0.95rem 1.05rem 1.05rem;
-      box-shadow: 0 20px 52px rgba(0, 0, 0, 0.8);
-      display: flex;
-      gap: 0.8rem;
-      align-items: flex-start;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-    }
-
-    .resource-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 16px;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      background: rgba(15, 23, 42, 0.95);
-      display: grid;
-      place-items: center;
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .resource-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 26px 70px rgba(56, 189, 248, 0.9);
-      border-color: rgba(56, 189, 248, 1);
-    }
-
-    .resource-card h4 {
-      font-size: 0.95rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .resource-card p {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .resource-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      margin-top: 0.4rem;
-      font-size: 0.78rem;
-      color: var(--accent-alt);
-    }
-
-    .resource-link i {
-      font-size: 0.86rem;
-    }
-
-    /* Contact */
-
-    .contact-layout {
-      margin-top: 1.4rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
-      gap: 1.2rem;
-      align-items: stretch;
-    }
-
-    .contact-card {
-      border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: radial-gradient(circle at top, rgba(148, 163, 184, 0.2), rgba(15, 23, 42, 0.98));
-      padding: 1rem 1.2rem;
-      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.85);
-    }
-
-    .contact-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
-      gap: 1rem;
-      align-items: center;
-    }
-
-    .contact-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      font-size: 0.82rem;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .contact-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 9px;
-      background: rgba(15, 23, 42, 0.97);
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: grid;
-      place-items: center;
-      color: var(--accent-alt);
-      flex-shrink: 0;
-      font-size: 0.8rem;
-    }
-
-    .contact-item span {
-      color: var(--muted);
-    }
-
-    .contact-item strong {
-      color: var(--text);
-    }
-
-    .contact-card h3 {
-      font-size: 1rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .contact-sub {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 0.55rem;
-    }
-
-    .contact-id-block {
-      border-radius: 18px;
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      padding: 0.7rem 0.8rem;
-      font-size: 0.8rem;
-      display: grid;
-      gap: 0.2rem;
-    }
-
-    .qr-box {
-      border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.98);
-      padding: 0.7rem;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .qr-code {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 0.5rem;
-      border-radius: 12px;
-      background-image: linear-gradient(135deg, #22c55e, #0ea5e9, #a855f7);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .qr-code::after {
-      content: "";
-      position: absolute;
-      inset: 10px;
-      background-image: repeating-linear-gradient(45deg, #020617 0, #020617 4px, #f9fafb 4px, #f9fafb 6px);
-      mix-blend-mode: screen;
-      opacity: 0.9;
-    }
-
-    .qr-caption {
-      font-size: 0.78rem;
-    }
-
-    footer {
-      margin-top: 3rem;
+    .stat p {
       font-size: 0.75rem;
-      text-align: center;
       color: var(--muted);
-    }
-
-    footer span {
-      color: var(--accent-alt);
-    }
-
-    /* Responsive */
-
-    @media (max-width: 960px) {
-      .hero-grid,
-      .section-grid,
-      .survey-grid,
-      .chat-layout,
-      .contact-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      header {
-        border-radius: 24px;
-      }
-
-      .nav-inner {
-        flex-wrap: wrap;
-      }
-
-      .hero-visual-card {
-        max-width: 440px;
-        margin: 0 auto;
-      }
     }
 
     @media (max-width: 720px) {
-      .nav-inner {
-        flex-direction: column;
-        align-items: flex-start;
+      .stat-row {
+        grid-template-columns: 1fr;
       }
+    }
 
-      nav {
-        width: 100%;
-        justify-content: flex-start;
-        overflow-x: auto;
+    /* SURVEY -------------------------------------------------------------- */
+    .survey-frame {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid #064e3b;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+      background: #020617;
+    }
+
+    .survey-frame iframe {
+      width: 100%;
+      height: 900px;
+      border: none;
+    }
+
+    .poll-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+    }
+
+    .poll-option {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      cursor: pointer;
+      color: var(--muted);
+      background: #020617;
+      transition: 0.2s;
+    }
+
+    .poll-option.active {
+      border-color: var(--accent2);
+      background: rgba(34, 197, 94, 0.16);
+      color: #e0f2fe;
+    }
+
+    /* CHATBOT / FORUM ----------------------------------------------------- */
+    .chat-window,
+    .forum-window {
+      background: #020617;
+      border-radius: 16px;
+      border: 1px solid #064e3b;
+      padding: 12px;
+      height: 260px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+    }
+
+    .chat-messages,
+    .forum-messages {
+      flex: 1;
+      overflow-y: auto;
+      font-size: 0.82rem;
+      margin-bottom: 8px;
+    }
+
+    .msg-bot,
+    .msg-user {
+      margin-bottom: 6px;
+      padding: 6px 9px;
+      border-radius: 10px;
+    }
+
+    .msg-bot {
+      background: #111827;
+      color: #e5e7eb;
+      align-self: flex-start;
+    }
+
+    .msg-user {
+      background: #1f2937;
+      color: #e5e7eb;
+      align-self: flex-end;
+    }
+
+    .chat-input-row input,
+    .forum-input-row input {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: #e5e7eb;
+      padding: 7px 10px;
+      font-size: 0.82rem;
+      outline: none;
+    }
+
+    .chat-input-row,
+    .forum-input-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .chat-input-row button,
+    .forum-input-row button {
+      border-radius: 999px;
+      border: none;
+      padding: 7px 10px;
+      background: var(--accent);
+      color: #020617;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .resource-list {
+      list-style: none;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .resource-list li {
+      margin-bottom: 6px;
+    }
+
+    .resource-list li a {
+      color: #6ee7b7;
+    }
+
+    footer {
+      padding: 16px 7% 20px;
+      border-top: 1px solid #111827;
+      background: #020617;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer b {
+      color: #e5e7eb;
+    }
+
+    /* REVEAL + BACK HOME -------------------------------------------------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 0.7s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 {
+      transition-delay: 0.12s;
+    }
+
+    .delay-2 {
+      transition-delay: 0.22s;
+    }
+
+    .delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    #backHomeBtn {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: none;
+      background: conic-gradient(
+        from 200deg,
+        var(--accent),
+        var(--accent3),
+        var(--accent2),
+        var(--accent)
+      );
+      color: #020617;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 18px 40px rgba(7, 0, 33, 0.95);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s;
+      z-index: 1200;
+    }
+
+    #backHomeBtn span {
+      position: absolute;
+      right: 52px;
+      background: #020617;
+      color: var(--text);
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid #064e3b;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(8px);
+      transition: 0.2s;
+    }
+
+    #backHomeBtn.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #backHomeBtn:hover {
+      transform: translateY(-3px);
+    }
+
+    #backHomeBtn:hover span {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @media (max-width: 640px) {
+      section {
+        padding-inline: 5%;
       }
-
-      .page {
-        padding-inline: 0.9rem;
-      }
-
-      .hero-title {
-        font-size: 2rem;
-      }
-
-      .iframe-wrapper iframe {
-        height: 460px;
+      .stat-row {
+        padding-inline: 5%;
       }
     }
   </style>
 </head>
-
 <body>
-  <div class="page">
-    <!-- HEADER / NAV -->
-    <header>
-      <div class="nav-inner">
-        <div class="brand">
-          <div class="brand-logo">
-            <i class="fa-solid fa-shield-halved"></i>
-          </div>
-          <div class="brand-text">
-            <span>Protecting the Force</span>
-            <span class="brand-text-small">CYBER AWARENESS</span>
-          </div>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <div class="logo-text-main">
+        <span>Protecting the Force</span>
+        <span>CYBER AWARENESS</span>
+      </div>
+    </div>
+
+    <div class="nav-center">
+      <div class="nav-links" id="navLinks">
+        <a href="#home">1. Home</a>
+        <a href="#research">2. Research</a>
+        <a href="#awareness">3. Awareness Tips</a>
+        <a href="#survey">4. Survey</a>
+        <a href="#media">5. Media</a>
+        <a href="#chatbot">6. Chatbot</a>
+        <a href="#forum">7. Forum</a>
+        <a href="#resources">8. Resources</a>
+        <a href="#contact">9. Contact</a>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-theme-btn" id="themeToggle">
+        <i id="themeIcon" class="fa-solid fa-sun"></i>
+        <span id="themeLabel">Green</span>
+      </button>
+
+      <button
+        class="nav-cta"
+        onclick="document.getElementById('survey').scrollIntoView({behavior:'smooth'})"
+      >
+        <i class="fa-solid fa-list-check"></i> Take Survey
+      </button>
+
+      <button class="nav-toggle" id="navToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 1. HOME ------------------------------------------------------------- -->
+  <section class="hero" id="home">
+    <div class="hero-bg-img"></div>
+    <div class="hero-inner">
+      <div class="hero-left reveal">
+        <div class="hero-tag">
+          <span class="hero-dot"></span>
+          1. Home – Introduction • Objectives • Scope
         </div>
-
-        <nav>
-          <button class="nav-link active" data-target="#home"><strong>1.</strong> <span>Home</span></button>
-          <button class="nav-link" data-target="#research"><strong>2.</strong> <span>Research</span></button>
-          <button class="nav-link" data-target="#tips"><strong>3.</strong> <span>Awareness Tips</span></button>
-          <button class="nav-link" data-target="#survey"><strong>4.</strong> <span>Survey</span></button>
-          <button class="nav-link" data-target="#media"><strong>5.</strong> <span>Media</span></button>
-          <button class="nav-link" data-target="#chatbot"><strong>6.</strong> <span>Chatbot</span></button>
-          <button class="nav-link" data-target="#forum"><strong>7.</strong> <span>Forum</span></button>
-          <button class="nav-link" data-target="#resources"><strong>8.</strong> <span>Resources</span></button>
-          <button class="nav-link" data-target="#contact"><strong>9.</strong> <span>Contact</span></button>
-        </nav>
-
-        <div class="header-actions">
-          <button id="themeToggle" class="theme-toggle" type="button">
-            <i class="fa-regular fa-heart"></i>
-            <span>Neon Pink</span>
+        <h1>
+          Protecting the Force:<br />
+          <span>Cybersecurity Strategies for Police</span>
+        </h1>
+        <p>
+          A structured awareness website designed to educate police personnel and
+          citizens about cyber threats, safe practices and secure digital policing.
+        </p>
+        <div class="hero-buttons">
+          <button
+            class="btn-primary"
+            onclick="document.getElementById('research').scrollIntoView({behavior:'smooth'})"
+          >
+            Go to Research (2)
           </button>
-          <button class="pill-button" data-target="#survey" type="button">
-            <i class="fa-solid fa-list-check"></i>
-            &nbsp;Take Survey
+          <button
+            class="btn-secondary"
+            onclick="document.getElementById('awareness').scrollIntoView({behavior:'smooth'})"
+          >
+            Awareness Tips (3)
           </button>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-pill"><b>Student:</b> Afaque Ansari</div>
+          <div class="meta-pill"><b>Dept:</b> SyBSC IT</div>
+          <div class="meta-pill"><b>College:</b> M.D.G.C College of Commerce</div>
         </div>
       </div>
-    </header>
 
-    <main>
-      <!-- 1. HOME -->
-      <section id="home">
-        <div class="card">
-          <div class="card-inner">
-            <div class="hero-grid">
-              <div>
-                <div class="pill-tag">
-                  <span class="pill-dot"></span>
-                  1. Home &bull; Introduction &bull; Objectives &bull; Scope
-                </div>
-                <h1 class="hero-title">
-                  Protecting the Force:
-                  <span class="highlight">Cybersecurity Strategies</span>
-                  <span class="accent-alt">for Police</span>
-                </h1>
-                <p class="hero-text">
-                  A structured awareness website designed to educate police personnel and citizens about cyber threats, safe
-                  practices and secure digital policing.
-                </p>
-
-                <div class="hero-actions">
-                  <button class="pill-button" data-target="#research" type="button">
-                    Go to Research (2)
-                  </button>
-                  <button class="secondary-pill pill-link" data-target="#home-objectives" type="button">
-                    <i class="fa-solid fa-bullseye"></i>
-                    Objectives
-                  </button>
-                  <button class="secondary-pill pill-link" data-target="#home-scope" type="button">
-                    <i class="fa-solid fa-globe"></i>
-                    Scope of Awareness
-                  </button>
-                </div>
-
-                <div class="hero-meta">
-                  <div class="meta-chip"><strong>Student:</strong>&nbsp;Afaque Ansari</div>
-                  <div class="meta-chip"><strong>Dept:</strong>&nbsp;SyBSC IT</div>
-                  <div class="meta-chip">
-                    <strong>College:</strong>&nbsp;M.D.G.C College of Commerce
-                  </div>
-                </div>
-              </div>
-
-              <div class="hero-visual">
-                <div class="hero-visual-card">
-                  <div class="hero-visual-inner">
-                    <div class="chip-row">
-                      <span>AI-Assisted Cyber Command</span>
-                      <span class="badge">Live Security Center</span>
-                    </div>
-
-                    <div class="hero-image-frame">
-                      <div class="hero-image-overlay"></div>
-                    </div>
-
-                    <div class="hero-visual-text">
-                      Introduction: Modern police forces rely on AI-driven monitoring and secure digital systems to track
-                      cyber threats in real time.
-                    </div>
-                    <div class="hero-visual-buttons">
-                      <button class="hero-visual-pill pill-link" data-target="#home-objectives" type="button">
-                        Objectives
-                      </button>
-                      <button class="hero-visual-pill pill-link" data-target="#home-scope" type="button">
-                        Scope of Awareness
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <div class="hero-right reveal delay-1">
+        <div class="hero-card">
+          <div class="hero-thumb">
+            <img
+              src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+              alt="Cybersecurity command center"
+            />
+            <div class="hero-pulse hero-pulse-1">
+              <i class="fa-solid fa-shield-halved"></i>
             </div>
-
-            <!-- Home sub sections -->
-            <div class="home-detail-grid" id="home-details">
-              <article class="mini-card" id="home-intro">
-                <span class="label"><i class="fa-solid fa-circle-info"></i> Introduction</span>
-                <h3>Why cybersecurity for police?</h3>
-                <p>
-                  Police handle sensitive FIRs, digital evidence, CDR data and citizen records every day. Any cyber-attack
-                  can leak confidential information, damage investigations and reduce public trust. This project explains
-                  how police can secure their systems using layered cybersecurity controls and awareness programmes.
-                </p>
-              </article>
-
-              <article class="mini-card" id="home-objectives">
-                <span class="label"><i class="fa-solid fa-bullseye"></i> Objectives</span>
-                <h3>Key goals of this awareness project</h3>
-                <p>
-                  &bull; Understand common cyber threats faced by police stations and cyber cells. <br />
-                  &bull; Present research-based findings from a student survey. <br />
-                  &bull; Share practical do’s &amp; don’ts, safety practices and real-life case studies. <br />
-                  &bull; Provide ready-to-use resources, helplines and links for quick action.
-                </p>
-              </article>
-
-              <article class="mini-card" id="home-scope">
-                <span class="label"><i class="fa-solid fa-globe"></i> Scope of Awareness</span>
-                <h3>Who can use this website?</h3>
-                <p>
-                  This site focuses on police personnel, students and citizens who want to learn about cybercrime,
-                  reporting methods and safe digital behaviour. It covers awareness, not technical hacking, and is aligned
-                  with the field project submitted to M.D.G.C College of Commerce.
-                </p>
-              </article>
+            <div class="hero-pulse hero-pulse-2">
+              <i class="fa-solid fa-wifi"></i>
+            </div>
+            <div class="hero-pulse hero-pulse-3">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="hero-badge-strip">
+              <i class="fa-solid fa-microchip"></i> AI-Assisted Cyber Command
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- 2. RESEARCH FINDINGS -->
-      <section id="research">
-        <div class="section-label">2. Research Findings</div>
-        <h2 class="section-title">Summary, charts and key insights from the study</h2>
-        <p class="section-subtitle">
-          Based on your field project report and Google Forms survey, this section presents the abstract, visual charts,
-          insights and a downloadable PDF of the full research. :contentReference[oaicite:2]{index=2}
-        </p>
-
-        <div class="section-grid">
-          <div class="stack">
-            <!-- Abstract -->
-            <div class="card">
-              <div class="card-inner">
-                <span class="badge-soft"><i class="fa-solid fa-file-lines"></i> Abstract / Summary</span>
-                <h3 class="card-title">Protecting the Force: Cybersecurity Strategies for Police</h3>
-                <p class="card-body">
-                  In today’s digital world, police forces depend on technology for investigations, records, communication
-                  and public safety. This also exposes them to serious risks like data breaches, ransomware, identity theft
-                  and unauthorised access to evidence. The project explains how police organisations can strengthen
-                  cybersecurity through risk assessment, strong access controls, encryption, digital-evidence protection and
-                  incident-response planning. It also highlights the importance of regular training, cyber awareness
-                  programmes and collaboration with cyber cells and national agencies. Overall, layered and proactive
-                  security helps maintain data integrity, continuity of operations and public trust in law enforcement.
-                  :contentReference[oaicite:3]{index=3}
-                </p>
-              </div>
-            </div>
-
-            <!-- Key insights -->
-            <div class="card">
-              <div class="card-inner">
-                <span class="badge-soft"><i class="fa-solid fa-lightbulb"></i> Key Insights</span>
-                <h3 class="card-title">What the survey and field work revealed</h3>
-                <ul class="card-body" style="padding-left:1.1rem;">
-                  <li>
-                    Awareness levels are improving, but many respondents still use weak passwords and ignore suspicious
-                    links in emails or messages. :contentReference[oaicite:4]{index=4}
-                  </li>
-                  <li>
-                    Most participants agreed that regular training and mock drills from cyber cells would help them respond
-                    better to cyber incidents.
-                  </li>
-                  <li>
-                    Free public Wi-Fi and unknown phone calls are still major points where people make unsafe choices.
-                  </li>
-                  <li>
-                    Police departments already use firewalls, encryption and digital forensics tools, but need continuous
-                    upgrades and specialised teams for incident response. :contentReference[oaicite:5]{index=5}
-                  </li>
-                  <li>
-                    Citizens expect simple reporting channels such as cyber crime portals, helplines and WhatsApp-based
-                    chat support.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="stack">
-            <!-- Charts & Graphs -->
-            <div class="card">
-              <div class="card-inner">
-                <span class="badge-soft"><i class="fa-solid fa-chart-pie"></i> Charts &amp; Graphs</span>
-                <h3 class="card-title">Visual representation of responses</h3>
-                <p class="card-body">
-                  Export the pie charts from your Google Form and save them in the same folder as:<br />
-                  <strong>chart-1.png, chart-2.png, chart-3.png</strong>. They will appear in the boxes below.
-                </p>
-                <div class="chart-grid">
-                  <div class="chart-card">
-                    <img src="chart-1.png" alt="Survey chart 1 (age and occupation)" />
-                    Age &amp; Occupation distribution
-                  </div>
-                  <div class="chart-card">
-                    <img src="chart-2.png" alt="Survey chart 2 (best responses)" />
-                    Reactions to cyber-attack situations
-                  </div>
-                  <div class="chart-card">
-                    <img src="chart-3.png" alt="Survey chart 3 (safe behaviour)" />
-                    Best practices for avoiding threats
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Download full research -->
-            <div class="card">
-              <div class="card-inner">
-                <span class="badge-soft"><i class="fa-solid fa-download"></i> Download Full Research Paper</span>
-                <div class="download-box">
-                  <p class="card-body">
-                    This button lets teachers or visitors download the complete PDF report that you submitted as your
-                    Field Project.
-                  </p>
-                  <!-- Upload your PDF with the exact same name in GitHub repo root -->
-                  <a href="02-Afaque%20Complete.pdf" class="download-button" download>
-                    <i class="fa-solid fa-file-pdf"></i>
-                    Download “Protecting the Force” PDF
-                  </a>
-                  <p class="download-note">
-                    Note: Make sure the file <strong>02-Afaque Complete.pdf</strong> is uploaded to your GitHub repository
-                    (root folder). Otherwise the download link will show 404.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 3. AWARENESS TIPS -->
-      <section id="tips">
-        <div class="section-label">3. Awareness Tips</div>
-        <h2 class="section-title">Do’s, don’ts, guides and real-life case study</h2>
-        <p class="section-subtitle">
-          Quick awareness content that police staff and citizens can follow every day – exactly as required in your
-          college workflow (Do’s &amp; Don’ts, Step-by-Step Guides, Safety Practices and Case Study).
-        </p>
-
-        <div class="home-detail-grid" style="margin-top:1.4rem;">
-          <article class="mini-card">
-            <span class="label"><i class="fa-solid fa-thumbs-up"></i> Do’s &amp; Don’ts</span>
-            <h3>Daily cyber hygiene for officers</h3>
-            <p>
-              ✅ Use strong, unique passwords for official systems and enable multi-factor authentication wherever
-              possible.<br />
-              ✅ Lock your workstation when leaving the desk and log out from web dashboards after use.<br />
-              ❌ Never share OTPs, passwords or internal links on WhatsApp groups.<br />
-              ❌ Avoid plugging unknown pendrives or personal phones directly into police computers.
-            </p>
-          </article>
-
-          <article class="mini-card">
-            <span class="label"><i class="fa-solid fa-route"></i> Step-by-Step Guide</span>
-            <h3>How to report a suspected cybercrime</h3>
-            <p>
-              1. <strong>Identify</strong> – Capture screenshots, note URLs, phone numbers and time.<br />
-              2. <strong>Record</strong> – Do not delete messages; preserve evidence in original form.<br />
-              3. <strong>Report</strong> – Call helpline 1930 or use the National Cyber Crime Portal.<br />
-              4. <strong>Escalate</strong> – Inform the nearest cyber cell / police station with all documents.
-            </p>
-          </article>
-
-          <article class="mini-card">
-            <span class="label"><i class="fa-solid fa-shield-heart"></i> Safety Practices</span>
-            <h3>Protecting police systems &amp; citizens</h3>
-            <p>
-              &bull; Keep all official devices patched and updated.<br />
-              &bull; Use only authorised software and VPNs approved by the department.<br />
-              &bull; Conduct regular awareness drives in schools and communities about fraud calls and phishing.
-            </p>
-          </article>
-
-          <article class="mini-card">
-            <span class="label"><i class="fa-solid fa-user-shield"></i> Real-Life Case Study</span>
-            <h3>Phishing call targeting a police officer (example)</h3>
-            <p>
-              A fraudster called an officer pretending to be from a bank and asked for OTP to “verify salary account”.
-              Because of training, the officer disconnected the call, verified directly with the bank, and reported the
-              number to the cyber cell. This simple action prevented salary data leak and helped trace the fraud attempt.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <!-- 4. SURVEY / FEEDBACK -->
-      <section id="survey">
-        <div class="section-label">4. Survey &amp; Feedback</div>
-        <h2 class="section-title">Google Form + quick polls</h2>
-        <p class="section-subtitle">
-          The embedded Google Form collects detailed responses. The quick polls show 3 sample awareness questions
-          directly on the website, matching the expectation in your workflow.
-        </p>
-
-        <div class="survey-grid">
-          <div class="iframe-wrapper">
-            <!-- Your original Google Form embed -->
-            <iframe
-              src="https://docs.google.com/forms/d/e/1FAIpQLSdnWVOCL_QLaCjsYTSme2yrGTWFmmy_oADonJH9vuqQIxzoew/viewform?embedded=true">
-              Loading…
-            </iframe>
-          </div>
-
-          <div class="stack">
-            <div class="poll-card" data-poll="1">
-              <h4>Quick Poll 1</h4>
-              <div class="poll-question">
-                If your computer starts acting strange, what’s your first thought?
-              </div>
-              <div class="poll-options">
-                <label><input type="radio" name="poll1" value="attack" /> A cyber-attack is happening</label>
-                <label><input type="radio" name="poll1" value="game" /> Someone installed a game again</label>
-                <label><input type="radio" name="poll1" value="restart" /> Time to restart and hope for the best</label>
-                <label><input type="radio" name="poll1" value="ghost" /> Ghosts in the system 👻</label>
-              </div>
-              <button class="poll-submit" type="button">Vote</button>
-              <div class="poll-result"></div>
-            </div>
-
-            <div class="poll-card" data-poll="2">
-              <h4>Quick Poll 2</h4>
-              <div class="poll-question">
-                What’s the best way to avoid cyber threats at work?
-              </div>
-              <div class="poll-options">
-                <label><input type="radio" name="poll2" value="policy" /> Follow protocols and cyber policy</label>
-                <label><input type="radio" name="poll2" value="password" /> Use a strong password policy</label>
-                <label><input type="radio" name="poll2" value="links" /> Never click suspicious links</label>
-                <label><input type="radio" name="poll2" value="tea" /> Pull the plug and go for tea ☕</label>
-              </div>
-              <button class="poll-submit" type="button">Vote</button>
-              <div class="poll-result"></div>
-            </div>
-
-            <div class="poll-card" data-poll="3">
-              <h4>Quick Poll 3</h4>
-              <div class="poll-question">
-                If someone offers you free Wi-Fi at a tea stall near the station, what’s the smart move?
-              </div>
-              <div class="poll-options">
-                <label><input type="radio" name="poll3" value="connect" /> Connect immediately and stream cricket 🏏</label>
-                <label><input type="radio" name="poll3" value="vpn" /> Use VPN before connecting</label>
-                <label><input type="radio" name="poll3" value="mobile" /> Politely refuse and use mobile data</label>
-                <label><input type="radio" name="poll3" value="policy" /> Ask the stall owner for cyber policy 😄</label>
-              </div>
-              <button class="poll-submit" type="button">Vote</button>
-              <div class="poll-result"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 5. MEDIA GALLERY -->
-      <section id="media">
-        <div class="section-label">5. Media Gallery</div>
-        <h2 class="section-title">Infographics, posters &amp; cyber animations</h2>
-        <p class="section-subtitle">
-          Visual content that supports the awareness campaign – two animated cyber panels and one static awareness
-          poster card.
-        </p>
-
-        <div class="media-grid">
-          <div class="media-card">
-            <div class="media-label">Cyber Animation Panel (1)</div>
-            <div class="media-title">Live cyber-attack simulation animation</div>
-            <p class="media-body">
-              Moving neon lines show live network traffic levels – works like an eye-catching banner on a projector
-              screen during your presentation.
-            </p>
-            <div class="media-anim">
-              <div class="anim-pulse"></div>
-              <div class="anim-lines"></div>
-              <div class="anim-icon">
-                <i class="fa-solid fa-bug"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="media-card">
-            <div class="media-label">Cyber Animation Panel (2)</div>
-            <div class="media-title">Data security &amp; encryption visualisation</div>
-            <p class="media-body">
-              A calm animation panel that symbolises protected data packets flowing through secure police networks.
-            </p>
-            <div class="media-anim">
-              <div class="anim-pulse"></div>
-              <div class="anim-lines"></div>
-              <div class="anim-icon">
-                <i class="fa-solid fa-lock"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="media-card">
-            <div class="media-label">AI-themed poster (Awareness)</div>
-            <div class="media-title">Cyber awareness poster for display</div>
-            <p class="media-body">
-              Printable poster that can be displayed in police stations, training rooms or community awareness events.
-            </p>
-            <div class="poster-img">
-              <img
-                src="https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                alt="Cybersecurity awareness poster"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 6. INTERACTIVE CHATBOT -->
-      <section id="chatbot">
-        <div class="section-label">6. Interactive Chatbot</div>
-        <h2 class="section-title">Ask basic cybersecurity questions</h2>
-        <p class="section-subtitle">
-          A simple rule-based chatbot that answers frequently asked questions from officers and citizens – designed as a
-          prototype, not a real AI model.
-        </p>
-
-        <div class="chat-layout">
-          <div class="chat-card">
-            <h3 style="font-size:0.96rem;margin-bottom:0.35rem;">Cyber Helpdesk – Demo Chatbot</h3>
-            <p class="card-body" style="margin-bottom:0.5rem;">
-              Try questions like “strong password”, “phishing”, “report cyber crime”, “Wi-Fi safety”, etc.
-            </p>
-
-            <div id="chatWindow" class="chat-window">
-              <div class="chat-msg bot">
-                👋 Namaste! I am your cybersecurity assistant for this project. Ask me anything about safe digital
-                behaviour, police cyber cells or reporting fraud.
-              </div>
-            </div>
-
-            <div class="chat-input-row">
-              <input id="chatInput" type="text" placeholder="Type your question here…" />
-              <button id="chatSend" type="button">Send</button>
-            </div>
-          </div>
-
-          <div class="chat-card">
-            <h3 style="font-size:0.96rem;margin-bottom:0.3rem;">Quick FAQ (Examples)</h3>
-            <ul class="faq-list">
-              <li>What is the safest way to create a strong password?</li>
-              <li>How can I verify if a call or SMS is really from the bank or police?</li>
-              <li>Which website should I use to report cyber fraud in India?</li>
-              <li>Is it safe to use public Wi-Fi for banking?</li>
-              <li>What are common signs of a phishing email?</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- 7. FORUM / DISCUSSION -->
-      <section id="forum">
-        <div class="section-label">7. Community Forum / Discussion</div>
-        <h2 class="section-title">Share experiences or ask questions (offline)</h2>
-        <p class="section-subtitle">
-          In a real deployment this section could be a login-based forum. For the project, it explains how discussions
-          can be organised during awareness sessions.
-        </p>
-
-        <div class="forum-card">
-          <p>
-            During workshops, officers and students can share their cybercrime experiences, doubts and suggestions. The
-            facilitator (you or the teacher) can note important points on a whiteboard or digital screen and connect them
-            with the tips given in this website.
+          <p style="font-size:0.85rem;color:var(--muted);">
+            <b>Introduction:</b> Modern police forces rely on AI-driven monitoring and
+            secure digital systems to track cyber threats in real time.
           </p>
-          <div class="forum-tags">
-            <span class="forum-tag">Phishing stories</span>
-            <span class="forum-tag">Online fraud complaints</span>
-            <span class="forum-tag">Digital safety for families</span>
-            <span class="forum-tag">Best practices followed by police</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- 8. RESOURCES / LINKS -->
-      <section id="resources">
-        <div class="section-label">8. Resources &amp; Links</div>
-        <h2 class="section-title">Official portals, helplines and learning material</h2>
-        <p class="section-subtitle">
-          All links are clickable and open official websites in new tabs, as your teacher requested.
-        </p>
-
-        <div class="resource-grid">
-          <a
-            class="resource-card"
-            href="https://www.cybercrime.gov.in/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div class="resource-icon">
-              <i class="fa-solid fa-building-shield"></i>
+          <div class="hero-badges">
+            <div class="hero-chip">
+              <i class="fa-solid fa-bullseye"></i> Objectives
             </div>
-            <div>
-              <h4>Government Portals</h4>
-              <p>
-                National Cyber Crime Reporting Portal – citizens and police can register complaints, track cases and
-                access official information.
-              </p>
-              <div class="resource-link">
-                Open portal <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </div>
-            </div>
-          </a>
-
-          <a
-            class="resource-card"
-            href="https://cybercrime.gov.in/Webform/Helpline.aspx"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div class="resource-icon">
-              <i class="fa-solid fa-phone-volume"></i>
-            </div>
-            <div>
-              <h4>Emergency Helplines</h4>
-              <p>
-                National helpline <strong>1930</strong> for reporting immediate cyber-financial frauds along with contact
-                details of major state-level cyber cells.
-              </p>
-              <div class="resource-link">
-                View helpline info <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </div>
-            </div>
-          </a>
-
-          <a
-            class="resource-card"
-            href="https://www.cert-in.org.in/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div class="resource-icon">
-              <i class="fa-solid fa-book-open-reader"></i>
-            </div>
-            <div>
-              <h4>Learning Resources</h4>
-              <p>
-                CERT-In advisories, awareness documents and best-practice guidelines for government organisations and
-                citizens.
-              </p>
-              <div class="resource-link">
-                Explore learning material <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </div>
-            </div>
-          </a>
-        </div>
-      </section>
-
-      <!-- 9. CONTACT -->
-      <section id="contact">
-        <div class="section-label">9. Contact</div>
-        <h2 class="section-title">Student contact card &amp; project identity</h2>
-        <p class="section-subtitle">
-          Visiting-card style design inspired by the reference image – left side social / contact icons and right side
-          project ID block.
-        </p>
-
-        <div class="contact-layout">
-          <div class="contact-card">
-            <div class="contact-row">
-              <div class="contact-list">
-                <div class="contact-item">
-                  <div class="contact-icon"><i class="fa-solid fa-user"></i></div>
-                  <div>
-                    <strong>Afaque Ansari</strong>
-                    <div class="contact-sub" style="margin:0;">SYBScIT &bull; M.D.G.C College of Commerce</div>
-                  </div>
-                </div>
-
-                <div class="contact-item">
-                  <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
-                  <div>
-                    <strong>Email</strong>
-                    <div class="contact-sub">afaqueansari707@gmail.com</div>
-                  </div>
-                </div>
-
-                <div class="contact-item">
-                  <div class="contact-icon"><i class="fa-brands fa-instagram"></i></div>
-                  <div>
-                    <strong>Instagram</strong>
-                    <div class="contact-sub">@afaque_ansari (example)</div>
-                  </div>
-                </div>
-
-                <div class="contact-item">
-                  <div class="contact-icon"><i class="fa-brands fa-linkedin-in"></i></div>
-                  <div>
-                    <strong>LinkedIn</strong>
-                    <div class="contact-sub">linkedin.com/in/afaque-ansari (optional)</div>
-                  </div>
-                </div>
-
-                <div class="contact-item">
-                  <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
-                  <div>
-                    <strong>Location</strong>
-                    <div class="contact-sub">Bhiwandi, Maharashtra</div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <div class="qr-box">
-                  <div class="qr-code"></div>
-                  <div class="qr-caption">Scan to open this website URL on mobile</div>
-                </div>
-
-                <div class="contact-id-block" style="margin-top:0.6rem;">
-                  <div><strong>Project:</strong> Protecting the Force – Cybersecurity Strategies for Police</div>
-                  <div><strong>Academic Year:</strong> 2025–2026</div>
-                  <div><strong>Guide:</strong> Ms. Ansari Nusrat (Asst. Professor, IT Dept.)</div>
-                </div>
-              </div>
+            <div class="hero-chip">
+              <i class="fa-solid fa-earth-americas"></i> Scope of Awareness
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
-      <footer>
-        Designed &amp; developed by <span>Afaque Ansari</span> as a Field Project for SYBScIT &mdash; M.D.G.C College of
-        Commerce.
-      </footer>
-    </main>
+  <!-- STATS BAR ----------------------------------------------------------- -->
+  <div class="stats">
+    <div class="stat-row">
+      <div class="stat">
+        <h3>24×7</h3>
+        <p>Monitoring of cyber incidents</p>
+      </div>
+      <div class="stat">
+        <h3>AI</h3>
+        <p>Used for threat detection &amp; alerts</p>
+      </div>
+      <div class="stat">
+        <h3>100%</h3>
+        <p>Focus on secure digital policing</p>
+      </div>
+    </div>
   </div>
 
+  <!-- 2. RESEARCH FINDINGS ------------------------------------------------ -->
+  <section id="research">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>2. Research Findings</span></h2>
+        <p>
+          Summary of survey responses, key insights and visual representation of
+          cybersecurity awareness levels in the target group.
+        </p>
+      </div>
+
+      <div class="grid grid-2">
+        <!-- Summary -->
+        <div class="card reveal">
+          <div class="tagline">ABSTRACT / SUMMARY</div>
+          <i class="fa-solid fa-file-lines"></i>
+          <h3>Overall Awareness</h3>
+          <p>
+            Majority respondents show basic knowledge of passwords and device safety,
+            but advanced topics like phishing, data backup and incident reporting are
+            still under-practiced.
+          </p>
+        </div>
+
+        <!-- Charts -->
+        <div class="card reveal delay-1">
+          <div class="tagline">CHARTS &amp; GRAPHS</div>
+          <i class="fa-solid fa-chart-column"></i>
+          <h3>Visualised Results</h3>
+          <p>
+            Bar and pie charts can show awareness level by age group, device usage,
+            training received and preferred reporting channel (phone, portal, cyber cell).
+          </p>
+        </div>
+
+        <!-- Key insights -->
+        <div class="card reveal delay-2">
+          <div class="tagline">KEY INSIGHTS</div>
+          <i class="fa-solid fa-lightbulb"></i>
+          <h3>Common Gaps</h3>
+          <p>
+            Weak passwords used on multiple sites, delayed reporting and lack of
+            verification of unknown links are identified as major gaps.
+          </p>
+        </div>
+
+        <!-- Download paper -->
+        <div class="card reveal delay-3">
+          <div class="tagline">DOWNLOAD FULL RESEARCH PAPER</div>
+          <i class="fa-solid fa-file-pdf"></i>
+          <h3>Full Research Paper</h3>
+          <p>
+            Final field project report (PDF) with watermark, header–footer, methodology,
+            analysis and recommendations. <br />Place your file as
+            <b>research-paper.pdf</b> in the project folder and link it here.
+          </p>
+          <p style="margin-top:8px;">
+            <a href="research-paper.pdf" target="_blank"
+              ><i class="fa-solid fa-download"></i> Download research paper</a
+            >
+            (demo link)
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. AWARENESS TIPS --------------------------------------------------- -->
+  <section id="awareness">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>3. Awareness Tips</span></h2>
+        <p>
+          Practical guidance for police personnel and citizens – do’s &amp; don’ts,
+          step-wise approach and real-life cybercrime stories.
+        </p>
+      </div>
+
+      <div class="grid grid-2">
+        <!-- Do's & Don'ts -->
+        <div class="card reveal">
+          <div class="tagline">DO’S &amp; DON’TS</div>
+          <i class="fa-solid fa-shield-heart"></i>
+          <h3>Safe Digital Habits</h3>
+          <p>
+            <b>Do:</b> Use strong passwords, enable 2-factor authentication, verify links
+            before clicking, report suspicious messages to cyber cell. <br /><br />
+            <b>Don’t:</b> Share OTP / PIN, install unknown apps, respond to prize / KYC
+            messages or transfer money without verification.
+          </p>
+        </div>
+
+        <!-- Step-by-step -->
+        <div class="card reveal delay-1">
+          <div class="tagline">STEP-BY-STEP GUIDES</div>
+          <i class="fa-solid fa-list-ol"></i>
+          <h3>Awareness Campaign Flow</h3>
+          <p>
+            Identify → Research → Plan → Create → Launch → Engage → Feedback → Improve.
+            Simple instructions explaining how to start a cyber awareness drive inside
+            a police station or community.
+          </p>
+        </div>
+
+        <!-- Safety practices -->
+        <div class="card reveal delay-2">
+          <div class="tagline">SAFETY PRACTICES</div>
+          <i class="fa-solid fa-user-shield"></i>
+          <h3>Safety Practices for Police</h3>
+          <p>
+            Use official email only, secure case files and evidence drives, lock screen
+            when leaving desk, never plug unknown USB devices and follow cyber hygiene
+            SOPs issued by the department.
+          </p>
+        </div>
+
+        <!-- Real-life case -->
+        <div class="card reveal delay-3">
+          <div class="tagline">REAL-LIFE STORIES / CASE STUDIES</div>
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <h3>UPI Fraud Case Study (Example)</h3>
+          <p>
+            A fraudster created a fake “customer care” number. The victim called,
+            shared OTP and lost money from account. <br /><br />
+            <b>Lesson:</b> Banks / police never ask for OTP. Victims must immediately
+            call helpline <b>1930</b> and file a complaint on the
+            <b>National Cyber Crime Portal</b>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. SURVEY / FEEDBACK ------------------------------------------------ -->
+  <section id="survey">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>4. Survey &amp; Feedback</span></h2>
+        <p>
+          Field project survey embedded using Google Form and a small quick poll for
+          instant classroom responses.
+        </p>
+      </div>
+
+      <div class="grid grid-2">
+        <!-- Google Form -->
+        <div class="card reveal">
+          <div class="tagline">EMBEDDED GOOGLE FORM</div>
+          <i class="fa-solid fa-square-poll-vertical"></i>
+          <h3>Field Project Survey</h3>
+          <p style="margin-bottom:10px;">
+            Students and officers can submit responses directly from this page.
+          </p>
+          <div class="survey-frame">
+            <iframe
+              src="https://docs.google.com/forms/d/e/1FAIpQLSdnWVOCL_QLaCjsYTSme2yrGTWFmmy_oADonJH9vuqQIxzoew/viewform?embedded=true"
+              >Loading…</iframe
+            >
+          </div>
+        </div>
+
+        <!-- Quick poll -->
+        <div class="card reveal delay-1">
+          <div class="tagline">QUICK POLLS (DYNAMIC)</div>
+          <i class="fa-solid fa-gauge-high"></i>
+          <h3>Instant Awareness Check</h3>
+          <p>
+            Select an answer to see a demo result. (Only front-end – no data stored.)
+          </p>
+          <div class="poll-options">
+            <div class="poll-option">I always verify links before clicking</div>
+            <div class="poll-option">Sometimes I forget to check</div>
+            <div class="poll-option">I click without checking</div>
+          </div>
+          <p id="pollResult" style="margin-top:10px;font-size:0.82rem;color:var(--muted);">
+            Choose one option to simulate poll result.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. MEDIA GALLERY ---------------------------------------------------- -->
+  <section id="media">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>5. Media Gallery</span></h2>
+        <p>
+          Infographics, awareness posters and animated cyber panels that support the
+          campaign.
+        </p>
+      </div>
+
+      <div class="grid grid-3">
+        <!-- Animation panel 1 -->
+        <div class="card media-card reveal">
+          <div class="tagline">CYBER ANIMATION PANEL (1)</div>
+          <div class="video-wrap loop-bg-box">
+            <div class="video-illustration">
+              <!-- Simple SVG illustration -->
+              <svg viewBox="0 0 200 200">
+                <defs>
+                  <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#22c55e" />
+                    <stop offset="50%" stop-color="#22d3ee" />
+                    <stop offset="100%" stop-color="#a855f7" />
+                  </linearGradient>
+                </defs>
+                <rect
+                  x="35"
+                  y="40"
+                  width="130"
+                  height="90"
+                  rx="16"
+                  ry="16"
+                  fill="#020617"
+                  stroke="url(#grad1)"
+                  stroke-width="4"
+                />
+                <circle cx="65" cy="70" r="11" fill="#22c55e" />
+                <rect x="90" y="62" width="55" height="8" rx="4" fill="#22d3ee" />
+                <rect x="50" y="95" width="90" height="9" rx="4" fill="#0f172a" />
+                <rect x="65" y="125" width="70" height="10" rx="5" fill="url(#grad1)" />
+              </svg>
+            </div>
+          </div>
+          <p style="font-size:0.85rem;margin-top:10px;">
+            Live cyber-attack simulation animation – works like a moving banner instead
+            of a video.
+          </p>
+        </div>
+
+        <!-- Animation panel 2 -->
+        <div class="card media-card reveal delay-1">
+          <div class="tagline">CYBER ANIMATION PANEL (2)</div>
+          <div class="video-wrap loop-lines">
+            <div class="video-illustration second">
+              <svg viewBox="0 0 200 200">
+                <defs>
+                  <linearGradient id="grad2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#22d3ee" />
+                    <stop offset="100%" stop-color="#22c55e" />
+                  </linearGradient>
+                </defs>
+                <circle cx="100" cy="80" r="38" fill="#020617" stroke="url(#grad2)" stroke-width="4" />
+                <path
+                  d="M80 80 L96 96 L122 64"
+                  stroke="#22c55e"
+                  stroke-width="5"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <rect x="60" y="130" width="80" height="12" rx="6" fill="#0f172a" />
+                <rect x="75" y="130" width="50" height="12" rx="6" fill="#22c55e" />
+              </svg>
+            </div>
+          </div>
+          <p style="font-size:0.85rem;margin-top:10px%;">
+            Data security &amp; encryption loop animation – symbolises secure records
+            and case-files.
+          </p>
+        </div>
+
+        <!-- Poster / static image -->
+        <div class="card media-card reveal delay-2">
+          <div class="tagline">AWARENESS POSTER (PRINTABLE)</div>
+          <div class="image-card media-anim">
+            <img
+              src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1000&q=80"
+              alt="Cyber awareness poster"
+            />
+          </div>
+          <p style="font-size:0.85rem;">
+            Posters can be printed and displayed at police stations and training
+            centres to remind staff about safe digital behaviour.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. INTERACTIVE CHATBOT ---------------------------------------------- -->
+  <section id="chatbot">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>6. Interactive Chatbot</span></h2>
+        <p>
+          Simple FAQ-style chatbot that answers common questions and gives quick links
+          to important sections of the website.
+        </p>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="chat-window reveal">
+          <div class="tagline">FAQ CHATBOT (DEMO)</div>
+          <div class="chat-messages" id="chatMessages">
+            <div class="msg-bot">
+              <b>Bot:</b> Namaste! I can help with basic cyber safety questions for police
+              and citizens. Type your doubt below.
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <input
+              type="text"
+              id="chatInput"
+              placeholder="Example: Someone is asking for my OTP on call – what should I do?"
+            />
+            <button onclick="fakeChat()">Send</button>
+          </div>
+        </div>
+
+        <div class="card reveal delay-1">
+          <div class="tagline">QUICK LINKS</div>
+          <i class="fa-solid fa-link"></i>
+          <h3>Go directly to sections</h3>
+          <p style="margin-bottom:10px;">
+            Frequently used shortcuts for users accessing the website from mobile.
+          </p>
+          <ul class="resource-list">
+            <li>
+              <a href="#awareness"><i class="fa-solid fa-arrow-right"></i> Awareness Tips –
+                Do’s &amp; Don’ts</a>
+            </li>
+            <li>
+              <a href="#survey"><i class="fa-solid fa-arrow-right"></i> Online Survey / Feedback Form</a>
+            </li>
+            <li>
+              <a href="#media"><i class="fa-solid fa-arrow-right"></i> Media Gallery – Posters &amp; Panels</a>
+            </li>
+            <li>
+              <a href="#resources"><i class="fa-solid fa-arrow-right"></i> Official Government Portals &amp; Helplines</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. COMMUNITY FORUM -------------------------------------------------- -->
+  <section id="forum">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>7. Community Forum / Discussion</span></h2>
+        <p>
+          Space where participants can share experiences or ask questions during the
+          awareness program (demo only).
+        </p>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="forum-window reveal">
+          <div class="tagline">SHARE EXPERIENCES / ASK QUESTIONS</div>
+          <div class="forum-messages" id="forumMessages">
+            <div class="msg-bot">
+              <b>Sample Post:</b> “I received a call saying my bank KYC is pending and I
+              must click a link. Is this genuine?”
+            </div>
+            <div class="msg-bot">
+              <b>Reply:</b> This is likely a phishing attempt. Never click unknown links.
+              Visit your bank branch or official website directly.
+            </div>
+          </div>
+          <div class="forum-input-row">
+            <input
+              type="text"
+              id="forumInput"
+              placeholder="Type your story or question (demo, not saved)..."
+            />
+            <button onclick="fakeForum()">Post</button>
+          </div>
+        </div>
+
+        <div class="card reveal delay-1">
+          <div class="tagline">GROUND RULES</div>
+          <i class="fa-solid fa-handshake-angle"></i>
+          <h3>Safe &amp; Respectful Discussion</h3>
+          <p>
+            • Do not share real personal data (account numbers, phone, address).<br />
+            • Use case IDs instead of victim names.<br />
+            • Respect privacy and follow IT Act &amp; cyber-crime guidelines.<br />
+            • Escalate serious cases to official channels instead of only forum.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. RESOURCES / LINKS ----------------------------------------------- -->
+  <section id="resources">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>8. Resources &amp; Links</span></h2>
+        <p>
+          Official portals, helplines and learning resources that support police in
+          investigating and preventing cybercrime.
+        </p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card reveal">
+          <div class="tagline">GOVERNMENT PORTALS</div>
+          <i class="fa-solid fa-globe"></i>
+          <h3>National Cyber Crime Reporting Portal</h3>
+          <p>
+            Portal for reporting online financial frauds, social media abuse and other
+            cyber offences.
+          </p>
+          <p style="margin-top:8px;font-size:0.86rem;">
+            <b>Website:</b> <em>www.cybercrime.gov.in</em> (type directly in browser).
+          </p>
+        </div>
+
+        <div class="card reveal delay-1">
+          <div class="tagline">HELPLINES</div>
+          <i class="fa-solid fa-phone-volume"></i>
+          <h3>Emergency Numbers</h3>
+          <p>
+            <b>1930</b> – National helpline for cyber financial fraud.<br />
+            <b>112</b> – Emergency response support system (ERSS).<br />
+            Local cyber police station contact numbers can be added by faculty.
+          </p>
+        </div>
+
+        <div class="card reveal delay-2">
+          <div class="tagline">LEARNING RESOURCES</div>
+          <i class="fa-solid fa-graduation-cap"></i>
+          <h3>E-Learning &amp; Video Modules</h3>
+          <p>
+            • CERT-In advisories<br />
+            • RBI &amp; NPCI awareness videos<br />
+            • Police academy training modules on cybercrime investigation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CONTACT / REFERENCES -------------------------------------------- -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2><span>9. Contact &amp; References</span></h2>
+        <p>
+          Project details, student contact and major references used for the
+          cybersecurity awareness website.
+        </p>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="card reveal">
+          <div class="tagline">STUDENT DETAILS</div>
+          <i class="fa-solid fa-id-card"></i>
+          <h3>Project Owner</h3>
+          <p>
+            <b>Student Name:</b> Afaque Ansari<br />
+            <b>Department:</b> SyBSC IT<br />
+            <b>College:</b> M.D.G.C College of Commerce
+          </p>
+          <p style="margin-top:10px;">
+            <b>Email:</b> your.email@example.com<br />
+            <b>Social Handles:</b> @yourhandle (Instagram / LinkedIn) – optional.
+          </p>
+        </div>
+
+        <div class="card reveal delay-1">
+          <div class="tagline">SOURCES / REFERENCES</div>
+          <i class="fa-solid fa-book-open-reader"></i>
+          <h3>Key References</h3>
+          <p style="font-size:0.88rem;">
+            • National Cyber Crime Reporting Portal guidelines<br />
+            • CERT-In advisories and incident response handbook<br />
+            • RBI “RBI Kehta Hai” cyber safety material<br />
+            • Select research papers / articles on cybercrime against police and citizens.
+          </p>
+          <p style="margin-top:8px;font-size:0.8rem;color:var(--muted);">
+            All logos and trademarks belong to respective organisations and are used
+            here only for academic awareness purposes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -------------------------------------------------------------- -->
+  <footer>
+    <div>
+      © <span id="year"></span> <b>Afaque Ansari</b> • Protecting the Force – Cybersecurity
+      Strategies for Police • Academic Awareness Project
+    </div>
+  </footer>
+
+  <!-- BACK TO HOME BUTTON ------------------------------------------------- -->
+  <button id="backHomeBtn">
+    <i class="fa-solid fa-arrow-up"></i>
+    <span>Back to Home</span>
+  </button>
+
+  <!-- SCRIPTS ------------------------------------------------------------- -->
   <script>
-    // Always start at home when opening without hash
-    if ("scrollRestoration" in history) {
-      history.scrollRestoration = "manual";
-    }
-    window.addEventListener("load", () => {
-      const hash = window.location.hash;
-      if (!hash || hash === "#home") {
-        window.scrollTo(0, 0);
-        const home = document.getElementById("home");
-        if (home) home.scrollIntoView({ behavior: "auto" });
-      }
-    });
+    // Year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Smooth scroll for nav links and buttons
-    function smoothScrollTo(targetSelector) {
-      const el = document.querySelector(targetSelector);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
-
-    document.querySelectorAll("[data-target]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const target = btn.getAttribute("data-target");
-        if (target) smoothScrollTo(target);
-      });
-    });
-
-    // Nav active state on scroll
-    const navLinks = document.querySelectorAll(".nav-link");
-    const sections = Array.from(document.querySelectorAll("main > section"));
-
-    function updateNav() {
-      let currentId = "#home";
-      const fromTop = window.scrollY + 120;
-
-      sections.forEach((sec) => {
-        if (sec.offsetTop <= fromTop) {
-          currentId = "#" + sec.id;
-        }
-      });
-
-      navLinks.forEach((link) => {
-        const target = link.getAttribute("data-target");
-        link.classList.toggle("active", target === currentId);
+    // Mobile nav toggle
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+    if (navToggle) {
+      navToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("mobile-open");
       });
     }
 
-    window.addEventListener("scroll", updateNav);
-
-    // Theme toggle (green <-> neon pink accent)
-    const themeToggle = document.getElementById("themeToggle");
-    let pinkMode = true;
-    themeToggle.addEventListener("click", () => {
-      pinkMode = !pinkMode;
-      if (pinkMode) {
-        document.documentElement.style.setProperty("--accent", "#22c55e");
-        document.documentElement.style.setProperty("--accent-alt", "#e879f9");
-        themeToggle.querySelector("span").textContent = "Neon Pink";
-      } else {
-        document.documentElement.style.setProperty("--accent", "#38bdf8");
-        document.documentElement.style.setProperty("--accent-alt", "#38bdf8");
-        themeToggle.querySelector("span").textContent = "Neon Blue";
-      }
-    });
-
-    // Home pill-link scroll handling
-    document.querySelectorAll(".pill-link").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const target = btn.getAttribute("data-target");
-        if (target) smoothScrollTo(target);
+    // Reveal on scroll
+    const reveals = document.querySelectorAll(".reveal");
+    function handleReveal() {
+      const wh = window.innerHeight;
+      reveals.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < wh - 80) el.classList.add("visible");
       });
-    });
+    }
+    window.addEventListener("scroll", handleReveal);
+    handleReveal();
 
-    // Quick poll mini behaviour
-    document.querySelectorAll(".poll-card").forEach((card) => {
-      const btn = card.querySelector(".poll-submit");
-      const result = card.querySelector(".poll-result");
-      btn.addEventListener("click", () => {
-        const pollName = "poll" + card.getAttribute("data-poll");
-        const checked = card.querySelector(`input[name="${pollName}"]:checked`);
-        if (!checked) {
-          result.textContent = "Please select an option before voting.";
-          result.style.color = "#f97316";
-        } else {
-          result.textContent = "Thanks! Your response has been recorded for awareness analysis.";
-          result.style.color = "#a855f7";
+    // Quick poll
+    const pollOptions = document.querySelectorAll(".poll-option");
+    const pollResult = document.getElementById("pollResult");
+    pollOptions.forEach((opt) => {
+      opt.addEventListener("click", () => {
+        pollOptions.forEach((o) => o.classList.remove("active"));
+        opt.classList.add("active");
+        if (pollResult) {
+          pollResult.textContent =
+            "You selected: " +
+            opt.textContent +
+            " (demo only – data not saved).";
         }
       });
     });
 
-    // Simple keyword-based chatbot
-    const chatWindow = document.getElementById("chatWindow");
-    const chatInput = document.getElementById("chatInput");
-    const chatSend = document.getElementById("chatSend");
-
-    function addChatMessage(text, from = "bot") {
-      const div = document.createElement("div");
-      div.className = "chat-msg " + from;
-      div.textContent = text;
-      chatWindow.appendChild(div);
-      chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
-
-    function getBotReply(message) {
-      const msg = message.toLowerCase();
-
-      if (msg.includes("password")) {
-        return "Use a strong password with at least 12 characters, mix of letters, numbers and symbols. Never reuse the same password on multiple systems.";
-      }
-      if (msg.includes("phishing") || msg.includes("email")) {
-        return "Phishing emails usually create urgency, have spelling mistakes and suspicious links. Do not click unknown links; verify with the official website or phone number.";
-      }
-      if (msg.includes("report") || msg.includes("fraud") || msg.includes("crime")) {
-        return "You can report cybercrime on the National Cyber Crime Reporting Portal (cybercrime.gov.in) or call the helpline 1930 for financial frauds.";
-      }
-      if (msg.includes("wifi") || msg.includes("wi-fi")) {
-        return "Avoid using public Wi-Fi for banking or confidential work. If you must use it, connect via a trusted VPN and avoid logging into sensitive accounts.";
-      }
-      if (msg.includes("otp") || msg.includes("one time password")) {
-        return "Never share OTPs with anyone, even if the caller claims to be from a bank, company or police. Genuine organisations will never ask for OTP over phone.";
-      }
-      if (msg.includes("thank")) {
-        return "You’re welcome! Stay cyber-safe and keep spreading awareness in your station and community. 🙂";
-      }
-      return "Great question. For detailed help, contact the nearest cyber cell or visit cybercrime.gov.in. For this project demo I answer only basic awareness queries.";
-    }
-
-    function handleChatSend() {
-      const text = chatInput.value.trim();
+    // Simple chatbot
+    function fakeChat() {
+      const input = document.getElementById("chatInput");
+      const msgBox = document.getElementById("chatMessages");
+      if (!input || !msgBox) return;
+      const text = input.value.trim();
       if (!text) return;
-      addChatMessage(text, "user");
-      chatInput.value = "";
-      setTimeout(() => {
-        const reply = getBotReply(text);
-        addChatMessage(reply, "bot");
-      }, 400);
+
+      const userDiv = document.createElement("div");
+      userDiv.className = "msg-user";
+      userDiv.innerHTML = "<b>You:</b> " + text;
+      msgBox.appendChild(userDiv);
+
+      const botDiv = document.createElement("div");
+      botDiv.className = "msg-bot";
+      botDiv.innerHTML =
+        "<b>Bot:</b> Never share OTP, PIN or passwords. If you suspect fraud, immediately call 1930 or contact your nearest cyber cell.";
+      msgBox.appendChild(botDiv);
+
+      msgBox.scrollTop = msgBox.scrollHeight;
+      input.value = "";
+    }
+    window.fakeChat = fakeChat;
+
+    // Simple forum
+    function fakeForum() {
+      const input = document.getElementById("forumInput");
+      const box = document.getElementById("forumMessages");
+      if (!input || !box) return;
+      const text = input.value.trim();
+      if (!text) return;
+
+      const msg = document.createElement("div");
+      msg.className = "msg-user";
+      msg.innerHTML = "<b>New Post:</b> " + text;
+      box.appendChild(msg);
+      box.scrollTop = box.scrollHeight;
+      input.value = "";
+    }
+    window.fakeForum = fakeForum;
+
+    // Back to home button
+    const backBtn = document.getElementById("backHomeBtn");
+    function handleBackBtn() {
+      if (!backBtn) return;
+      if (window.scrollY > 350) backBtn.classList.add("show");
+      else backBtn.classList.remove("show");
+    }
+    window.addEventListener("scroll", handleBackBtn);
+    handleBackBtn();
+    if (backBtn) {
+      backBtn.addEventListener("click", () =>
+        document.getElementById("home").scrollIntoView({ behavior: "smooth" })
+      );
     }
 
-    chatSend.addEventListener("click", handleChatSend);
-    chatInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        handleChatSend();
+    // Theme toggle: green → blue → neon pink
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeLabel = document.getElementById("themeLabel");
+    const themes = ["green", "blue", "pink"];
+    let currentThemeIndex = 0;
+
+    function applyTheme() {
+      document.body.classList.remove("theme-blue", "theme-pink");
+      const theme = themes[currentThemeIndex];
+      if (theme === "blue") {
+        document.body.classList.add("theme-blue");
+        themeIcon.className = "fa-solid fa-moon";
+        themeLabel.textContent = "Blue";
+      } else if (theme === "pink") {
+        document.body.classList.add("theme-pink");
+        themeIcon.className = "fa-solid fa-heart";
+        themeLabel.textContent = "Neon Pink";
+      } else {
+        themeIcon.className = "fa-solid fa-sun";
+        themeLabel.textContent = "Green";
       }
-    });
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+        applyTheme();
+      });
+    }
+    applyTheme();
   </script>
 </body>
 </html>
+
