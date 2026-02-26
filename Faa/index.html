@@ -1885,7 +1885,186 @@
         height: 120px !important;
     }
 }
+    /* ====== FINAL MOBILE FIXES - DONO DEVICE PE SAHI DIKHEGA ====== */
+@media screen and (max-width: 768px) {
+    /* Reset */
+    .hero-container,
+    .grid-2, 
+    .grid-3, 
+    .grid-4,
+    .stats-container,
+    .gallery-grid,
+    .testimonials,
+    .contact-card,
+    .hex-wrapper {
+        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+        height: auto !important;
+    }
+
+    /* Navigation */
+    .nav-links {
+        display: none !important;
+    }
+    
+    nav {
+        padding: 0.8rem 1rem !important;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding-top: 5rem !important;
+    }
+    
+    .hero h1 {
+        font-size: 2rem !important;
+        text-align: center !important;
+    }
+    
+    .hero-image {
+        margin-top: 2rem !important;
+    }
+
+    /* Stats */
+    .stats-container {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+    
+    .stat h3 {
+        font-size: 1.8rem !important;
+    }
+
+    /* Hexagonal - Most Important */
+    .hex-wrapper {
+        position: static !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    .hex {
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 120px !important;
+        clip-path: none !important;
+        border-radius: 20px !important;
+        transform: none !important;
+        margin: 0 !important;
+        padding: 1.5rem !important;
+    }
+    
+    .connector {
+        display: none !important;
+    }
+
+    /* Cards */
+    .card {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    /* Gallery */
+    .gallery-image {
+        height: 200px !important;
+    }
+
+    /* Contact Section */
+    .contact-card {
+        padding: 1.5rem !important;
+        text-align: center !important;
+    }
+    
+    .contact-left {
+        grid-template-columns: 1fr !important;
+        justify-items: center !important;
+        text-align: center !important;
+    }
+    
+    .contact-left span {
+        text-align: center !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .social-icon {
+        margin: 0 auto !important;
+    }
+    
+    .qr, .photo {
+        width: 150px !important;
+        height: 150px !important;
+        margin: 0 auto 1rem !important;
+    }
+
+    /* Chat & Forum */
+    .msg-bot, .msg-user {
+        max-width: 100% !important;
+    }
+
+    /* Poll */
+    .poll-options {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+    
+    .poll-option {
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    /* Footer */
+    footer div[style*="display: flex"] {
+        flex-direction: column !important;
+        gap: 0.8rem !important;
+    }
+    
+    /* Typing Text */
+    .typing-text {
+        font-size: 1.2rem !important;
+        text-align: center !important;
+    }
+
+    /* Section Padding */
+    section {
+        padding: 3rem 1rem !important;
+    }
+    
+    .section-title {
+        font-size: 2rem !important;
+    }
+}
+
+/* Small Phones */
+@media screen and (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    .stat h3 {
+        font-size: 1.3rem !important;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.8rem !important;
+    }
+    
+    .qr, .photo {
+        width: 120px !important;
+        height: 120px !important;
+    }
+    
+    .datetime-widget {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+}
   </script>
 </body>
 
 </html>
+
