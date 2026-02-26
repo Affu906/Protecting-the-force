@@ -1691,6 +1691,201 @@
     window.addEventListener('load', () => {
       document.getElementById('pageTransition').classList.remove('active');
     });
+    /* ===== MOBILE RESPONSIVE FIXES - ADD THIS AT THE END ===== */
+@media screen and (max-width: 768px) {
+    /* Hero section */
+    .hero-container {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        padding: 1rem !important;
+    }
+    
+    .hero h1 {
+        font-size: 2rem !important;
+        text-align: center;
+    }
+    
+    .hero-image {
+        margin-top: 2rem;
+    }
+    
+    /* Navigation */
+    .nav-links {
+        display: none !important;
+    }
+    
+    nav {
+        padding: 0.8rem 1rem !important;
+    }
+    
+    .logo {
+        font-size: 1rem !important;
+    }
+    
+    /* Stats section */
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+    
+    .stat h3 {
+        font-size: 1.8rem !important;
+    }
+    
+    /* Grid systems */
+    .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    /* Cards */
+    .card {
+        padding: 1.5rem !important;
+    }
+    
+    /* Hexagonal section */
+    .hex-wrapper {
+        height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1.5rem !important;
+    }
+    
+    .hex {
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 120px !important;
+        clip-path: none !important;
+        border-radius: 20px !important;
+        transform: none !important;
+        margin: 0 !important;
+        padding: 1.5rem !important;
+    }
+    
+    .hex.center {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    .connector {
+        display: none !important;
+    }
+    
+    /* Gallery */
+    .gallery-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    .gallery-image {
+        height: 200px !important;
+    }
+    
+    /* Testimonials */
+    .testimonials {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    /* Contact card */
+    .contact-card {
+        grid-template-columns: 1fr !important;
+        padding: 2rem !important;
+        text-align: center !important;
+    }
+    
+    .contact-left {
+        grid-template-columns: 1fr !important;
+        justify-items: center !important;
+        text-align: center !important;
+    }
+    
+    .contact-left span {
+        text-align: center !important;
+    }
+    
+    .qr, .photo {
+        width: 150px !important;
+        height: 150px !important;
+        margin: 0 auto !important;
+    }
+    
+    /* Chat and Forum */
+    .chat-window, .forum-window {
+        padding: 1.5rem !important;
+    }
+    
+    .msg-bot, .msg-user {
+        max-width: 90% !important;
+    }
+    
+    /* Footer */
+    footer div[style*="display: flex"] {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+    
+    /* Poll options */
+    .poll-options {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+    
+    .poll-option {
+        width: 100% !important;
+        text-align: center !important;
+    }
+    
+    /* Date time widget */
+    .datetime-widget {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+    
+    /* Video container */
+    .video-container {
+        width: 100% !important;
+    }
+    
+    /* Typing text */
+    .typing-text {
+        font-size: 1.2rem !important;
+        text-align: center !important;
+    }
+    
+    /* Section padding */
+    section {
+        padding: 3rem 1rem !important;
+    }
+    
+    .section-title {
+        font-size: 2rem !important;
+    }
+}
+
+/* Small phones */
+@media screen and (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    .stat h3 {
+        font-size: 1.5rem !important;
+    }
+    
+    .btn {
+        padding: 0.6rem 1rem !important;
+        font-size: 0.8rem !important;
+    }
+    
+    .qr, .photo {
+        width: 120px !important;
+        height: 120px !important;
+    }
+}
   </script>
 </body>
+
 </html>
