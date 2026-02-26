@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+  <title>Protecting the Force – Cybersecurity Strategies for Police</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    /* Light & Dark Theme Variables */
+    :root {
+      --bg-primary: #030614;
+      --bg-secondary: #0f172a;
+      --text-primary: #fff;
+      --text-secondary: #94a3b8;
+      --card-bg: rgba(17, 24, 39, 0.7);
+      --border-color: rgba(59, 130, 246, 0.2);
+      --accent-1: #3b82f6;
+      --accent-2: #a855f7;
+      --accent-3: #ec4899;
+    }
+
+    body.light-theme {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --card-bg: rgba(255, 255, 255, 0.7);
+      --border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* Responsive base */
+    @media (max-width: 768px) {
+      html { font-size: 14px; }
+    }
+    @media (min-width: 1920px) {
+      html { font-size: 18px; }
+    }
+
+    /* Mouse Trail */
+    .trail {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-1);
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+      transition: 0.1s;
+    }
+
+    /* Particles Background */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: clamp(1rem, 3vw, 2.5rem);
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: 0.3s;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover::before {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-left: 1rem;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(180deg);
+      background: var(--accent-1);
+      color: white;
+    }
+
+    .btn {
+      padding: 0.8rem clamp(1rem, 3vw, 2rem);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: white;
+      box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 30px -5px rgba(59, 130, 246, 0.7);
+    }
+
+    /* News Ticker */
+    .news-ticker {
+      background: var(--bg-secondary);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-color);
+      overflow: hidden;
+      position: relative;
+      margin-top: 70px;
+    }
+
+    .ticker-content {
+      display: inline-block;
+      animation: ticker 25s linear infinite;
+      white-space: nowrap;
+    }
+
+    .ticker-content span {
+      margin-right: 3rem;
+      color: var(--text-secondary);
+    }
+
+    .ticker-content i {
+      color: var(--accent-1);
+      margin-right: 0.5rem;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 5% 4rem;
+    }
+
+    .hero-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
+    }
+
+    @media (max-width: 968px) {
+      .hero-container { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin: 1.5rem 0;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-3));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .typing-text {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 600;
+      min-height: 3.5rem;
+      color: var(--accent-2);
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      margin-bottom: 2rem;
+    }
+
+    .hero-image {
+      position: relative;
+      width: 100%;
+      animation: floatImage 6s ease-in-out infinite;
+    }
+
+    @keyframes floatImage {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 30px;
+      border: 2px solid rgba(59, 130, 246, 0.3);
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Date & Time Widget */
+    .datetime-widget {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 0.8rem 1.5rem;
+      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .datetime-widget i {
+      color: var(--accent-1);
+    }
+
+    .cyber-fact {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Stats Section */
+    .stats {
+      padding: 3rem 5%;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(1rem, 4vw, 2rem);
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .stats-container { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat {
+      animation: statPulse 2s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.2s);
+    }
+
+    @keyframes statPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .stat h3 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    /* Sections */
+    section {
+      padding: 5rem 5%;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      color: var(--text-secondary);
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+    }
+
+    /* Grid Systems */
+    .grid-2, .grid-3, .grid-4 {
+      display: grid;
+      gap: clamp(1rem, 3vw, 2rem);
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    @media (max-width: 968px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    /* 3D Flip Cards */
+    .flip-card {
+      background-color: transparent;
+      height: 300px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 30px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .flip-card-front {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+    }
+
+    .flip-card-back {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: white;
+      transform: rotateY(180deg);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 30px;
+      padding: clamp(1.5rem, 4vw, 2.5rem);
+      transition: all 0.4s;
+      animation: cardFloat 5s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.1s);
+    }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: var(--accent-1);
+      box-shadow: 0 30px 50px -20px var(--accent-1);
+      animation: none;
+    }
+
+    /* Progress Bars */
+    .progress-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+      border-radius: 10px;
+      animation: progressFill 1.5s ease-out;
+    }
+
+    @keyframes progressFill {
+      from { width: 0; }
+    }
+
+    /* Hexagonal Grid - EXACTLY LIKE YOUR IMAGE */
+    .hex-section {
+      background: var(--bg-secondary);
+      padding: 4rem 5%;
+      margin: 2rem 0;
+    }
+
+    .hex-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 750px;
+      height: 650px;
+      margin: 0 auto;
+    }
+
+    .hex {
+      position: absolute;
+      width: 200px;
+      height: 220px;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      border: 3px solid rgba(255,255,255,0.2);
+      box-shadow: 0 10px 25px -5px var(--accent-1);
+      transition: all 0.3s;
+      padding: 20px;
+      line-height: 1.4;
+    }
+
+    .hex:hover {
+      transform: scale(1.05);
+      filter: brightness(1.2);
+      z-index: 10;
+    }
+
+    .hex.center {
+      width: 240px;
+      height: 260px;
+      top: 195px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 22px;
+      flex-direction: column;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
+      border: 3px solid white;
+    }
+
+    .hex.center:hover {
+      transform: translateX(-50%) scale(1.05);
+    }
+
+    /* Position each hex */
+    .h1 { top: 0; left: 50%; transform: translateX(-50%); }
+    .h2 { top: 120px; right: 50px; }
+    .h3 { bottom: 120px; right: 50px; }
+    .h4 { bottom: 0; left: 50%; transform: translateX(-50%); }
+    .h5 { bottom: 120px; left: 50px; }
+    .h6 { top: 120px; left: 50px; }
+
+    /* Connectors */
+    .connector {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      background: var(--border-color);
+      transform: rotate(45deg);
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    .c1 { top: 170px; left: 50%; transform: translateX(-50%) rotate(45deg); }
+    .c2 { top: 260px; right: 170px; }
+    .c3 { bottom: 260px; right: 170px; }
+    .c4 { bottom: 170px; left: 50%; transform: translateX(-50%) rotate(45deg); }
+    .c5 { bottom: 260px; left: 170px; }
+    .c6 { top: 260px; left: 170px; }
+
+    @media (max-width: 768px) {
+      .hex-wrapper {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .hex {
+        position: static;
+        width: 280px;
+        height: auto;
+        min-height: 150px;
+        clip-path: none;
+        border-radius: 20px;
+      }
+      
+      .connector { display: none; }
+    }
+
+    /* Testimonials */
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .testimonial-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      font-size: 5rem;
+      color: var(--accent-1);
+      opacity: 0.3;
+      font-family: serif;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--accent-1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    /* Video Container */
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 2px solid var(--accent-1);
+      margin: 1rem 0;
+      animation: borderPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes borderPulse {
+      0%, 100% { border-color: var(--accent-1); }
+      50% { border-color: var(--accent-2); }
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Image Container */
+    .image-container {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 1rem 0;
+      border: 2px solid var(--accent-1);
+      animation: imageZoom 8s ease-in-out infinite;
+    }
+
+    @keyframes imageZoom {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    .image-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s;
+    }
+
+    .image-container:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Image Gallery Specific Styling */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+
+    .gallery-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      transition: all 0.4s;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent-1);
+      box-shadow: 0 20px 40px -15px var(--accent-1);
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .gallery-card:hover .gallery-image {
+      transform: scale(1.1);
+    }
+
+    .gallery-content {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .gallery-content h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .gallery-content p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Poll Options */
+    .poll-options {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .poll-option {
+      background: var(--bg-secondary);
+      padding: 0.8rem clamp(1rem, 3vw, 2rem);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s;
+      border: 1px solid var(--border-color);
+    }
+
+    .poll-option:hover, .poll-option.active {
+      background: var(--accent-1);
+      color: white;
+      border-color: var(--accent-1);
+      transform: scale(1.05);
+    }
+
+    /* Chat Window */
+    .chat-window, .forum-window {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 30px;
+      padding: 2rem;
+    }
+
+    .chat-messages, .forum-messages {
+      min-height: 200px;
+      max-height: 250px;
+      overflow-y: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .msg-bot, .msg-user {
+      margin-bottom: 1rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      max-width: 80%;
+    }
+
+    .msg-bot {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
+    .msg-user {
+      background: var(--accent-1);
+      color: white;
+      margin-left: auto;
+    }
+
+    .chat-input-row, .forum-input-row {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .chat-input-row input, .forum-input-row input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      outline: none;
+    }
+
+    .chat-input-row button, .forum-input-row button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--accent-1);
+      border: none;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .chat-input-row button:hover {
+      transform: rotate(15deg) scale(1.1);
+    }
+
+    /* Download Counter */
+    .download-counter {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      color: var(--accent-2);
+    }
+
+    /* Contact Card */
+    .contact-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: clamp(2rem, 5vw, 4rem);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 1fr;
+      gap: clamp(1rem, 3vw, 3rem);
+    }
+
+    @media (max-width: 968px) {
+      .contact-card { grid-template-columns: 1fr; }
+    }
+
+    .contact-left {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .social-icon {
+      width: clamp(40px, 6vw, 50px);
+      height: clamp(40px, 6vw, 50px);
+      background: var(--bg-secondary);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: 0.3s;
+      border: 1px solid var(--border-color);
+    }
+
+    .social-icon:hover {
+      background: var(--accent-1);
+      color: white;
+      border-color: var(--accent-1);
+      transform: rotate(360deg);
+    }
+
+    .qr {
+      width: clamp(150px, 20vw, 180px);
+      height: clamp(150px, 20vw, 180px);
+      background: var(--bg-secondary);
+      border-radius: 30px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--accent-1);
+      color: var(--accent-1);
+      font-size: clamp(2rem, 5vw, 3rem);
+      animation: qrPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes qrPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .photo {
+      width: clamp(150px, 20vw, 180px);
+      height: clamp(150px, 20vw, 180px);
+      border-radius: 40px;
+      margin: 0 auto 1.5rem;
+      background: var(--bg-secondary);
+      border: 4px solid var(--accent-1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(2rem, 5vw, 4rem);
+      animation: photoFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes photoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-secondary);
+      padding: 3rem 5%;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+
+    /* Back to Top */
+    #backHomeBtn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: 0 10px 25px -5px var(--accent-1);
+      z-index: 999;
+      animation: bounce 2s ease infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    #backHomeBtn.show {
+      display: flex;
+    }
+
+    /* Page Transition */
+    .page-transition {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-primary);
+      z-index: 9999;
+      transform: translateY(100%);
+      transition: transform 0.5s;
+    }
+
+    .page-transition.active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Page Transition -->
+  <div class="page-transition" id="pageTransition"></div>
+
+  <!-- Mouse Trail -->
+  <div class="trail" id="trail"></div>
+
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <!-- News Ticker -->
+  <div class="news-ticker">
+    <div class="ticker-content">
+      <span><i class="fa-solid fa-circle-exclamation"></i> NEW: Ransomware attack on police systems in Europe</span>
+      <span><i class="fa-solid fa-circle-exclamation"></i> ALERT: Phishing scams targeting law enforcement</span>
+      <span><i class="fa-solid fa-circle-exclamation"></i> UPDATE: New cyber helpline 1930 active 24/7</span>
+      <span><i class="fa-solid fa-circle-exclamation"></i> TIP: Enable MFA on all official accounts</span>
+      <span><i class="fa-solid fa-circle-exclamation"></i> NEWS: AI-powered threat detection launched</span>
+    </div>
+  </div>
+
+  <nav>
+    <div class="logo">PROTECTING THE FORCE</div>
+    <div class="nav-links">
+      <a href="#home">HOME</a>
+      <a href="#research">RESEARCH</a>
+      <a href="#awareness">AWARENESS</a>
+      <a href="#survey">SURVEY</a>
+      <a href="#media">MEDIA</a>
+      <a href="#chatbot">CHATBOT</a>
+      <a href="#forum">FORUM</a>
+      <a href="#resources">RESOURCES</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+    <div style="display: flex; align-items: center;">
+      <button class="btn" onclick="document.getElementById('survey').scrollIntoView({behavior:'smooth'})">TAKE SURVEY</button>
+      <div class="theme-toggle" id="themeToggle">
+        <i class="fa-solid fa-moon"></i>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HOME SECTION -->
+  <section class="hero" id="home">
+    <div class="hero-container">
+      <div>
+        <span class="hero-badge"><i class="fa-regular fa-shield-halved"></i> CYBER SECURITY UNIT</span>
+        <h1>PROTECTING THE <span>FORCE</span></h1>
+        <div class="typing-text" id="typingText"></div>
+        <p><strong>Introduction/Purpose:</strong> A comprehensive awareness platform designed to educate police personnel and citizens about emerging cyber threats, safe practices, and secure digital policing in the modern era.</p>
+        
+        <!-- Date & Time Widget -->
+        <div class="datetime-widget">
+          <i class="fa-regular fa-calendar"></i>
+          <span id="currentDate"></span>
+          <i class="fa-regular fa-clock"></i>
+          <span id="currentTime"></span>
+          <span class="cyber-fact" id="cyberFact"></span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0;">
+          <div class="card" style="padding: 1rem;">
+            <h3><i class="fa-solid fa-bullseye" style="color:var(--accent-1);"></i> OBJECTIVES</h3>
+            <ul style="list-style: none;">
+              <li><i class="fa-solid fa-check" style="color:#22c55e;"></i> Educate on cyber threats</li>
+              <li><i class="fa-solid fa-check" style="color:#22c55e;"></i> Promote safe practices</li>
+              <li><i class="fa-solid fa-check" style="color:#22c55e;"></i> Enhance digital policing</li>
+            </ul>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <h3><i class="fa-solid fa-globe" style="color:var(--accent-1);"></i> SCOPE</h3>
+            <ul style="list-style: none;">
+              <li><i class="fa-solid fa-check" style="color:#22c55e;"></i> Police personnel</li>
+              <li><i class="fa-solid fa-check" style="color:#22c55e;"></i> Citizens</li>
+              <li><i class="fa-solid fa-check" style="color:#22c55e;"></i> Cyber cells</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
+          <div><i class="fa-solid fa-user-shield" style="color:var(--accent-1);"></i> <strong>Afaque Ansari</strong></div>
+          <div><i class="fa-solid fa-building-columns" style="color:var(--accent-1);"></i> SyBSC IT, M.D.G.C College</div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1200&q=80" alt="cybersecurity command center" loading="lazy">
+        <div style="display: flex; justify-content: space-between; margin-top: 1.5rem; flex-wrap: wrap; gap: 0.5rem;">
+          <span><i class="fa-regular fa-clock" style="color:var(--accent-1);"></i> 24/7 MONITORING</span>
+          <span><i class="fa-solid fa-microchip" style="color:var(--accent-1);"></i> AI-POWERED</span>
+          <span><i class="fa-solid fa-shield-halved" style="color:var(--accent-1);"></i> ZERO TRUST</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS SECTION -->
+  <div class="stats">
+    <div class="stats-container">
+      <div class="stat" style="--i:1"><h3 class="counter" data-target="24">0</h3><p>×7 THREAT MONITORING</p></div>
+      <div class="stat" style="--i:2"><h3 class="counter" data-target="100">0</h3><p>% AI INTEGRATION</p></div>
+      <div class="stat" style="--i:3"><h3 class="counter" data-target="1930">0</h3><p>CYBER HELPLINE</p></div>
+      <div class="stat" style="--i:4"><h3 class="counter" data-target="35">0</h3><p>SURVEY RESPONDENTS</p></div>
+    </div>
+  </div>
+
+  <!-- RESEARCH FINDINGS SECTION -->
+  <section id="research">
+    <div class="container">
+      <h2 class="section-title"><span style="color:var(--accent-1);">02.</span> RESEARCH FINDINGS</h2>
+      <p class="section-subtitle">Abstract, Summary, Charts & Graphs, Key Insights, and Download Full Research Paper</p>
+      
+      <div class="grid-3">
+        <!-- Abstract Flip Card -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-file-lines" style="font-size: 3rem; color:var(--accent-1); margin-bottom: 1rem;"></i>
+              <h3>ABSTRACT</h3>
+              <p>Click to flip for summary</p>
+            </div>
+            <div class="flip-card-back">
+              <h3>SUMMARY</h3>
+              <p>Police forces face serious cyber risks: data breaches, ransomware, unauthorized access. This project explores cybersecurity strategies including risk assessment, digital evidence protection, encryption, incident response, and AI-based threat detection.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Flip Card -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-chart-pie" style="font-size: 3rem; color:var(--accent-1); margin-bottom: 1rem;"></i>
+              <h3>CHARTS & GRAPHS</h3>
+              <p>Click to view data</p>
+            </div>
+            <div class="flip-card-back">
+              <h3>SURVEY DATA</h3>
+              <div class="progress-item">
+                <div class="progress-label"><span>Weak Passwords</span> <span>68%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:68%"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-label"><span>Unsafe Wi-Fi</span> <span>72%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:72%"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-label"><span>Lack of Reporting</span> <span>81%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:81%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Insights Flip Card -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-lightbulb" style="font-size: 3rem; color:var(--accent-1); margin-bottom: 1rem;"></i>
+              <h3>KEY INSIGHTS</h3>
+              <p>Click to reveal</p>
+            </div>
+            <div class="flip-card-back">
+              <h3>MAJOR FINDINGS</h3>
+              <p>• 68% use weak passwords<br>• 72% use unsafe Wi-Fi<br>• 81% don't report immediately<br>• 93% would hang up on fake calls<br>• Only 23% use MFA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download Paper Card with Counter -->
+    <!-- ULTRA SIMPLE VERSION -->
+<div style="text-align: center; margin: 2rem 0;">
+    <a href="research.pdf" download class="btn" style="padding: 15px 30px; font-size: 18px;">
+        📥 DOWNLOAD RESEARCH PAPER
+    </a>
+    <p style="margin-top: 10px; color: var(--text-secondary);">Click to download PDF</p>
+</div>
+
+  <!-- AWARENESS SECTION with EXACT HEXAGONAL DIAGRAM -->
+  <section id="awareness" class="hex-section">
+    <div class="container">
+      <h2 class="section-title"><span style="color:var(--accent-1);">03.</span> AWARENESS TIPS</h2>
+      <p class="section-subtitle">Six key focus areas of your CEP – protecting the force through knowledge and vigilance.</p>
+      
+      <div class="hex-wrapper">
+        <!-- Connectors -->
+        <div class="connector c1"></div>
+        <div class="connector c2"></div>
+        <div class="connector c3"></div>
+        <div class="connector c4"></div>
+        <div class="connector c5"></div>
+        <div class="connector c6"></div>
+
+        <!-- Outer Hexagons -->
+        <div class="hex h1"><span style="font-size: 2rem; font-weight: 800; margin-right: 5px;">1.</span> STRONG PASSWORDS + MFA</div>
+        <div class="hex h2"><span style="font-size: 2rem; font-weight: 800; margin-right: 5px;">2.</span> RECOGNIZE PHISHING & FAKE CALLS</div>
+        <div class="hex h3"><span style="font-size: 2rem; font-weight: 800; margin-right: 5px;">3.</span> SECURE EVIDENCE & CASE DATA</div>
+        <div class="hex h4"><span style="font-size: 2rem; font-weight: 800; margin-right: 5px;">4.</span> RESPONSIBLE SOCIAL MEDIA</div>
+        <div class="hex h5"><span style="font-size: 2rem; font-weight: 800; margin-right: 5px;">5.</span> SECURE DEVICE USE IN STATIONS</div>
+        <div class="hex h6"><span style="font-size: 2rem; font-weight: 800; margin-right: 5px;">6.</span> SAFE DEVICE PRACTICES</div>
+
+        <!-- Center Hexagon -->
+        <div class="hex center">
+          <strong>PROTECTING<br>THE FORCE</strong>
+          <small style="font-size: 0.9rem; margin-top: 10px;">“Cyber Aware Police,<br>Cyber Safe Citizens”</small>
+        </div>
+      </div>
+
+      <!-- Do's and Don'ts -->
+      <div class="grid-2" style="margin-top: 4rem;">
+        <div class="card" style="border-color: #22c55e;">
+          <h3 style="color:#22c55e;"><i class="fa-solid fa-circle-check"></i> DO'S</h3>
+          <ul style="list-style: none;">
+            <li><i class="fa-solid fa-check" style="color:#22c55e;"></i> Use strong unique passwords</li>
+            <li><i class="fa-solid fa-check" style="color:#22c55e;"></i> Enable multi-factor authentication</li>
+            <li><i class="fa-solid fa-check" style="color:#22c55e;"></i> Verify sender details</li>
+            <li><i class="fa-solid fa-check" style="color:#22c55e;"></i> Lock devices when not in use</li>
+            <li><i class="fa-solid fa-check" style="color:#22c55e;"></i> Update software regularly</li>
+            <li><i class="fa-solid fa-check" style="color:#22c55e;"></i> Report suspicious activities to 1930</li>
+          </ul>
+        </div>
+        <div class="card" style="border-color: #ef4444;">
+          <h3 style="color:#ef4444;"><i class="fa-solid fa-circle-xmark"></i> DON'TS</h3>
+          <ul style="list-style: none;">
+            <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i> Never share OTPs or passwords</li>
+            <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i> Don't share case info on social media</li>
+            <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i> Don't plug unknown USB drives</li>
+            <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i> Avoid public Wi-Fi for official work</li>
+            <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i> Don't click suspicious links</li>
+            <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i> Never download unknown attachments</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Testimonials -->
+      <h3 style="text-align: center; margin: 3rem 0 2rem;">WHAT PEOPLE SAY</h3>
+      <div class="testimonials">
+        <div class="testimonial-card">
+          <p>"This awareness program helped our department reduce phishing incidents by 40%."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar"><i class="fa-solid fa-user-shield"></i></div>
+            <div><strong>Insp. Sharma</strong><br>Mumbai Police</div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p>"The do's and don'ts guide is very practical for daily police work."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar"><i class="fa-solid fa-user-shield"></i></div>
+            <div><strong>SI Patil</strong><br>Thane Cyber Cell</div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p>"Excellent resource for training new recruits on cyber safety."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar"><i class="fa-solid fa-user-shield"></i></div>
+            <div><strong>Dr. Khan</strong><br>Police Academy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURVEY / FEEDBACK SECTION - 4TH POSITION -->
+  <section id="survey" style="background: var(--bg-secondary);">
+    <div class="container">
+      <h2 class="section-title"><span style="color:var(--accent-1);">04.</span> SURVEY & FEEDBACK</h2>
+      <p class="section-subtitle">Embedded Google Form and Quick Polls</p>
+      
+      <div class="grid-2">
+        <div class="card" style="padding:0; overflow:hidden;">
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdnWVOCL_QLaCjsYTSme2yrGTWFmmy_oADonJH9vuqQIxzoew/viewform?embedded=true" style="width:100%; height:500px; border:none;" title="Google Form"></iframe>
+        </div>
+        <div class="card">
+          <h3><i class="fa-solid fa-chart-line" style="color:var(--accent-1);"></i> QUICK POLLS</h3>
+          <p>How confident are you about cyber safety?</p>
+          <div class="poll-options" id="pollOptions">
+            <span class="poll-option" data-value="high">VERY CONFIDENT</span>
+            <span class="poll-option" data-value="medium">SOMEWHAT</span>
+            <span class="poll-option" data-value="low">NEED TRAINING</span>
+          </div>
+          <p id="pollResult" style="margin-top:1.5rem; color:var(--text-secondary);">Click an option to vote</p>
+          
+          <!-- Progress Bars for Poll Results -->
+          <div class="progress-item">
+            <div class="progress-label"><span>Very Confident</span> <span>35%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:35%"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>Somewhat</span> <span>45%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>Need Training</span> <span>20%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA GALLERY - WITH MP4 VIDEO -->
+  <section id="media">
+    <div class="container">
+      <h2 class="section-title"><span style="color:var(--accent-1);">05.</span> MEDIA GALLERY</h2>
+      
+      <div class="grid-3">
+        <!-- Card 1 - Infographics -->
+        <div class="card">
+          <h3>INFOGRAPHICS</h3>
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" style="width:100%; border-radius:15px;">
+        </div>
+        
+        <!-- Card 2 - Posters -->
+        <div class="card">
+          <h3>AWARENESS POSTERS</h3>
+          <img src="https://images.unsplash.com/photo-1584433144859-1fc3ab64a957?auto=format&fit=crop&w=800&q=80" style="width:100%; border-radius:15px;">
+        </div>
+        
+        <!-- Card 3 - MP4 VIDEO -->
+        <div class="card">
+          <h3><i class="fa-solid fa-video" style="color:var(--accent-1);"></i> VIDEO TUTORIAL</h3>
+          <video controls style="width:100%; border-radius:15px; border: 2px solid var(--accent-1);">
+            <source src="cyber-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p style="margin-top:10px; color:var(--text-secondary);">📹 Cyber Security Awareness</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- IMAGE GALLERY SECTION - UNSPLASH IMAGES -->
+<section id="gallery" style="padding: 5rem 5%; background: var(--bg-secondary);">
+    <div class="container">
+        <h2 class="section-title"><span style="color:var(--accent-1);">GALLERY</span></h2>
+        <p class="section-subtitle">Cyber Security Awareness Images & Infographics</p>
+        
+        <div class="gallery-grid">
+            <!-- Image Card 1 - Cyber Security -->
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&auto=format" alt="Cyber Security" class="gallery-image" style="width:100%; height:250px; object-fit:cover;">
+                <div class="gallery-content">
+                    <h3>Cyber Security</h3>
+                    <p>Protect your digital assets</p>
+                </div>
+            </div>
+
+            <!-- Image Card 2 - Data Protection -->
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&auto=format" alt="Data Protection" class="gallery-image" style="width:100%; height:250px; object-fit:cover;">
+                <div class="gallery-content">
+                    <h3>Data Protection</h3>
+                    <p>Secure your sensitive data</p>
+                </div>
+            </div>
+
+            <!-- Image Card 3 - Network Security -->
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format" alt="Network Security" class="gallery-image" style="width:100%; height:250px; object-fit:cover;">
+                <div class="gallery-content">
+                    <h3>Network Security</h3>
+                    <p>Defend your network</p>
+                </div>
+            </div>
+
+            <!-- Image Card 4 - Password Safety -->
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1633265486064-086b219458ec?w=600&auto=format" alt="Password Safety" class="gallery-image" style="width:100%; height:250px; object-fit:cover;">
+                <div class="gallery-content">
+                    <h3>Password Safety</h3>
+                    <p>Use strong passwords</p>
+                </div>
+            </div>
+
+            <!-- Image Card 5 - Phishing Awareness -->
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=600&auto=format" alt="Phishing Awareness" class="gallery-image" style="width:100%; height:250px; object-fit:cover;">
+                <div class="gallery-content">
+                    <h3>Phishing Awareness</h3>
+                    <p>Don't get hooked</p>
+                </div>
+            </div>
+
+            <!-- Image Card 6 - Secure Browsing -->
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format" alt="Secure Browsing" class="gallery-image" style="width:100%; height:250px; object-fit:cover;">
+                <div class="gallery-content">
+                    <h3>Secure Browsing</h3>
+                    <p>Browse safely online</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  <!-- INTERACTIVE CHATBOT + FAQs - 6TH POSITION -->
+  <section id="chatbot">
+    <div class="container">
+      <h2 class="section-title"><span style="color:var(--accent-1);">06.</span> INTERACTIVE CHATBOT & FAQs</h2>
+      <p class="section-subtitle">AI-powered assistant for instant cyber safety guidance</p>
+      
+      <div class="grid-2">
+        <div class="chat-window">
+          <h3><i class="fa-solid fa-robot" style="color:var(--accent-1);"></i> CHATBOT</h3>
+          <div class="chat-messages" id="chatMessages">
+            <div class="msg-bot"><i class="fa-solid fa-robot"></i> <b>Bot:</b> Hello! Ask me about cyber safety. Try "What is phishing?"</div>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" id="chatInput" placeholder="Type your question...">
+            <button onclick="fakeChat()"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </div>
+        <div class="card">
+          <h3><i class="fa-solid fa-question-circle" style="color:var(--accent-1);"></i> FREQUENTLY ASKED QUESTIONS</h3>
+          <ul style="list-style:none; margin-top:1rem;">
+            <li style="margin-bottom:0.8rem;"><i class="fa-solid fa-angle-right" style="color:var(--accent-1);"></i> What is phishing and how to identify it?</li>
+            <li style="margin-bottom:0.8rem;"><i class="fa-solid fa-angle-right" style="color:var(--accent-1);"></i> How to create a strong password?</li>
+            <li style="margin-bottom:0.8rem;"><i class="fa-solid fa-angle-right" style="color:var(--accent-1);"></i> Why is MFA important?</li>
+            <li style="margin-bottom:0.8rem;"><i class="fa-solid fa-angle-right" style="color:var(--accent-1);"></i> What to do if you click a suspicious link?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY FORUM with Blogger - 7TH POSITION -->
+  <section id="forum" style="background: var(--bg-secondary);">
+    <div class="container">
+      <h2 class="section-title"><span style="color:var(--accent-1);">07.</span> COMMUNITY FORUM</h2>
+      <p class="section-subtitle">Share Experiences / Ask Questions</p>
+      
+      <div class="grid-2">
+        <div class="forum-window">
+          <h3><i class="fa-solid fa-comments" style="color:var(--accent-1);"></i> DISCUSSION BOARD</h3>
+          <div class="forum-messages" id="forumMessages">
+            <div class="msg-bot"><b>Officer Sharma:</b> Received suspicious email with fake login page. How to verify?</div>
+            <div class="msg-bot"><b>Cyber Cell:</b> Do not click any links. Forward to cybercell@police.gov.in</div>
+          </div>
+          <div class="forum-input-row">
+            <input type="text" id="forumInput" placeholder="Share your experience...">
+            <button onclick="fakeForum()"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </div>
+        <div class="card">
+          <h3><i class="fa-brands fa-blogger" style="color:var(--accent-1);"></i> AWARENESS BLOG</h3>
+          <div class="video-container">
+            <iframe src="https://afaquecepcyberprotecting.blogspot.com/2026/02/blog-post.html" title="Awareness Blog" allowfullscreen></iframe>
+          </div>
+          <a href="https://afaquecepcyberprotecting.blogspot.com/2026/02/blog-post.html" target="_blank" class="btn" style="display: inline-block; margin-top:1rem; text-decoration: none;">READ BLOG</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES / LINKS - 8TH POSITION -->
+  <section id="resources">
+    <div class="container">
+      <h2 class="section-title"><span style="color:var(--accent-1);">08.</span> RESOURCES & LINKS</h2>
+      <p class="section-subtitle">Government Portals, Helplines, Learning Resources</p>
+      
+      <div class="grid-3">
+        <div class="card">
+          <i class="fa-solid fa-gavel icon"></i>
+          <h3>GOVERNMENT PORTALS</h3>
+          <ul style="list-style:none;">
+            <li><a href="https://cybercrime.gov.in" target="_blank" style="color:var(--text-secondary);">➤ National Cyber Crime Portal</a></li>
+            <li><a href="#" style="color:var(--text-secondary);">➤ State Police Cyber Cell</a></li>
+            <li><a href="https://cert-in.org.in" target="_blank" style="color:var(--text-secondary);">➤ CERT-In Advisories</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <i class="fa-solid fa-phone-volume icon"></i>
+          <h3>HELPLINES</h3>
+          <ul style="list-style:none;">
+            <li><i class="fa-solid fa-phone" style="color:var(--accent-1);"></i> <strong>1930</strong> – Cyber Crime Helpline</li>
+            <li><i class="fa-solid fa-phone" style="color:var(--accent-1);"></i> <strong>112</strong> – Emergency</li>
+            <li><i class="fa-solid fa-phone" style="color:var(--accent-1);"></i> <strong>022-25429804</strong> – Thane Cyber Cell</li>
+          </ul>
+        </div>
+        <div class="card">
+          <i class="fa-solid fa-book-open icon"></i>
+          <h3>LEARNING RESOURCES</h3>
+          <ul style="list-style:none;">
+            <li>📘 Cyber Safety Training Manuals</li>
+            <li>🎥 Awareness Videos for Workshops</li>
+            <li>📊 Monthly Cyber Bulletins</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION with QR and PHOTO - 9TH POSITION -->
+  <section id="contact" style="background: var(--bg-secondary);">
+    <div class="container">
+      <h2 class="section-title"><span style="color:var(--accent-1);">09.</span> CONTACT & REFERENCES</h2>
+      <p class="section-subtitle">Student Name, Photo, Social Handles, QR Code</p>
+      
+      <div class="contact-card">
+        <!-- Social Links Left -->
+        <div class="contact-left">
+          <span class="social-icon"><i class="fab fa-facebook-f"></i></span> <span>facebook.com/afaque.ansari</span>
+          <span class="social-icon"><i class="fab fa-twitter"></i></span> <span>@afaque_cyber</span>
+          <span class="social-icon"><i class="fab fa-instagram"></i></span> <span>@afaque.codes</span>
+          <span class="social-icon"><i class="fab fa-linkedin-in"></i></span> <span>linkedin.com/in/afaque-ansari</span>
+          <span class="social-icon"><i class="fa-solid fa-globe"></i></span> <span>affu906.github.io</span>
+          <span class="social-icon"><i class="fab fa-whatsapp"></i></span> <span>+91-9876543210</span>
+          <span class="social-icon"><i class="fa-regular fa-envelope"></i></span> <span>afaqueansari707@gmail.com</span>
+        </div>
+        
+       <!-- QR CODE CENTER -->
+<div class="contact-center">
+    <a href="https://affu906.github.io/Protecting-the-force/" target="_blank">
+        <img src="Afaque.png" alt="Scan QR to open website" style="width: 180px; height: 180px; object-fit: cover; border-radius: 30px; border: 2px solid var(--accent-1);">
+    </a>
+    <p style="color: var(--text-secondary); margin-top: 1rem;">📱 SCAN TO OPEN WEBSITE</p>
+    <p style="color: var(--text-secondary); font-size: 0.8rem;">Click QR to open directly</p>
+</div>
+        
+      <!-- PHOTO RIGHT -->
+<div class="contact-right">
+    <img src="profile.jpeg" alt="Afaque Ansari" class="photo" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent-1);" onerror="this.src='https://via.placeholder.com/180?text=Afaque'">
+    <h3 style="font-size: 1.8rem; margin-top: 1rem;">AFAQUE ANSARI</h3>
+    <p style="color:var(--accent-1); font-weight: 600;">STUDENT • SYBSC IT</p>
+    <p style="color: var(--text-secondary);">M.D.G.C College of Commerce<br>Project: Protecting the Force</p>
+</div>
+
+    <footer style="background: var(--bg-secondary); padding: 3rem 5%; text-align: center; border-top: 1px solid var(--border-color);">
+    <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+      
+      <!-- Line 1: Copyright -->
+      <p style="color: var(--accent-1); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; text-align: center;">
+        © 2026 PROTECTING THE FORCE
+      </p>
+      
+      <!-- Line 2: Subtitle -->
+      <p style="color: var(--text-primary); font-size: 1rem; font-weight: 500; margin-bottom: 1rem; text-align: center;">
+        — CYBERSECURITY STRATEGIES FOR POLICE —
+      </p>
+      
+      <!-- Line 3: Developed by -->
+      <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; text-align: center;">
+        Developed by <span style="color: var(--accent-1); font-weight: 600;">Afaque Ansari</span>, SyBSC IT, M.D.G.C College of Commerce
+      </p>
+      
+      <!-- Line 4: References - CENTERED -->
+      <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color); text-align: center;">
+        <span style="color: var(--text-secondary); display: inline-flex; align-items: center; gap: 0.5rem;">
+          <i class="fa-solid fa-building-shield" style="color: var(--accent-1);"></i> Thane Cyber Crime Cell
+        </span>
+        <span style="color: var(--text-secondary); display: inline-flex; align-items: center; gap: 0.5rem;">
+          <i class="fa-solid fa-certificate" style="color: var(--accent-1);"></i> CERT-In
+        </span>
+        <span style="color: var(--text-secondary); display: inline-flex; align-items: center; gap: 0.5rem;">
+          <i class="fa-solid fa-globe" style="color: var(--accent-1);"></i> National Cyber Crime Portal
+        </span>
+      </div>
+      
+    </div>
+  </footer>
+  <button id="backHomeBtn" onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Particles Background
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: '#3b82f6' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: '#3b82f6', opacity: 0.2, width: 1 },
+        move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'out' }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } }
+      }
+    });
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-theme');
+      const icon = themeToggle.querySelector('i');
+      if(document.body.classList.contains('light-theme')) {
+        icon.className = 'fa-solid fa-sun';
+      } else {
+        icon.className = 'fa-solid fa-moon';
+      }
+    });
+
+    // Typing Animation
+    const typingText = document.getElementById('typingText');
+    const phrases = ['Cybersecurity Strategies for Police', 'Protecting the Force', 'Cyber Safe Police', 'Digital Policing'];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeEffect() {
+      const currentPhrase = phrases[phraseIndex];
+      if (isDeleting) {
+        typingText.textContent = currentPhrase.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typingText.textContent = currentPhrase.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      if (!isDeleting && charIndex === currentPhrase.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 2000);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        setTimeout(typeEffect, 500);
+      } else {
+        setTimeout(typeEffect, isDeleting ? 50 : 100);
+      }
+    }
+    typeEffect();
+
+    // Date & Time with Cyber Facts
+    const cyberFacts = [
+      "43% of cyber attacks target small businesses",
+      "95% of cybersecurity breaches are due to human error",
+      "Ransomware attacks occur every 11 seconds",
+      "MFA can block 99.9% of automated attacks",
+      "Police systems are attacked every 39 seconds"
+    ];
+
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById('currentDate').textContent = now.toLocaleDateString('en-IN', { 
+        day: 'numeric', month: 'short', year: 'numeric' 
+      });
+      document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-IN', {
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      document.getElementById('cyberFact').textContent = cyberFacts[Math.floor(Math.random() * cyberFacts.length)];
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    // Mouse Trail
+    const trail = document.getElementById('trail');
+    document.addEventListener('mousemove', (e) => {
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
+    });
+
+    // Download Counter
+    let downloadCount = 1247;
+    window.incrementDownload = function() {
+      downloadCount++;
+      document.getElementById('downloadCount').textContent = downloadCount.toLocaleString();
+    };
+
+    // Counter Animation
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const count = parseInt(counter.innerText);
+        const increment = Math.trunc(target / speed);
+
+        if (count < target) {
+          counter.innerText = count + increment;
+          setTimeout(updateCount, 1);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      updateCount();
+    });
+
+    // Back to top button
+    window.addEventListener('scroll', ()=>{
+      const btn = document.getElementById('backHomeBtn');
+      if(window.scrollY > 500) btn.classList.add('show'); else btn.classList.remove('show');
+    });
+
+    // Poll functionality
+    document.querySelectorAll('.poll-option').forEach(opt => {
+      opt.addEventListener('click', ()=>{
+        document.querySelectorAll('.poll-option').forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+        document.getElementById('pollResult').innerText = `✅ You selected: ${opt.innerText}`;
+      });
+    });
+
+    // Fake chat function
+    window.fakeChat = ()=>{
+      const inp = document.getElementById('chatInput');
+      const msg = document.getElementById('chatMessages');
+      if(!inp || !inp.value.trim()) return;
+      msg.innerHTML += `<div class="msg-user"><b>You:</b> ${inp.value}</div>`;
+      msg.innerHTML += `<div class="msg-bot"><i class="fa-solid fa-robot"></i> <b>Bot:</b> Never share OTP. Report to 1930. For more help, visit our Resources section.</div>`;
+      inp.value = '';
+      msg.scrollTop = msg.scrollHeight;
+    };
+
+    // Fake forum function
+    window.fakeForum = ()=>{
+      const inp = document.getElementById('forumInput');
+      const msg = document.getElementById('forumMessages');
+      if(!inp || !inp.value.trim()) return;
+      msg.innerHTML += `<div class="msg-user"><b>New:</b> ${inp.value}</div>`;
+      inp.value = '';
+      msg.scrollTop = msg.scrollHeight;
+    };
+
+    // Page Transition
+    window.addEventListener('load', () => {
+      document.getElementById('pageTransition').classList.remove('active');
+    });
+  </script>
+</body>
+</html>
